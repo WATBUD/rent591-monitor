@@ -47,6 +47,7 @@ def test_owner_listing_fields():
     assert r["poster_type"] == "屋主"
     assert r["poster_name"] == "廖小姐"
     assert "屋主直租" in r["tags"]
+    assert r["image"].startswith("https://") and "591.com.tw" in r["image"]
 
 
 def test_extra_fee_added_to_total_monthly():

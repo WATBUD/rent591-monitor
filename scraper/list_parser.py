@@ -111,6 +111,11 @@ def parse_list_html(html: str, fetched_at: datetime | None = None) -> list[dict]
         title = _text(link) or (link.attributes.get("title") if link else "") or None
         url = link.attributes.get("href") if link else None
 
+        img = item.css_first(".item-img img")
+        image = None
+        if img:
+            image = img.attributes.get("data-src") or img.attributes.get("src")
+
         tags = [t.text(strip=True) for t in item.css(".item-info-tag span.tag")]
 
         txts = item.css(".item-info-txt")
@@ -164,6 +169,7 @@ def parse_list_html(html: str, fetched_at: datetime | None = None) -> list[dict]
             "listing_id": listing_id,
             "title": title,
             "url": url or (f"https://rent.591.com.tw/{listing_id}"),
+            "image": image,
             "district": district,
             "street": street,
             "community": community,

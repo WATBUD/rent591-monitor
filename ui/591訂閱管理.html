@@ -56,6 +56,9 @@ button{font-family:inherit;cursor:pointer;border:none;border-radius:10px;font-si
 .lcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 12px 11px 15px;margin-bottom:9px;position:relative;overflow:hidden}
 .lcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--stripe,var(--accent))}
 .lcard.removed{opacity:.7}
+.lcard-row{display:flex;gap:10px}
+.l-thumb{width:78px;height:78px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--line);display:block}
+.l-body{flex:1;min-width:0}
 .l-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
 .l-flag{font-size:11px;font-weight:800;border-radius:6px;padding:2px 7px;white-space:nowrap}
 .flag-new{background:var(--accent-soft);color:var(--accent)}
@@ -87,6 +90,10 @@ input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(
 .opt{border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:13px;background:#fff;user-select:none;cursor:pointer}
 .opt.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
 .region-tabs .opt{border-radius:9px 9px 0 0}
+/* 區域列表：手機一排一列，桌機多欄 */
+#f-sections{display:grid;grid-template-columns:1fr;gap:6px}
+#f-sections .opt{text-align:center}
+@media(min-width:600px){#f-sections{grid-template-columns:repeat(4,1fr)}}
 .range-row{display:flex;align-items:center;gap:8px}
 .range-row span{color:var(--muted);font-size:13px}
 .panel-actions{display:flex;gap:8px;margin-top:20px}
@@ -262,10 +269,26 @@ function isWatched(id){return !!watchDoc.items[id];}
 function listingMeta(r){
   const m=[];
   if(r.total_monthly!=null) m.push(`<span class="mchip price">$${Number(r.total_monthly).toLocaleString()}/月</span>`);
-  if(r.rooms) m.push(`<span class="mchip">${r.rooms}房</span>`);
+  if(r.extra_fee>0) m.push(`<span class="mchip price">含額外費 $${Number(r.extra_fee).toLocaleString()}</span>`);
+  // 格局（衛數列表頁沒有，需內頁）
+  if(r.rooms){let g=`${r.rooms}房`;if(r.halls)g+=`${r.halls}廳`;if(r.baths)g+=`${r.baths}衛`;m.push(`<span class="mchip">${g}</span>`);}
   if(r.size_ping) m.push(`<span class="mchip">${r.size_ping}坪</span>`);
   if(r.floor) m.push(`<span class="mchip">${esc(r.floor)}</span>`);
+  // 管理費
+  const fees=r.fee_included||[],tags=r.tags||[];
+  if(fees.includes("管理費")) m.push(`<span class="mchip">含管理費</span>`);
+  else if(tags.includes("免管理費")) m.push(`<span class="mchip">免管理費</span>`);
+  // 車位
+  if(fees.some(f=>f.includes("車位"))) m.push(`<span class="mchip">含車位</span>`);
+  else if(tags.includes("有車位")) m.push(`<span class="mchip">有車位</span>`);
   return m.join("");
+}
+function dateLine(r){
+  const parts=[];
+  if(r.updated_rel) parts.push(`🕒 ${esc(r.updated_rel)}${r.posted_at?`（約 ${esc(r.posted_at)}）`:""}`);
+  else if(r.posted_at) parts.push(`🕒 更新 ${esc(r.posted_at)}`);
+  if(r.first_seen) parts.push(`發現 ${esc(r.first_seen)}`);
+  return parts.length?`<div class="l-note">${parts.join("　·　")}</div>`:"";
 }
 function listingCard(r,{flag,stripe,drop}={}){
   const star=`<button class="star ${isWatched(r.listing_id)?"on":""}" title="加入/移除關注" onclick="toggleWatch('${r.listing_id}')">${isWatched(r.listing_id)?"★":"☆"}</button>`;
@@ -274,13 +297,20 @@ function listingCard(r,{flag,stripe,drop}={}){
     ? `<span class="mchip price">$${Number(drop.new_price).toLocaleString()}</span><span class="strike">$${Number(drop.old_price).toLocaleString()}</span><span class="mchip price">↓${drop.drop_pct}%</span>`
     : listingMeta(r);
   const loc=[r.district,r.community].filter(Boolean).join("・");
+  const thumb=r.image?`<a href="${esc(r.url)}" target="_blank" rel="noopener"><img class="l-thumb" src="${esc(r.image)}" loading="lazy" alt=""></a>`:"";
   return `<div class="lcard ${flag&&flag.cls==='flag-off'?'removed':''}" style="--stripe:${stripe||'var(--accent)'}">
-    <div class="l-top">
-      <div><div class="l-title"><a href="${esc(r.url)}" target="_blank" rel="noopener">${flagHtml} ${esc(r.title)}</a></div></div>
-      ${star}
+    <div class="lcard-row">
+      ${thumb}
+      <div class="l-body">
+        <div class="l-top">
+          <div class="l-title"><a href="${esc(r.url)}" target="_blank" rel="noopener">${flagHtml} ${esc(r.title)}</a></div>
+          ${star}
+        </div>
+        <div class="l-meta">${meta}${loc?`<span class="mchip plain">${esc(loc)}</span>`:""}</div>
+        ${dateLine(r)}
+        ${r.note?`<div class="l-note">✍️ ${esc(r.note)}</div>`:""}
+      </div>
     </div>
-    <div class="l-meta">${meta}${loc?`<span class="mchip plain">${esc(loc)}</span>`:""}</div>
-    ${r.note?`<div class="l-note">✍️ ${esc(r.note)}</div>`:""}
   </div>`;
 }
 function groupByDistrict(rows){const g={};rows.forEach(r=>{(g[r.district||"其他"]=g[r.district||"其他"]||[]).push(r);});return g;}
@@ -289,7 +319,7 @@ function section(title,rows,opt){
   let html=`<div class="sec-title">${title}（${rows.length}）</div>`;
   const g=groupByDistrict(rows);
   for(const d of Object.keys(g)){
-    html+=`<div class="grp-h">${esc(d)}</div>`;
+    html+=`<div class="grp-h">${esc(d)}（${g[d].length}）</div>`;
     html+=g[d].map(r=>listingCard(r,opt)).join("");
   }
   return html;
@@ -308,7 +338,7 @@ function renderStatus(){
     el.insertAdjacentHTML("beforeend",`<div class="sec-title">💰 降價（${rep.price_drop.length}）</div>`);
     const g=groupByDistrict(rep.price_drop);
     for(const d of Object.keys(g)){
-      el.insertAdjacentHTML("beforeend",`<div class="grp-h">${esc(d)}</div>`);
+      el.insertAdjacentHTML("beforeend",`<div class="grp-h">${esc(d)}（${g[d].length}）</div>`);
       g[d].forEach(r=>el.insertAdjacentHTML("beforeend",listingCard(r,{flag:{cls:"flag-down",txt:"💰"},stripe:"var(--price)",drop:r})));
     }
   }
@@ -406,7 +436,7 @@ function renderWatch(){
   const rows=ids.map(id=>{
     const live=(latest&&latest.listings&&latest.listings[id])||{};
     const w=watchDoc.items[id];
-    return {listing_id:id,title:live.title||w.title||("物件 "+id),url:live.url||w.url,district:live.district,community:live.community,total_monthly:live.total_monthly,rooms:live.rooms,size_ping:live.size_ping,floor:live.floor,status:live.status,note:w.note};
+    return {listing_id:id,title:live.title||w.title||("物件 "+id),url:live.url||w.url,image:live.image,district:live.district,community:live.community,total_monthly:live.total_monthly,rooms:live.rooms,size_ping:live.size_ping,floor:live.floor,updated_rel:live.updated_rel,posted_at:live.posted_at,first_seen:live.first_seen,status:live.status,note:w.note};
   });
   el.innerHTML=`<div class="summary">關注 ${rows.length} 筆　排程會持續追蹤狀態變化</div>`+
     rows.map(r=>listingCard(r,{stripe:r.status==="removed"?"var(--danger)":"var(--accent)",flag:r.status==="removed"?{cls:"flag-off",txt:"❌ 已下架"}:null})).join("");
