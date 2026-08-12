@@ -299,7 +299,8 @@ function renderStatus(){
   if(!latest){el.innerHTML=`<div class="empty">尚無快照。等 GitHub Actions 跑完第一輪後，這裡會顯示本輪變動與在架物件。</div>`;return;}
   const rep=latest.report||{new:[],price_drop:[],removed:[]};
   const total=(rep.new.length+rep.price_drop.length+rep.removed.length);
-  el.innerHTML=`<div class="summary">本輪更新 ${latest.generated_at}　🆕 ${rep.new.length}｜💰 ${rep.price_drop.length}｜❌ ${rep.removed.length}</div>`;
+  el.innerHTML=`<div style="margin-bottom:10px"><button class="btn-main" onclick="triggerRun(this)">🔄 立即更新</button></div>`+
+    `<div class="summary">本輪更新 ${latest.generated_at}　🆕 ${rep.new.length}｜💰 ${rep.price_drop.length}｜❌ ${rep.removed.length}</div>`;
   if(total===0) el.insertAdjacentHTML("beforeend",`<div class="empty">本輪沒有新增／降價／下架。</div>`);
   if(rep.new.length) el.insertAdjacentHTML("beforeend",section("🆕 新增",rep.new,{flag:{cls:"flag-new",txt:"🆕"},stripe:"var(--accent)"}));
   if(rep.price_drop.length){
@@ -408,6 +409,43 @@ function renderWatch(){
   });
   el.innerHTML=`<div class="summary">關注 ${rows.length} 筆　排程會持續追蹤狀態變化</div>`+
     rows.map(r=>listingCard(r,{stripe:r.status==="removed"?"var(--danger)":"var(--accent)",flag:r.status==="removed"?{cls:"flag-off",txt:"❌ 已下架"}:null})).join("");
+}
+
+// ===== 立即更新（觸發 GitHub Actions）=====
+async function triggerRun(btn){
+  if(!cfg||!cfg.token){showToast("請先在「⚙️ 設定」連線 GitHub");return;}
+  const before=latest?latest.generated_at:null;
+  try{
+    const r=await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/actions/workflows/monitor.yml/dispatches`,
+      {method:"POST",headers:{Authorization:`Bearer ${cfg.token}`,Accept:"application/vnd.github+json"},body:JSON.stringify({ref:cfg.branch})});
+    if(r.status===204){
+      showToast("已觸發更新，等結果中…");
+      if(btn){btn.disabled=true;btn.textContent="⏳ 更新中…";}
+      pollUpdate(before,btn,0);
+    }else if(r.status===403){
+      showToast("⚠️ token 缺 Actions 權限，請幫 token 補上 Actions: Read and write");
+    }else{showToast(`⚠️ 觸發失敗（${r.status}）`);}
+  }catch(e){showToast("⚠️ "+e.message);}
+}
+async function pollUpdate(before,btn,tries){
+  if(tries>=18){ // 約 3 分鐘還沒好就停止輪詢
+    if(btn){btn.disabled=false;btn.textContent="🔄 立即更新";}
+    showToast("更新仍在跑，稍後可自行重新整理");return;
+  }
+  setTimeout(async()=>{
+    try{
+      const {json}=await ghGet("data/latest.json");
+      if(json&&json.generated_at!==before){
+        latest=json;
+        const cnt=Object.keys(latest.listings||{}).length;
+        document.getElementById("genAt").textContent=`已連線 · 最新更新 ${latest.generated_at} · 在架 ${cnt} 筆`;
+        renderStatus();renderWatch();
+        showToast("已更新為最新資料 ✓");
+        return;
+      }
+    }catch(e){/* 忽略單次輪詢錯誤，繼續等 */}
+    pollUpdate(before,btn,tries+1);
+  },10000); // 每 10 秒查一次
 }
 
 // ===== 設定 =====
