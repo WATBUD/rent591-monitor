@@ -3,7 +3,7 @@
     {
       "id": "sub-001",
       "name": "板橋・三重・蘆洲・新莊 4房",
-      "enabled": false,
+      "enabled": true,
       "region": "3",
       "sections": [
         "43",
