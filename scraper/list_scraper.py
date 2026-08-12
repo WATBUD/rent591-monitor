@@ -44,8 +44,9 @@ def fetch_list_html(url: str, client: httpx.Client) -> str | None:
             return resp.text
         except Exception as exc:  # noqa: BLE001 — 任何失敗都應可跳過重試
             if attempt < config.MAX_RETRIES:
-                log.warning("抓取失敗（第 %d 次重試）：%s", attempt + 1, exc)
-                time.sleep(config.REQUEST_INTERVAL_SEC)
+                backoff = config.REQUEST_INTERVAL_SEC * (attempt + 1)  # 遞增退避 3→6→9…
+                log.warning("抓取失敗（第 %d 次重試，等 %ds）：%s", attempt + 1, backoff, exc)
+                time.sleep(backoff)
                 continue
             log.error("抓取放棄：%s（%s）", url, exc)
             return None

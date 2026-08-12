@@ -14,7 +14,7 @@ REGION_NAMES = {"1": "台北市", "3": "新北市"}
 # 反爬：請求間隔與重試
 REQUEST_INTERVAL_SEC = 3
 REQUEST_TIMEOUT_SEC = 20
-MAX_RETRIES = 2
+MAX_RETRIES = 3  # 591 對機房 IP 偶發 403，多給幾次重試較能撐過
 USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
