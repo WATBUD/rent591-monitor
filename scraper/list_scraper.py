@@ -103,6 +103,14 @@ def scrape_subscription(
             if not html:
                 continue
             rows = parse_list_html(html, fetched_at=fetched_at)
+            if not rows:
+                # 200 但解析不到物件：多半是反爬頁／機房 IP 被擋，記標題方便診斷
+                import re as _re
+                m = _re.search(r"<title>([^<]*)</title>", html)
+                log.warning(
+                    "[%s] sort=%s → 0 筆（HTML %d bytes，title=%r）疑似反爬",
+                    sub["id"], sort, len(html), (m.group(1) if m else "?"),
+                )
             batches.append(rows)
             running = merge_listings(sub, batches, region_name)
             log.info(
