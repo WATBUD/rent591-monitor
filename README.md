@@ -28,7 +28,9 @@ python3 -m venv .venv
 
 ## 部署設定
 
-1. **建立 repo**（建議 private）並推上本專案。
+1. **建立 repo**：建議 **public**——免費方案下私有 repo 無法使用 GitHub Pages（需 Pro），
+   且 public 的 Actions 分鐘數無限。公開的只有搜尋條件與 591 快照；Telegram / GitHub token
+   分別存於 Actions Secrets（加密）與瀏覽器 localStorage，不進 repo。
 2. **Telegram Bot**：向 [@BotFather](https://t.me/BotFather) 建立 bot 取得 token；
    對 bot 送一則訊息後，用 `https://api.telegram.org/bot<token>/getUpdates` 取得你的 chat id。
 3. **設定 Secrets**（repo → Settings → Secrets and variables → Actions）：
