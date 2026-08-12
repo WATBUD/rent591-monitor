@@ -1,0 +1,48 @@
+name: 591 監控排程
+
+on:
+  schedule:
+    # 每 3 小時一輪（cron 為 UTC）。可依需求改成 */2 ~ */6。
+    - cron: "0 */3 * * *"
+  workflow_dispatch: {}  # 允許在 Actions 頁面手動觸發（改完訂閱想立即跑）
+
+# 讓 job 能把快照 commit 回 repo
+permissions:
+  contents: write
+
+# 同一時間只跑一輪，避免排程與手動觸發重疊
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: 安裝相依套件
+        run: pip install -r requirements.txt
+
+      - name: 執行監控
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python main.py
+
+      - name: Commit 快照
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "本輪無資料變動，略過 commit。"
+          else
+            git commit -m "chore: 更新快照 $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi

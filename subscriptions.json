@@ -1,0 +1,29 @@
+{
+  "subscriptions": [
+    {
+      "id": "sub-001",
+      "name": "板橋・三重・蘆洲・新莊 4房",
+      "enabled": true,
+      "region": "3",
+      "sections": ["43", "47", "44", "26"],
+      "kind": "1",
+      "layout": ["4"],
+      "shape": ["2"],
+      "price_min": null,
+      "price_max": 40000,
+      "acreage_min": 30,
+      "acreage_max": null,
+      "sort": "posttime_desc"
+    }
+  ],
+  "settings": {
+    "request_interval_sec": 3,
+    "missing_rounds_before_removed": 2,
+    "notify": {
+      "method": "none",
+      "telegram_bot_token": "",
+      "telegram_chat_id": "",
+      "discord_webhook_url": ""
+    }
+  }
+}
