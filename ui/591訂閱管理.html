@@ -90,10 +90,13 @@ input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(
 .opt{border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:13px;background:#fff;user-select:none;cursor:pointer}
 .opt.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
 .region-tabs .opt{border-radius:9px 9px 0 0}
-/* 區域列表：手機一排一列，桌機多欄 */
-#f-sections{display:grid;grid-template-columns:1fr;gap:6px}
-#f-sections .opt{text-align:center}
-@media(min-width:600px){#f-sections{grid-template-columns:repeat(4,1fr)}}
+/* 區域：下拉選→加標籤 */
+.sel-input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+.sel-input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.sel-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.sel-chip{background:var(--accent);color:#fff;border-radius:8px;padding:4px 4px 4px 10px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:2px}
+.sel-chip button{background:none;border:none;color:#fff;font-size:16px;line-height:1;cursor:pointer;padding:0 4px;font-weight:700}
+.sel-empty{color:var(--muted);font-size:12px;margin-top:8px}
 .range-row{display:flex;align-items:center;gap:8px}
 .range-row span{color:var(--muted);font-size:13px}
 .panel-actions{display:flex;gap:8px;margin-top:20px}
@@ -140,7 +143,10 @@ input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(
     <h2 id="panelTitle">新增訂閱</h2>
     <div class="field"><label>訂閱名稱</label><input type="text" id="f-name" placeholder="例：板橋 4 房家庭宅"></div>
     <div class="field"><label>城市</label><div class="opt-grid region-tabs" id="f-region"></div></div>
-    <div class="field"><label>區域<span class="hint">可複選</span></label><div class="opt-grid" id="f-sections"></div></div>
+    <div class="field"><label>區域<span class="hint">可複選</span></label>
+      <select id="f-section-select" class="sel-input" onchange="addSection(this.value)"></select>
+      <div id="f-section-chips" class="sel-chips"></div>
+    </div>
     <div class="field"><label>類型</label><div class="opt-grid" id="f-kind"></div></div>
     <div class="field"><label>房數<span class="hint">可複選，不選＝不限</span></label><div class="opt-grid" id="f-layout"></div></div>
     <div class="field"><label>型態<span class="hint">可複選，不選＝不限</span></label><div class="opt-grid" id="f-shape"></div></div>
@@ -395,13 +401,25 @@ function openEditor(id){
 function closeEditor(){document.getElementById("editOverlay").classList.remove("show");}
 function renderOpts(){
   document.getElementById("f-region").innerHTML=Object.entries(REGIONS).map(([id,r])=>`<div class="opt ${form.region===id?"on":""}" onclick="setRegion('${id}')">${r.name}</div>`).join("");
-  document.getElementById("f-sections").innerHTML=Object.entries(REGIONS[form.region].sections).map(([id,n])=>`<div class="opt ${form.sections.includes(id)?"on":""}" onclick="toggleArr('sections','${id}')">${n}</div>`).join("");
+  renderSections();
   document.getElementById("f-kind").innerHTML=Object.entries(KINDS).map(([id,n])=>`<div class="opt ${form.kind===id?"on":""}" onclick="form.kind='${id}';renderOpts()">${n}</div>`).join("");
   document.getElementById("f-layout").innerHTML=Object.entries(LAYOUTS).map(([id,n])=>`<div class="opt ${form.layout.includes(id)?"on":""}" onclick="toggleArr('layout','${id}')">${n}</div>`).join("");
   document.getElementById("f-shape").innerHTML=Object.entries(SHAPES).map(([id,n])=>`<div class="opt ${form.shape.includes(id)?"on":""}" onclick="toggleArr('shape','${id}')">${n}</div>`).join("");
 }
 function setRegion(id){if(form.region!==id){form.region=id;form.sections=[];}renderOpts();}
 function toggleArr(k,id){const a=form[k];const i=a.indexOf(id);i>=0?a.splice(i,1):a.push(id);renderOpts();}
+function renderSections(){
+  const secs=REGIONS[form.region].sections;
+  const avail=Object.entries(secs).filter(([id])=>!form.sections.includes(id));
+  document.getElementById("f-section-select").innerHTML=
+    `<option value="">＋ 選擇區域…</option>`+avail.map(([id,n])=>`<option value="${id}">${n}</option>`).join("");
+  const chips=document.getElementById("f-section-chips");
+  chips.innerHTML=form.sections.length
+    ? form.sections.map(id=>`<span class="sel-chip">${esc(secs[id]||id)}<button type="button" onclick="removeSection('${id}')">×</button></span>`).join("")
+    : `<div class="sel-empty">尚未選擇區域（可選多個）</div>`;
+}
+function addSection(id){if(id&&!form.sections.includes(id)){form.sections.push(id);renderSections();}}
+function removeSection(id){const i=form.sections.indexOf(id);if(i>=0){form.sections.splice(i,1);renderSections();}}
 async function saveSub(){
   form.name=document.getElementById("f-name").value.trim();
   const pmin=num(document.getElementById("f-priceMin").value),pmax=num(document.getElementById("f-priceMax").value);
