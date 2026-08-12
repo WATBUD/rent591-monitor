@@ -4,7 +4,6 @@
 591 會靜默回傳「錯的搜尋結果」而不是報錯，整套監控就抓錯物件。
 因此這裡直接比對 CLAUDE.md 內實測過的範例網址。
 """
-import json
 import sys
 from pathlib import Path
 
@@ -19,11 +18,14 @@ EXPECTED_SUB001 = (
     "&price=0$_40000$&layout=4&acreage=30$_$"
 )
 
-
+# 對應上述範例的訂閱條件（固定於測試內，不隨 subscriptions.json 變動）
 def _load_sub001() -> dict:
-    path = Path(__file__).resolve().parent.parent / "subscriptions.json"
-    data = json.loads(path.read_text(encoding="utf-8"))
-    return data["subscriptions"][0]
+    return {
+        "id": "sub-example", "region": "3", "sections": ["43", "47", "44", "26"],
+        "kind": "1", "layout": ["4"], "shape": ["2"],
+        "price_min": None, "price_max": 40000, "acreage_min": 30, "acreage_max": None,
+        "sort": "posttime_desc",
+    }
 
 
 def test_sub001_matches_verified_example():

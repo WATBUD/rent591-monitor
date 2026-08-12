@@ -299,7 +299,8 @@ function renderStatus(){
   if(!latest){el.innerHTML=`<div class="empty">尚無快照。等 GitHub Actions 跑完第一輪後，這裡會顯示本輪變動與在架物件。</div>`;return;}
   const rep=latest.report||{new:[],price_drop:[],removed:[]};
   const total=(rep.new.length+rep.price_drop.length+rep.removed.length);
-  el.innerHTML=`<div style="margin-bottom:10px"><button class="btn-main" onclick="triggerRun(this)">🔄 立即更新</button></div>`+
+  el.innerHTML=`<div style="margin-bottom:8px"><button class="btn-main" onclick="triggerRun(this)">🔄 立即更新</button></div>`+
+    `<div class="summary">自動更新（台灣時間）：02:00・05:00・08:00・11:00・14:00・17:00・20:00・23:00（每 3 小時，可能延遲數分鐘）</div>`+
     `<div class="summary">本輪更新 ${latest.generated_at}　🆕 ${rep.new.length}｜💰 ${rep.price_drop.length}｜❌ ${rep.removed.length}</div>`;
   if(total===0) el.insertAdjacentHTML("beforeend",`<div class="empty">本輪沒有新增／降價／下架。</div>`);
   if(rep.new.length) el.insertAdjacentHTML("beforeend",section("🆕 新增",rep.new,{flag:{cls:"flag-new",txt:"🆕"},stripe:"var(--accent)"}));
