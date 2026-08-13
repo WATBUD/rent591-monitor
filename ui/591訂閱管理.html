@@ -283,7 +283,7 @@ function setFilter(k,v){
 function resetFilters(){fDistrict="";fKind="";fPriceMin="";fPriceMax="";renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
 function setSort(key){
   if(sortKey===key){ sortDir = sortDir==="asc"?"desc":"asc"; }
-  else { sortKey=key; sortDir = (key==="size"||key==="time")?"desc":"asc"; }  // 坪數/時間預設大→小(新→舊)，租金預設小→大
+  else { sortKey=key; sortDir = defaultDir(key); }  // 坪數預設大→小；租金小→大；時間新→舊(↑)
   renderStatus();
   document.getElementById("view-status").scrollIntoView({block:"start"});
 }
@@ -291,7 +291,8 @@ function sortRows(rows){
   if(sortKey==="recency") return rows.slice().sort(byRecency);
   if(sortKey==="time"){
     const r2=rows.slice().sort(byRecency);          // byRecency 為新→舊
-    return sortDir==="desc" ? r2 : r2.reverse();    // desc=新→舊，asc=舊→新
+    // 與租金/坪數一致：↑(asc)=數字小→大=新→舊；↓(desc)=數字大→小=舊→新(18天在前)
+    return sortDir==="asc" ? r2 : r2.reverse();
   }
   const pick = sortKey==="price" ? (r=>r.total_monthly) : (r=>r.size_ping);
   const dir = sortDir==="asc"?1:-1;
@@ -303,17 +304,18 @@ function sortRows(rows){
     return (Number(va)-Number(vb))*dir;
   });
 }
-function defaultDir(key){ return (key==="size"||key==="time") ? "desc" : "asc"; }  // 坪數/時間預設大→小
+function defaultDir(key){ return key==="size" ? "desc" : "asc"; }  // 坪數預設大→小；租金小→大；時間新→舊(↑)
 
 // 單一條件比較器（asc=1, desc=-1）。
 // 注意：time 只比 posted_at 日期，同日期回 0（交給多重排序的下一條件）；
 // 不可用 byRecency，因它會再以 listing_id 決勝而讓後續條件失效。
 function cmpBy(key,dir){
   if(key==="time"){
-    const s=dir==="desc"?1:-1;                       // desc=新→舊（age 少在前）
+    // ↑(asc)=age 小→大=新→舊；↓(desc)=age 大→小=舊→新(18天在前)。同齡回 0 交下一條件
+    const s=dir==="asc"?1:-1;
     return (a,b)=>{
       const aa=ageMinutes(a), ab=ageMinutes(b);
-      if(aa===ab) return 0;                          // 同齡 → 交給下一排序條件
+      if(aa===ab) return 0;
       return (aa-ab)*s;
     };
   }
