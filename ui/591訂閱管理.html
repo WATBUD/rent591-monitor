@@ -236,9 +236,28 @@ function listingCard(r,{flag,stripe,drop}={}){
   </div>`;
 }
 function groupByDistrict(rows){const g={};rows.forEach(r=>{(g[r.district||"其他"]=g[r.district||"其他"]||[]).push(r);});return g;}
+// 把相對時間（updated_rel，如「3小時內更新」「18天前更新」）換成「幾分鐘前」，
+// 用於細到時分的時間排序。無法解析時退回用 posted_at 估天數，再不行排最後。
+function ageMinutes(r){
+  const s=r.updated_rel||"";
+  let m;
+  if(s.includes("剛剛")) return 0;
+  if(m=s.match(/(\d+)\s*分鐘/)) return +m[1];
+  if(m=s.match(/(\d+)\s*(小時|時)/)) return +m[1]*60;
+  if(m=s.match(/(\d+)\s*天/)) return +m[1]*1440;
+  if(m=s.match(/(\d+)\s*(週|周)/)) return +m[1]*10080;
+  if(m=s.match(/(\d+)\s*(個月|月)/)) return +m[1]*43200;
+  if(m=s.match(/(\d+)\s*年/)) return +m[1]*525600;
+  if(r.posted_at && latest && latest.generated_at){
+    const d=(new Date(latest.generated_at.slice(0,10)) - new Date(r.posted_at))/86400000;
+    if(!isNaN(d)) return Math.max(0,d)*1440;
+  }
+  return Infinity;   // 完全無時間資訊 → 排最後
+}
+// 新→舊：age 少者在前；同齡再以 listing_id（新案 id 較大）收尾
 function byRecency(a,b){
-  const pa=a.posted_at||"",pb=b.posted_at||"";
-  if(pa!==pb) return pb<pa?-1:1;
+  const aa=ageMinutes(a), ab=ageMinutes(b);
+  if(aa!==ab) return aa-ab;
   return (Number(b.listing_id)||0)-(Number(a.listing_id)||0);
 }
 function section(title,rows,opt){
@@ -291,11 +310,11 @@ function defaultDir(key){ return (key==="size"||key==="time") ? "desc" : "asc"; 
 // 不可用 byRecency，因它會再以 listing_id 決勝而讓後續條件失效。
 function cmpBy(key,dir){
   if(key==="time"){
-    const s=dir==="desc"?1:-1;                       // desc=新→舊
+    const s=dir==="desc"?1:-1;                       // desc=新→舊（age 少在前）
     return (a,b)=>{
-      const pa=a.posted_at||"", pb=b.posted_at||"";
-      if(pa===pb) return 0;
-      return (pb<pa?-1:1)*s;
+      const aa=ageMinutes(a), ab=ageMinutes(b);
+      if(aa===ab) return 0;                          // 同齡 → 交給下一排序條件
+      return (aa-ab)*s;
     };
   }
   const pick = key==="price" ? (r=>r.total_monthly) : (r=>r.size_ping);
