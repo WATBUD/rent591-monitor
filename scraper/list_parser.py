@@ -120,14 +120,21 @@ def parse_list_html(html: str, fetched_at: datetime | None = None) -> list[dict]
 
         txts = item.css(".item-info-txt")
 
-        # txt[0]：類型 | 格局 | 坪數 | 樓層
+        # txt[0] 的 span 數量依類型而異，不能靠固定位置取值：
+        #   整層住家：[類型, 格局(X房X廳), 坪數, 樓層]
+        #   套房/雅房：[類型, 坪數, 樓層]        ← 沒有格局欄，少一格
+        #   車位　　：[類型, 車位型式, 坪數]
+        # 舊版寫死「坪數在第 3 格」會把套房/雅房的坪數錯讀成樓層而變 None，
+        # 改為依內容特徵各自比對。
         kind_name = layout_txt = size_txt = floor_txt = ""
         if txts:
             spans = [s.text(strip=True) for s in txts[0].css("span") if s.text(strip=True)]
-            kind_name = spans[0] if len(spans) > 0 else ""
-            layout_txt = spans[1] if len(spans) > 1 else ""
-            size_txt = spans[2] if len(spans) > 2 else ""
-            floor_txt = spans[3] if len(spans) > 3 else ""
+            if spans:
+                kind_name = spans[0]
+                rest = spans[1:]
+                layout_txt = next((s for s in rest if re.search(r"\d+\s*[房廳衛]", s)), "")
+                size_txt = next((s for s in rest if "坪" in s), "")
+                floor_txt = next((s for s in rest if ("F" in s or "樓" in s) and "坪" not in s), "")
 
         rooms, halls, baths = _parse_layout(layout_txt)
         size_ping = _parse_size(size_txt)
