@@ -59,6 +59,51 @@
       "acreage_min": 30,
       "acreage_max": null,
       "sort": "posttime_desc"
+    },
+    {
+      "id": "sub-005",
+      "name": "台北 松山 整層住家 ≤14000",
+      "enabled": true,
+      "region": "1",
+      "sections": ["4"],
+      "kind": "1",
+      "layout": [],
+      "shape": [],
+      "price_min": 0,
+      "price_max": 14000,
+      "acreage_min": null,
+      "acreage_max": null,
+      "sort": "posttime_desc"
+    },
+    {
+      "id": "sub-006",
+      "name": "台北 松山 獨立套房 ≤14000",
+      "enabled": true,
+      "region": "1",
+      "sections": ["4"],
+      "kind": "2",
+      "layout": [],
+      "shape": [],
+      "price_min": 0,
+      "price_max": 14000,
+      "acreage_min": null,
+      "acreage_max": null,
+      "sort": "posttime_desc"
+    },
+    {
+      "id": "sub-007",
+      "name": "台北 松山 分租套房 ≤14000",
+      "enabled": true,
+      "region": "1",
+      "sections": ["4"],
+      "kind": "3",
+      "layout": [],
+      "shape": [],
+      "price_min": 0,
+      "price_max": 14000,
+      "acreage_min": null,
+      "acreage_max": null,
+      "sort": "posttime_desc"
     }
   ],
   "settings": {
