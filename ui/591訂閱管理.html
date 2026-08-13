@@ -320,10 +320,16 @@ function listingCard(r,{flag,stripe,drop}={}){
   </div>`;
 }
 function groupByDistrict(rows){const g={};rows.forEach(r=>{(g[r.district||"其他"]=g[r.district||"其他"]||[]).push(r);});return g;}
+// 以刊登/更新時間新→舊排；同日期則用 listing_id（591 新案 id 較大）
+function byRecency(a,b){
+  const pa=a.posted_at||"",pb=b.posted_at||"";
+  if(pa!==pb) return pb<pa?-1:1;
+  return (Number(b.listing_id)||0)-(Number(a.listing_id)||0);
+}
 function section(title,rows,opt){
   if(!rows||!rows.length) return "";
   let html=`<div class="sec-title">${title}（${rows.length}）</div>`;
-  const g=groupByDistrict(rows);
+  const g=groupByDistrict(rows.slice().sort(byRecency));
   for(const d of Object.keys(g)){
     html+=`<div class="grp-h">${esc(d)}（${g[d].length}）</div>`;
     html+=g[d].map(r=>listingCard(r,opt)).join("");
@@ -342,7 +348,7 @@ function renderStatus(){
   if(rep.new.length) el.insertAdjacentHTML("beforeend",section("🆕 新增",rep.new,{flag:{cls:"flag-new",txt:"🆕"},stripe:"var(--accent)"}));
   if(rep.price_drop.length){
     el.insertAdjacentHTML("beforeend",`<div class="sec-title">💰 降價（${rep.price_drop.length}）</div>`);
-    const g=groupByDistrict(rep.price_drop);
+    const g=groupByDistrict(rep.price_drop.slice().sort(byRecency));
     for(const d of Object.keys(g)){
       el.insertAdjacentHTML("beforeend",`<div class="grp-h">${esc(d)}（${g[d].length}）</div>`);
       g[d].forEach(r=>el.insertAdjacentHTML("beforeend",listingCard(r,{flag:{cls:"flag-down",txt:"💰"},stripe:"var(--price)",drop:r})));
@@ -457,7 +463,7 @@ function renderWatch(){
     return {listing_id:id,title:live.title||w.title||("物件 "+id),url:live.url||w.url,image:live.image,district:live.district,community:live.community,total_monthly:live.total_monthly,rooms:live.rooms,size_ping:live.size_ping,floor:live.floor,updated_rel:live.updated_rel,posted_at:live.posted_at,first_seen:live.first_seen,status:live.status,note:w.note};
   });
   el.innerHTML=`<div class="summary">關注 ${rows.length} 筆　排程會持續追蹤狀態變化</div>`+
-    rows.map(r=>listingCard(r,{stripe:r.status==="removed"?"var(--danger)":"var(--accent)",flag:r.status==="removed"?{cls:"flag-off",txt:"❌ 已下架"}:null})).join("");
+    rows.sort(byRecency).map(r=>listingCard(r,{stripe:r.status==="removed"?"var(--danger)":"var(--accent)",flag:r.status==="removed"?{cls:"flag-off",txt:"❌ 已下架"}:null})).join("");
 }
 
 // ===== 立即更新（觸發 GitHub Actions）=====

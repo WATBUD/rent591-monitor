@@ -17,6 +17,7 @@ import certifi
 import httpx
 
 import config
+import filters
 from scraper.list_parser import parse_list_html
 from scraper.url_builder import build_list_url
 
@@ -79,7 +80,7 @@ def scrape_subscription(
     每次請求之間間隔 config.REQUEST_INTERVAL_SEC 秒。
     可注入 httpx.Client（測試用）；未提供則自建。
     """
-    sorts = sorts or config.SORTS
+    sorts = sorts or config.SECTION_SORTS
     fetched_at = fetched_at or datetime.now()
     region_name = config.REGION_NAMES.get(str(sub["region"]))
 
@@ -94,30 +95,38 @@ def scrape_subscription(
             verify=_build_ssl_context(),
         )
 
+    # 逐區查詢：每個 section 各自查（避免多區共用 SSR 的 ~30 筆名額而漏抓）
+    sections = sub.get("sections") or [None]
     batches: list[list[dict]] = []
+    first = True
     try:
-        for i, sort in enumerate(sorts):
-            if i > 0:
-                time.sleep(config.REQUEST_INTERVAL_SEC)
-            url = build_list_url(sub, sort=sort)
-            html = fetch_list_html(url, client)
-            if not html:
-                continue
-            rows = parse_list_html(html, fetched_at=fetched_at)
-            if not rows:
-                # 200 但解析不到物件：多半是反爬頁／機房 IP 被擋，記標題方便診斷
-                import re as _re
-                m = _re.search(r"<title>([^<]*)</title>", html)
-                log.warning(
-                    "[%s] sort=%s → 0 筆（HTML %d bytes，title=%r）疑似反爬",
-                    sub["id"], sort, len(html), (m.group(1) if m else "?"),
+        for section in sections:
+            sub_one = sub if section is None else {**sub, "sections": [section]}
+            for sort in sorts:
+                if not first:
+                    time.sleep(config.REQUEST_INTERVAL_SEC)
+                first = False
+                url = build_list_url(sub_one, sort=sort)
+                html = fetch_list_html(url, client)
+                if not html:
+                    continue
+                parsed = parse_list_html(html, fetched_at=fetched_at)
+                if not parsed:
+                    # 200 但解析不到物件：多半是反爬頁／機房 IP 被擋，記標題方便診斷
+                    import re as _re
+                    m = _re.search(r"<title>([^<]*)</title>", html)
+                    log.warning(
+                        "[%s] sec=%s sort=%s → 0 筆（HTML %d bytes，title=%r）疑似反爬",
+                        sub["id"], section, sort, len(html), (m.group(1) if m else "?"),
+                    )
+                # 591 SSR 未套用房數/坪數等篩選，於程式端過濾
+                rows = [r for r in parsed if filters.matches(r, sub)]
+                batches.append(rows)
+                running = merge_listings(sub, batches, region_name)
+                log.info(
+                    "[%s] sec=%s sort=%s → 符合 %d/%d 筆（聯集累計 %d）",
+                    sub["id"], section, sort, len(rows), len(parsed), len(running),
                 )
-            batches.append(rows)
-            running = merge_listings(sub, batches, region_name)
-            log.info(
-                "[%s] sort=%s → 本次 %d 筆（聯集累計 %d）",
-                sub["id"], sort, len(rows), len(running),
-            )
     finally:
         if own_client:
             client.close()
