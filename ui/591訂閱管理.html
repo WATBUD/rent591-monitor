@@ -51,6 +51,10 @@ header p{color:var(--muted);font-size:12.5px;margin-top:4px}
 .filters input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
 .range-row{display:flex;align-items:center;gap:8px}
 .range-row span{color:var(--muted);font-size:13px;flex-shrink:0}
+.sortbar{display:flex;gap:6px;align-items:center;margin:16px 0 2px;flex-wrap:wrap}
+.sortbar .lbl{font-size:12.5px;color:var(--muted);font-weight:800;margin-right:2px}
+.sortbtn{background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:6px 12px;font-size:13px;font-family:inherit;cursor:pointer}
+.sortbtn.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
 
 /* 狀態/物件卡 */
 .grp-h{font-size:13px;font-weight:800;color:var(--muted);display:flex;align-items:center;gap:8px;margin:16px 2px 8px}
@@ -145,6 +149,7 @@ let subsDoc=null;                    // subscriptions.json
 let watchDoc={items:{}};             // watchlist.json
 let latest=null;                     // data/latest.json
 let fDistrict="", fKind="", fPriceMin="", fPriceMax="";   // 狀態頁前端篩選
+let sortKey="recency", sortDir="asc";                    // 在架排序：recency/price/size
 let watchFilter="";                  // 關注頁「只看區域」
 
 function esc(t){return(t||"").replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));}
@@ -252,6 +257,29 @@ function setFilter(k,v){
   document.getElementById("view-status").scrollIntoView({block:"start"});
 }
 function resetFilters(){fDistrict="";fKind="";fPriceMin="";fPriceMax="";renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
+function setSort(key){
+  if(sortKey===key){ sortDir = sortDir==="asc"?"desc":"asc"; }
+  else { sortKey=key; sortDir = (key==="size")?"desc":"asc"; }  // 坪數預設大→小，租金預設小→大
+  renderStatus();
+  document.getElementById("view-status").scrollIntoView({block:"start"});
+}
+function sortRows(rows){
+  if(sortKey==="recency") return rows.slice().sort(byRecency);
+  const pick = sortKey==="price" ? (r=>r.total_monthly) : (r=>r.size_ping);
+  const dir = sortDir==="asc"?1:-1;
+  return rows.slice().sort((a,b)=>{
+    const va=pick(a), vb=pick(b);
+    if(va==null&&vb==null) return 0;
+    if(va==null) return 1;   // 無值一律排最後
+    if(vb==null) return -1;
+    return (Number(va)-Number(vb))*dir;
+  });
+}
+function sortBtn(key,txt){
+  const on=sortKey===key;
+  const arrow = (on&&key!=="recency") ? (sortDir==="asc"?" ↑":" ↓") : "";
+  return `<button class="sortbtn ${on?'on':''}" onclick="setSort('${key}')">${txt}${arrow}</button>`;
+}
 function passFilter(r){
   if(fDistrict && (r.district||"其他")!==fDistrict) return false;
   if(fKind && (r.kind_name||"")!==fKind) return false;
@@ -310,7 +338,20 @@ function renderStatus(){
     }
   }
   if(nOff.length) el.insertAdjacentHTML("beforeend",section("❌ 下架",nOff,{flag:{cls:"flag-off",txt:"❌"},stripe:"var(--danger)"}));
-  el.insertAdjacentHTML("beforeend",section(hasFilter?"📋 符合條件的在架":"📋 全部在架",nAct,{stripe:"var(--accent)"}));
+  // 在架排序列（最新／租金／坪數），套用於下方在架清單
+  el.insertAdjacentHTML("beforeend",
+    `<div class="sortbar"><span class="lbl">在架排序</span>`+
+    sortBtn("recency","最新")+sortBtn("price","租金")+sortBtn("size","坪數")+
+    `</div>`);
+  const actTitle=(hasFilter?"📋 符合條件的在架":"📋 全部在架")+`（${nAct.length}）`;
+  if(sortKey==="recency"){
+    // 依區域分組、組內依時間新→舊（原行為）
+    el.insertAdjacentHTML("beforeend",section(hasFilter?"📋 符合條件的在架":"📋 全部在架",nAct,{stripe:"var(--accent)"}));
+  }else{
+    // 依租金／坪數全域排序 → 平鋪，不分區
+    el.insertAdjacentHTML("beforeend",`<div class="sec-title">${actTitle}</div>`);
+    el.insertAdjacentHTML("beforeend",sortRows(nAct).map(r=>listingCard(r,{stripe:"var(--accent)"})).join(""));
+  }
 }
 
 // ===== 訂閱條件（唯讀顯示）=====
