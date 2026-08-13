@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>591 租屋訂閱監控</title>
+<title>591 租屋監控看板</title>
 <style>
 :root{
   --bg:#EEF1EF; --card:#FFFFFF; --ink:#1C2A26; --muted:#68766F; --line:#D8DEDA;
@@ -15,8 +15,25 @@ body{font-family:'PingFang TC','Noto Sans TC','Microsoft JhengHei',system-ui,san
 header{margin:8px 0 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 header h1{font-size:21px;font-weight:900;letter-spacing:.5px}
 header p{color:var(--muted);font-size:12.5px;margin-top:4px}
-.gear{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:14px;cursor:pointer;flex-shrink:0}
+.gear{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 11px;font-size:15px;cursor:pointer;flex-shrink:0;font-family:inherit;color:var(--ink)}
 .gear.warn{border-color:var(--price);color:var(--price)}
+button.btn-main{background:var(--accent);color:#fff;font-weight:700;border:none;border-radius:10px;font-size:14px;padding:10px 14px;font-family:inherit;cursor:pointer}
+button.btn-main:hover{background:#0D5A50}
+button.btn-main:disabled{opacity:.6;cursor:default}
+button.btn-line{background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:10px;font-size:14px;padding:10px 14px;font-family:inherit;cursor:pointer}
+.overlay{position:fixed;inset:0;background:rgba(28,42,38,.45);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.overlay.show{display:flex}
+.panel{background:var(--card);width:100%;max-width:760px;max-height:92vh;overflow-y:auto;border-radius:18px 18px 0 0;padding:18px 16px 24px}
+.panel h2{font-size:17px;font-weight:900;margin-bottom:14px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.field .hint{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
+.panel input[type=password],.panel input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+.panel input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.panel-actions{display:flex;gap:8px;margin-top:16px}
+.panel-actions .btn-main{flex:2}.panel-actions .btn-line{flex:1}
+.note-box{background:var(--accent-soft);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--accent);line-height:1.6;margin-bottom:14px}
+@media(min-width:600px){.overlay{align-items:center}.panel{border-radius:18px}}
 
 /* tabs */
 .tabs{display:flex;gap:6px;margin:8px 0 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:5px}
@@ -25,10 +42,9 @@ header p{color:var(--muted);font-size:12.5px;margin-top:4px}
 .view{display:none}
 .view.on{display:block}
 
-.count-pill{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;font-size:12px;padding:2px 10px;margin-left:8px;vertical-align:middle}
 .summary{font-size:12.5px;color:var(--muted);margin:2px 0 12px}
 
-/* 訂閱卡 */
+/* 訂閱卡（唯讀）*/
 .sub-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 14px 12px 18px;margin-bottom:12px;position:relative;overflow:hidden}
 .sub-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--edge,#136F63)}
 .sub-card.disabled{opacity:.55}
@@ -37,17 +53,23 @@ header p{color:var(--muted);font-size:12.5px;margin-top:4px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .chip{font-size:12px;background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:3px 8px;font-weight:500}
 .chip.price{background:var(--price-soft);color:var(--price)}
-.sub-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
-button{font-family:inherit;cursor:pointer;border:none;border-radius:10px;font-size:13px;padding:7px 12px;font-weight:500}
-.btn-line{background:#fff;border:1px solid var(--line);color:var(--ink)}
-.btn-line:hover{border-color:var(--accent);color:var(--accent)}
-.btn-main{background:var(--accent);color:#fff;font-weight:700}
-.btn-main:hover{background:#0D5A50}
-.btn-danger{background:#fff;border:1px solid var(--line);color:var(--danger)}
 
-.toolbar{display:flex;gap:8px;margin:16px 0 8px;flex-wrap:wrap}
-.toolbar .btn-main,.toolbar .btn-line{flex:1;min-width:140px;padding:12px}
-.empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:32px 16px;text-align:center;color:var(--muted);font-size:14px}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:32px 16px;text-align:center;color:var(--muted);font-size:14px;line-height:1.7}
+
+/* 篩選列 */
+.filters{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.filters .fld{display:flex;flex-direction:column;gap:4px}
+.filters .fld.wide{grid-column:1 / -1}
+.filters label{font-size:12px;font-weight:700;color:var(--muted)}
+.filters .reset{grid-column:1 / -1;justify-self:end}
+.filters .reset button{background:#fff;border:1px solid var(--line);color:var(--muted);border-radius:9px;padding:6px 12px;font-size:12.5px;font-family:inherit;cursor:pointer}
+.filters .reset button:hover{border-color:var(--accent);color:var(--accent)}
+.sel-input{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+.sel-input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.filters input[type=number]{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+.filters input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.range-row{display:flex;align-items:center;gap:8px}
+.range-row span{color:var(--muted);font-size:13px;flex-shrink:0}
 
 /* 狀態/物件卡 */
 .grp-h{font-size:13px;font-weight:800;color:var(--muted);display:flex;align-items:center;gap:8px;margin:16px 2px 8px}
@@ -67,8 +89,6 @@ button{font-family:inherit;cursor:pointer;border:none;border-radius:10px;font-si
 .l-title{font-size:13.5px;font-weight:700;line-height:1.4}
 .l-title a{color:inherit;text-decoration:none}
 .l-title a:hover{color:var(--accent)}
-.star{flex-shrink:0;font-size:18px;line-height:1;background:none;border:none;padding:0 0 0 6px;cursor:pointer;color:var(--muted)}
-.star.on{color:var(--price)}
 .l-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;align-items:center}
 .mchip{font-size:11px;background:var(--accent-soft);color:var(--accent);border-radius:7px;padding:2px 7px;font-weight:600}
 .mchip.price{background:var(--price-soft);color:var(--price)}
@@ -76,109 +96,45 @@ button{font-family:inherit;cursor:pointer;border:none;border-radius:10px;font-si
 .strike{text-decoration:line-through;color:var(--muted);font-size:12px}
 .l-note{font-size:11px;color:var(--muted);margin-top:6px}
 
-/* overlay 面板（編輯 / 設定）*/
-.overlay{position:fixed;inset:0;background:rgba(28,42,38,.45);display:none;align-items:flex-end;justify-content:center;z-index:50}
-.overlay.show{display:flex}
-.panel{background:var(--card);width:100%;max-width:760px;max-height:92vh;overflow-y:auto;border-radius:18px 18px 0 0;padding:18px 16px 28px}
-.panel h2{font-size:17px;font-weight:900;margin-bottom:14px}
-.field{margin-bottom:16px}
-.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
-.field .hint{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
-input[type=text],input[type=password],input[type=number]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
-input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
-.opt-grid{display:flex;flex-wrap:wrap;gap:6px}
-.opt{border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:13px;background:#fff;user-select:none;cursor:pointer}
-.opt.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
-.region-tabs .opt{border-radius:9px 9px 0 0}
-/* 區域：下拉選→加標籤 */
-.sel-input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
-.sel-input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
-.sel-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.sel-chip{background:var(--accent);color:#fff;border-radius:8px;padding:4px 4px 4px 10px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:2px}
-.sel-chip button{background:none;border:none;color:#fff;font-size:16px;line-height:1;cursor:pointer;padding:0 4px;font-weight:700}
-.sel-empty{color:var(--muted);font-size:12px;margin-top:8px}
-.range-row{display:flex;align-items:center;gap:8px}
-.range-row span{color:var(--muted);font-size:13px}
-.panel-actions{display:flex;gap:8px;margin-top:20px}
-.panel-actions .btn-main{flex:2;padding:12px}
-.panel-actions .btn-line{flex:1;padding:12px}
-.note-box{background:var(--accent-soft);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--accent);line-height:1.6;margin-bottom:14px}
-
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:99;max-width:90%;text-align:center}
 .toast.show{opacity:1}
 .loading{text-align:center;color:var(--muted);padding:40px 0;font-size:14px}
-@media(min-width:600px){.overlay{align-items:center}.panel{border-radius:18px}}
 @media(prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
 </head>
 <body>
 <header>
   <div>
-    <h1>591 租屋訂閱監控</h1>
-    <p id="genAt">尚未連線 GitHub</p>
+    <h1>591 租屋監控看板</h1>
+    <p id="genAt">載入中…</p>
   </div>
-  <button class="gear" id="gearBtn" onclick="openSettings()">⚙️ 設定</button>
+  <button class="gear" id="gearBtn" onclick="openSettings()" title="設定「立即重爬」用的 GitHub Token">⚙️</button>
 </header>
 
 <div class="tabs">
   <button class="tab on" data-view="status" onclick="switchView('status')">狀態</button>
-  <button class="tab" data-view="subs" onclick="switchView('subs')">訂閱</button>
+  <button class="tab" data-view="subs" onclick="switchView('subs')">訂閱條件</button>
   <button class="tab" data-view="watch" onclick="switchView('watch')">關注</button>
 </div>
 
 <div id="view-status" class="view on"><div class="loading">載入中…</div></div>
-
-<div id="view-subs" class="view">
-  <div id="subList"><div class="loading">載入中…</div></div>
-  <div class="toolbar">
-    <button class="btn-main" onclick="openEditor()">＋ 新增訂閱</button>
-  </div>
-</div>
-
+<div id="view-subs" class="view"><div class="loading">載入中…</div></div>
 <div id="view-watch" class="view"><div class="loading">載入中…</div></div>
 
-<!-- 編輯訂閱面板 -->
-<div class="overlay" id="editOverlay">
-  <div class="panel">
-    <h2 id="panelTitle">新增訂閱</h2>
-    <div class="field"><label>訂閱名稱</label><input type="text" id="f-name" placeholder="例：板橋 4 房家庭宅"></div>
-    <div class="field"><label>城市</label><div class="opt-grid region-tabs" id="f-region"></div></div>
-    <div class="field"><label>區域<span class="hint">可複選</span></label>
-      <select id="f-section-select" class="sel-input" onchange="addSection(this.value)"></select>
-      <div id="f-section-chips" class="sel-chips"></div>
-    </div>
-    <div class="field"><label>類型</label><div class="opt-grid" id="f-kind"></div></div>
-    <div class="field"><label>房數<span class="hint">可複選，不選＝不限</span></label><div class="opt-grid" id="f-layout"></div></div>
-    <div class="field"><label>型態<span class="hint">可複選，不選＝不限</span></label><div class="opt-grid" id="f-shape"></div></div>
-    <div class="field"><label>租金（元/月）</label><div class="range-row">
-      <input type="number" id="f-priceMin" placeholder="不限" min="0" step="1000"><span>～</span>
-      <input type="number" id="f-priceMax" placeholder="不限" min="0" step="1000"></div></div>
-    <div class="field"><label>坪數</label><div class="range-row">
-      <input type="number" id="f-acreMin" placeholder="不限" min="0"><span>～</span>
-      <input type="number" id="f-acreMax" placeholder="不限" min="0"></div></div>
-    <div class="panel-actions">
-      <button class="btn-line" onclick="closeEditor()">取消</button>
-      <button class="btn-main" onclick="saveSub()">儲存訂閱</button>
-    </div>
-  </div>
-</div>
-
-<!-- 設定面板 -->
+<!-- 立即重爬 token 設定（唯一用到 token 的地方）-->
 <div class="overlay" id="settingsOverlay">
   <div class="panel">
-    <h2>GitHub 連線設定</h2>
+    <h2>「立即重爬」設定</h2>
     <div class="note-box">
-      這頁透過 GitHub API 讀寫你 repo 內的 <b>subscriptions.json</b> 與 <b>watchlist.json</b>。<br>
-      建議：repo 設 <b>private</b>、用 <b>fine-grained token</b> 只授權此 repo 的 <b>Contents: Read and write</b>。
-      Token 只存在此瀏覽器（localStorage），不會寫進 repo。
+      這個看板本身<b>唯讀、免 token</b>。<br>
+      只有「🔄 立即重爬」需要 token —— 觸發 GitHub Actions 無法匿名。<br>
+      建議用 <b>fine-grained token</b>，授權此 repo 的 <b>Actions: Read and write</b>。<br>
+      Token 只存在此瀏覽器（localStorage），不會寫進 repo、也不會外傳。
     </div>
-    <div class="field"><label>擁有者 owner<span class="hint">如 swei</span></label><input type="text" id="s-owner" placeholder="your-github-account"></div>
-    <div class="field"><label>Repo 名稱</label><input type="text" id="s-repo" placeholder="rent591-monitor"></div>
-    <div class="field"><label>分支<span class="hint">預設 main</span></label><input type="text" id="s-branch" placeholder="main"></div>
-    <div class="field"><label>GitHub Token<span class="hint">fine-grained, Contents RW</span></label><input type="password" id="s-token" placeholder="github_pat_..."></div>
+    <div class="field"><label>GitHub Token<span class="hint">fine-grained, Actions RW</span></label><input type="password" id="s-token" placeholder="github_pat_..."></div>
     <div class="panel-actions">
       <button class="btn-line" onclick="closeSettings()">取消</button>
-      <button class="btn-main" onclick="saveSettings()">儲存並連線</button>
+      <button class="btn-main" onclick="saveSettings()">儲存</button>
     </div>
   </div>
 </div>
@@ -195,74 +151,69 @@ const KINDS={"1":"整層住家","2":"獨立套房","3":"分租套房","4":"雅�
 const LAYOUTS={"1":"1房","2":"2房","3":"3房","4":"4房以上"};
 const SHAPES={"1":"公寓","2":"電梯大樓","3":"透天厝","4":"別墅"};
 const EDGE=["#136F63","#B4530A","#3B5BA5","#7A4E8C","#946B2D","#A33A2E"];
-const CFG_KEY="rent591-gh-config";
+
+// ===== 這頁完全唯讀：透過公開 raw 網址讀 repo 內的 JSON，不需要任何 token =====
+// owner / repo 由 GitHub Pages 網址自動推斷（<owner>.github.io/<repo>/…），
+// 換人 fork 部署也不用改；本機或非 Pages 環境則用 FALLBACK。
+const FALLBACK={owner:"WATBUD",repo:"rent591-monitor",branch:"main"};
+function detectRepo(){
+  const h=(location.hostname||"").toLowerCase();
+  const seg=location.pathname.split("/").filter(Boolean);
+  if(h.endsWith(".github.io")){
+    return {owner:h.slice(0,-".github.io".length),repo:seg[0]||FALLBACK.repo,branch:FALLBACK.branch};
+  }
+  return FALLBACK;
+}
+const REPO=detectRepo();
+function rawUrl(path){
+  // 加時間戳避開 raw CDN 快取（約數分鐘），確保拿到較新的檔案
+  return `https://raw.githubusercontent.com/${REPO.owner}/${REPO.repo}/${REPO.branch}/${path}?t=${Date.now()}`;
+}
+async function rawGet(path){
+  const r=await fetch(rawUrl(path),{cache:"no-store"});
+  if(r.status===404) return null;
+  if(!r.ok) throw new Error(`讀取 ${path} 失敗（${r.status}）`);
+  return r.json();
+}
 
 // ===== 狀態 =====
-let cfg=loadCfg();
-let subsDoc=null, subsSha=null;      // subscriptions.json 內容與 sha
-let watchDoc={items:{}}, watchSha=null;
+let subsDoc=null;                    // subscriptions.json
+let watchDoc={items:{}};             // watchlist.json
 let latest=null;                     // data/latest.json
-let editingId=null;
-let statusFilter="";              // 狀態頁「只看區域」篩選
-let watchFilter="";               // 關注頁「只看區域」篩選
-let form=blankForm();
+let fDistrict="", fKind="", fPriceMin="", fPriceMax="";   // 狀態頁前端篩選
+let watchFilter="";                  // 關注頁「只看區域」
 
-function blankForm(){return{region:"3",sections:[],kind:"1",layout:[],shape:[],name:"",price_min:"",price_max:"",acreage_min:"",acreage_max:""};}
-function loadCfg(){try{return JSON.parse(localStorage.getItem(CFG_KEY))||null;}catch(e){return null;}}
+// 只有「立即重爬」用得到的 token（其餘讀取全走公開 raw、免 token）
+const TOKEN_KEY="rent591-trigger-token";
+let ghToken=loadToken();
+function loadToken(){try{return localStorage.getItem(TOKEN_KEY)||"";}catch(e){return "";}}
+
 function esc(t){return(t||"").replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));}
-function num(v){return(v===""||v===null||v===undefined)?null:Number(v);}
-
-// ===== base64 (UTF-8) =====
-function b64e(str){return btoa(unescape(encodeURIComponent(str)));}
-function b64d(b64){return decodeURIComponent(escape(atob(b64.replace(/\s/g,""))));}
-
-// ===== GitHub API =====
-function ghUrl(path){return `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${path}`;}
-async function ghGet(path){
-  const r=await fetch(`${ghUrl(path)}?ref=${cfg.branch}`,{headers:{Authorization:`Bearer ${cfg.token}`,Accept:"application/vnd.github+json"}});
-  if(r.status===404) return {json:null,sha:null};
-  if(!r.ok) throw new Error(`讀取 ${path} 失敗（${r.status}）`);
-  const d=await r.json();
-  return {json:JSON.parse(b64d(d.content)),sha:d.sha};
-}
-async function ghPut(path,obj,sha,message){
-  const body={message:message||`更新 ${path}`,content:b64e(JSON.stringify(obj,null,2)),branch:cfg.branch};
-  if(sha) body.sha=sha;
-  const r=await fetch(ghUrl(path),{method:"PUT",headers:{Authorization:`Bearer ${cfg.token}`,Accept:"application/vnd.github+json"},body:JSON.stringify(body)});
-  if(!r.ok){const t=await r.text();throw new Error(`寫入 ${path} 失敗（${r.status}）：${t.slice(0,120)}`);}
-  const d=await r.json();
-  return d.content.sha;
-}
 
 // ===== 載入 =====
 async function boot(){
-  if(!cfg||!cfg.owner||!cfg.repo||!cfg.token){
-    document.getElementById("gearBtn").classList.add("warn");
-    document.getElementById("genAt").textContent="請先點右上「設定」連線 GitHub";
-    renderNeedSetup();
-    return;
-  }
-  cfg.branch=cfg.branch||"main";
   try{
-    const [s,w,l]=await Promise.all([ghGet("subscriptions.json"),ghGet("watchlist.json"),ghGet("data/latest.json").catch(()=>({json:null}))]);
-    subsDoc=s.json||{subscriptions:[],settings:{}}; subsSha=s.sha;
-    watchDoc=w.json?(w.json.items?w.json:{items:w.json}):{items:{}}; watchSha=w.sha;
-    latest=l.json;
-    document.getElementById("gearBtn").classList.remove("warn");
+    const [s,w,l]=await Promise.all([
+      rawGet("subscriptions.json").catch(()=>null),
+      rawGet("watchlist.json").catch(()=>null),
+      rawGet("data/latest.json").catch(()=>null),
+    ]);
+    subsDoc=s||{subscriptions:[],settings:{}};
+    watchDoc=w?(w.items?w:{items:w}):{items:{}};
+    latest=l;
     const cnt=latest?Object.keys(latest.listings||{}).length:0;
-    document.getElementById("genAt").textContent=latest?`已連線 · 最新更新 ${latest.generated_at} · 在架 ${cnt} 筆`:`已連線 · 尚無快照（等排程跑第一輪）`;
+    document.getElementById("genAt").textContent=latest
+      ?`最新更新 ${latest.generated_at} · 在架 ${cnt} 筆`
+      :`尚無快照（等排程跑第一輪）`;
+    document.getElementById("gearBtn").classList.toggle("warn",!ghToken);
     renderStatus(); renderSubs(); renderWatch();
   }catch(e){
-    showToast("⚠️ "+e.message);
-    document.getElementById("genAt").textContent="連線失敗："+e.message;
-    renderNeedSetup();
+    document.getElementById("genAt").textContent="載入失敗："+e.message;
+    const html=`<div class="empty">載入失敗：${esc(e.message)}<br>請確認 repo（${esc(REPO.owner)}/${esc(REPO.repo)}）為公開，稍後再試。</div>`;
+    document.getElementById("view-status").innerHTML=html;
+    document.getElementById("view-subs").innerHTML=html;
+    document.getElementById("view-watch").innerHTML=html;
   }
-}
-function renderNeedSetup(){
-  const html=`<div class="empty">尚未連線 GitHub。<br>點右上「⚙️ 設定」填入 owner / repo / token 後即可讀寫訂閱與顯示狀態。</div>`;
-  document.getElementById("view-status").innerHTML=html;
-  document.getElementById("subList").innerHTML=html;
-  document.getElementById("view-watch").innerHTML=html;
 }
 
 // ===== 分頁 =====
@@ -272,21 +223,18 @@ function switchView(v){
   document.getElementById("view-"+v).classList.add("on");
 }
 
-// ===== 狀態總覽 =====
-function isWatched(id){return !!watchDoc.items[id];}
+// ===== 物件卡 =====
 function listingMeta(r){
   const m=[];
   if(r.total_monthly!=null) m.push(`<span class="mchip price">$${Number(r.total_monthly).toLocaleString()}/月</span>`);
   if(r.extra_fee>0) m.push(`<span class="mchip price">含額外費 $${Number(r.extra_fee).toLocaleString()}</span>`);
-  // 格局（衛數列表頁沒有，需內頁）
+  if(r.kind_name) m.push(`<span class="mchip">${esc(r.kind_name)}</span>`);
   if(r.rooms){let g=`${r.rooms}房`;if(r.halls)g+=`${r.halls}廳`;if(r.baths)g+=`${r.baths}衛`;m.push(`<span class="mchip">${g}</span>`);}
   if(r.size_ping) m.push(`<span class="mchip">${r.size_ping}坪</span>`);
   if(r.floor) m.push(`<span class="mchip">${esc(r.floor)}</span>`);
-  // 管理費
   const fees=r.fee_included||[],tags=r.tags||[];
   if(fees.includes("管理費")) m.push(`<span class="mchip">含管理費</span>`);
   else if(tags.includes("免管理費")) m.push(`<span class="mchip">免管理費</span>`);
-  // 車位
   if(fees.some(f=>f.includes("車位"))) m.push(`<span class="mchip">含車位</span>`);
   else if(tags.includes("有車位")) m.push(`<span class="mchip">有車位</span>`);
   return m.join("");
@@ -299,7 +247,6 @@ function dateLine(r){
   return parts.length?`<div class="l-note">${parts.join("　·　")}</div>`:"";
 }
 function listingCard(r,{flag,stripe,drop}={}){
-  const star=`<button class="star ${isWatched(r.listing_id)?"on":""}" title="加入/移除關注" onclick="toggleWatch('${r.listing_id}')">${isWatched(r.listing_id)?"★":"☆"}</button>`;
   const flagHtml=flag?`<span class="l-flag ${flag.cls}">${flag.txt}</span>`:"";
   let meta=drop
     ? `<span class="mchip price">$${Number(drop.new_price).toLocaleString()}</span><span class="strike">$${Number(drop.old_price).toLocaleString()}</span><span class="mchip price">↓${drop.drop_pct}%</span>`
@@ -312,7 +259,6 @@ function listingCard(r,{flag,stripe,drop}={}){
       <div class="l-body">
         <div class="l-top">
           <div class="l-title"><a href="${esc(r.url)}" target="_blank" rel="noopener">${flagHtml} ${esc(r.title)}</a></div>
-          ${star}
         </div>
         <div class="l-meta">${meta}${loc?`<span class="mchip plain">${esc(loc)}</span>`:""}</div>
         ${dateLine(r)}
@@ -322,7 +268,6 @@ function listingCard(r,{flag,stripe,drop}={}){
   </div>`;
 }
 function groupByDistrict(rows){const g={};rows.forEach(r=>{(g[r.district||"其他"]=g[r.district||"其他"]||[]).push(r);});return g;}
-// 以刊登/更新時間新→舊排；同日期則用 listing_id（591 新案 id 較大）
 function byRecency(a,b){
   const pa=a.posted_at||"",pb=b.posted_at||"";
   if(pa!==pb) return pb<pa?-1:1;
@@ -338,29 +283,66 @@ function section(title,rows,opt){
   }
   return html;
 }
-function onStatusFilter(v){statusFilter=v;renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
+
+// ===== 狀態總覽（含前端篩選：區域 / 類型 / 租金上限）=====
+function setFilter(k,v){
+  if(k==="district") fDistrict=v;
+  else if(k==="kind") fKind=v;
+  else if(k==="priceMin") fPriceMin=v;
+  else if(k==="priceMax") fPriceMax=v;
+  renderStatus();
+  document.getElementById("view-status").scrollIntoView({block:"start"});
+}
+function resetFilters(){fDistrict="";fKind="";fPriceMin="";fPriceMax="";renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
+function passFilter(r){
+  if(fDistrict && (r.district||"其他")!==fDistrict) return false;
+  if(fKind && (r.kind_name||"")!==fKind) return false;
+  if(fPriceMin||fPriceMax){
+    const p=r.total_monthly;
+    if(p==null) return false;                       // 無租金資料，套價格篩選時排除
+    if(fPriceMin && Number(p)<Number(fPriceMin)) return false;
+    if(fPriceMax && Number(p)>Number(fPriceMax)) return false;
+  }
+  return true;
+}
 function renderStatus(){
   const el=document.getElementById("view-status");
   if(!latest){el.innerHTML=`<div class="empty">尚無快照。等 GitHub Actions 跑完第一輪後，這裡會顯示本輪變動與在架物件。</div>`;return;}
   const rep=latest.report||{new:[],price_drop:[],removed:[]};
   const active=Object.values(latest.listings||{}).filter(r=>r.status==="active");
-  // 各區數量（供下拉）
-  const cnt={};active.forEach(r=>{const d=r.district||"其他";cnt[d]=(cnt[d]||0)+1;});
-  const dists=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]);
-  if(statusFilter&&!cnt[statusFilter]) statusFilter="";
-  const flt=rows=>statusFilter?rows.filter(r=>(r.district||"其他")===statusFilter):rows;
+
+  // 供下拉：各區數量、各類型數量（類型固定列 591 全部四種，0 也照列）
+  const distCnt={},kindCnt={};
+  active.forEach(r=>{const d=r.district||"其他";distCnt[d]=(distCnt[d]||0)+1;const k=r.kind_name||"";if(k)kindCnt[k]=(kindCnt[k]||0)+1;});
+  const dists=Object.keys(distCnt).sort((a,b)=>distCnt[b]-distCnt[a]);
+  if(fDistrict&&!distCnt[fDistrict]) fDistrict="";
+
+  const flt=rows=>rows.filter(passFilter);
   const nNew=flt(rep.new),nDrop=flt(rep.price_drop),nOff=flt(rep.removed),nAct=flt(active);
+  const hasFilter=fDistrict||fKind||fPriceMin||fPriceMax;
 
-  el.innerHTML=`<div style="margin-bottom:8px"><button class="btn-main" onclick="triggerRun(this)">🔄 立即更新</button></div>`+
+  el.innerHTML=
+    `<div style="margin-bottom:8px"><button class="btn-main" onclick="triggerRun(this)">🔄 立即重爬</button></div>`+
     `<div class="summary">自動更新（台灣時間）：02:00・05:00・08:00・11:00・14:00・17:00・20:00・23:00（每 3 小時，可能延遲數分鐘）</div>`+
-    `<div class="field" style="margin-bottom:12px"><label>只看區域</label>`+
-    `<select class="sel-input" onchange="onStatusFilter(this.value)">`+
-    `<option value="">全部區域（${active.length}）</option>`+
-    dists.map(d=>`<option value="${esc(d)}" ${statusFilter===d?"selected":""}>${esc(d)}（${cnt[d]}）</option>`).join("")+
-    `</select></div>`+
-    `<div class="summary">本輪更新 ${latest.generated_at}　🆕 ${nNew.length}｜💰 ${nDrop.length}｜❌ ${nOff.length}</div>`;
+    `<div class="filters">`+
+      `<div class="fld"><label>區域</label><select class="sel-input" onchange="setFilter('district',this.value)">`+
+        `<option value="">全部區域（${active.length}）</option>`+
+        dists.map(d=>`<option value="${esc(d)}" ${fDistrict===d?"selected":""}>${esc(d)}（${distCnt[d]}）</option>`).join("")+
+      `</select></div>`+
+      `<div class="fld"><label>類型</label><select class="sel-input" onchange="setFilter('kind',this.value)">`+
+        `<option value="">全部類型（${active.length}）</option>`+
+        Object.values(KINDS).map(k=>`<option value="${esc(k)}" ${fKind===k?"selected":""}>${esc(k)}（${kindCnt[k]||0}）</option>`).join("")+
+      `</select></div>`+
+      `<div class="fld wide"><label>租金（元/月）</label><div class="range-row">`+
+        `<input type="number" min="0" step="1000" placeholder="不限" value="${fPriceMin}" onchange="setFilter('priceMin',this.value.trim())">`+
+        `<span>～</span>`+
+        `<input type="number" min="0" step="1000" placeholder="不限" value="${fPriceMax}" onchange="setFilter('priceMax',this.value.trim())">`+
+      `</div></div>`+
+      (hasFilter?`<div class="reset"><button onclick="resetFilters()">清除篩選</button></div>`:"")+
+    `</div>`+
+    `<div class="summary">本輪更新 ${latest.generated_at}　🆕 ${nNew.length}｜💰 ${nDrop.length}｜❌ ${nOff.length}${hasFilter?"（已篩選）":""}</div>`;
 
-  if(nNew.length+nDrop.length+nOff.length===0) el.insertAdjacentHTML("beforeend",`<div class="empty">本輪沒有新增／降價／下架${statusFilter?"（此區）":""}。</div>`);
+  if(nNew.length+nDrop.length+nOff.length===0) el.insertAdjacentHTML("beforeend",`<div class="empty">本輪沒有新增／降價／下架${hasFilter?"（符合篩選）":""}。</div>`);
   if(nNew.length) el.insertAdjacentHTML("beforeend",section("🆕 新增",nNew,{flag:{cls:"flag-new",txt:"🆕"},stripe:"var(--accent)"}));
   if(nDrop.length){
     el.insertAdjacentHTML("beforeend",`<div class="sec-title">💰 降價（${nDrop.length}）</div>`);
@@ -371,10 +353,10 @@ function renderStatus(){
     }
   }
   if(nOff.length) el.insertAdjacentHTML("beforeend",section("❌ 下架",nOff,{flag:{cls:"flag-off",txt:"❌"},stripe:"var(--danger)"}));
-  el.insertAdjacentHTML("beforeend",section(statusFilter?`📋 ${statusFilter} 在架`:"📋 全部在架",nAct,{stripe:"var(--accent)"}));
+  el.insertAdjacentHTML("beforeend",section(hasFilter?"📋 符合條件的在架":"📋 全部在架",nAct,{stripe:"var(--accent)"}));
 }
 
-// ===== 訂閱管理 =====
+// ===== 訂閱條件（唯讀顯示）=====
 function summaryChips(s){
   const secNames=(s.sections||[]).map(id=>REGIONS[s.region].sections[id]||id).join("、")||"全區";
   const c=[`<span class="chip">📍 ${REGIONS[s.region].name}｜${secNames}</span>`,`<span class="chip">${KINDS[s.kind]||"不限類型"}</span>`];
@@ -385,140 +367,71 @@ function summaryChips(s){
   return c.join("");
 }
 function renderSubs(){
-  const el=document.getElementById("subList");
+  const el=document.getElementById("view-subs");
   const subs=(subsDoc&&subsDoc.subscriptions)||[];
-  if(!subs.length){el.innerHTML=`<div class="empty">還沒有任何訂閱。點下方「＋ 新增訂閱」設定第一組條件。</div>`;return;}
-  el.innerHTML=subs.map((s,i)=>`
+  if(!subs.length){el.innerHTML=`<div class="empty">目前沒有任何訂閱條件。</div>`;return;}
+  el.innerHTML=
+    `<div class="summary">這些是排程實際監控的搜尋條件（唯讀）。要新增／修改請直接改 repo 的 <b>subscriptions.json</b>。</div>`+
+    subs.map((s,i)=>`
     <div class="sub-card ${s.enabled?"":"disabled"}" style="--edge:${EDGE[i%EDGE.length]}">
       <div class="sub-name">${esc(s.name)||"未命名訂閱"}${s.enabled?"":'<span class="off-tag">已暫停</span>'}</div>
       <div class="chips">${summaryChips(s)}</div>
-      <div class="sub-actions">
-        <button class="btn-line" onclick="openEditor('${s.id}')">✏️ 編輯</button>
-        <button class="btn-line" onclick="toggleSub('${s.id}')">${s.enabled?"⏸ 暫停":"▶️ 啟用"}</button>
-        <button class="btn-danger" onclick="delSub('${s.id}')">刪除</button>
-      </div>
     </div>`).join("");
 }
-async function persistSubs(msg){
-  try{subsSha=await ghPut("subscriptions.json",subsDoc,subsSha,msg);showToast("已存回 GitHub ✓");}
-  catch(e){showToast("⚠️ "+e.message);}
-}
 
-// ===== 編輯面板 =====
-function openEditor(id){
-  editingId=id||null;
-  const s=id?subsDoc.subscriptions.find(x=>x.id===id):null;
-  form=s?{region:s.region,sections:[...(s.sections||[])],kind:s.kind,layout:[...(s.layout||[])],shape:[...(s.shape||[])],name:s.name||"",price_min:s.price_min??"",price_max:s.price_max??"",acreage_min:s.acreage_min??"",acreage_max:s.acreage_max??""}:blankForm();
-  document.getElementById("panelTitle").textContent=id?"編輯訂閱":"新增訂閱";
-  document.getElementById("f-name").value=form.name;
-  document.getElementById("f-priceMin").value=form.price_min??"";
-  document.getElementById("f-priceMax").value=form.price_max??"";
-  document.getElementById("f-acreMin").value=form.acreage_min??"";
-  document.getElementById("f-acreMax").value=form.acreage_max??"";
-  renderOpts();
-  document.getElementById("editOverlay").classList.add("show");
-}
-function closeEditor(){document.getElementById("editOverlay").classList.remove("show");}
-function renderOpts(){
-  document.getElementById("f-region").innerHTML=Object.entries(REGIONS).map(([id,r])=>`<div class="opt ${form.region===id?"on":""}" onclick="setRegion('${id}')">${r.name}</div>`).join("");
-  renderSections();
-  document.getElementById("f-kind").innerHTML=Object.entries(KINDS).map(([id,n])=>`<div class="opt ${form.kind===id?"on":""}" onclick="form.kind='${id}';renderOpts()">${n}</div>`).join("");
-  document.getElementById("f-layout").innerHTML=Object.entries(LAYOUTS).map(([id,n])=>`<div class="opt ${form.layout.includes(id)?"on":""}" onclick="toggleArr('layout','${id}')">${n}</div>`).join("");
-  document.getElementById("f-shape").innerHTML=Object.entries(SHAPES).map(([id,n])=>`<div class="opt ${form.shape.includes(id)?"on":""}" onclick="toggleArr('shape','${id}')">${n}</div>`).join("");
-}
-function setRegion(id){if(form.region!==id){form.region=id;form.sections=[];}renderOpts();}
-function toggleArr(k,id){const a=form[k];const i=a.indexOf(id);i>=0?a.splice(i,1):a.push(id);renderOpts();}
-function renderSections(){
-  const secs=REGIONS[form.region].sections;
-  const avail=Object.entries(secs).filter(([id])=>!form.sections.includes(id));
-  document.getElementById("f-section-select").innerHTML=
-    `<option value="">＋ 選擇區域…</option>`+avail.map(([id,n])=>`<option value="${id}">${n}</option>`).join("");
-  const chips=document.getElementById("f-section-chips");
-  chips.innerHTML=form.sections.length
-    ? form.sections.map(id=>`<span class="sel-chip">${esc(secs[id]||id)}<button type="button" onclick="removeSection('${id}')">×</button></span>`).join("")
-    : `<div class="sel-empty">尚未選擇區域（可選多個）</div>`;
-}
-function addSection(id){if(id&&!form.sections.includes(id)){form.sections.push(id);renderSections();}}
-function removeSection(id){const i=form.sections.indexOf(id);if(i>=0){form.sections.splice(i,1);renderSections();}}
-async function saveSub(){
-  form.name=document.getElementById("f-name").value.trim();
-  const pmin=num(document.getElementById("f-priceMin").value),pmax=num(document.getElementById("f-priceMax").value);
-  const amin=num(document.getElementById("f-acreMin").value),amax=num(document.getElementById("f-acreMax").value);
-  if(!form.sections.length){showToast("請至少選一個區域");return;}
-  if(!form.name) form.name=form.sections.map(id=>REGIONS[form.region].sections[id]).join("・")+((form.layout||[]).length?" "+form.layout.map(l=>LAYOUTS[l]).join("/"):"");
-  const rec={id:editingId||("sub-"+Date.now()),name:form.name,enabled:true,region:form.region,sections:form.sections,kind:form.kind,layout:form.layout,shape:form.shape,price_min:pmin,price_max:pmax,acreage_min:amin,acreage_max:amax,sort:"posttime_desc"};
-  if(editingId){const i=subsDoc.subscriptions.findIndex(x=>x.id===editingId);rec.enabled=subsDoc.subscriptions[i].enabled;subsDoc.subscriptions[i]=rec;}
-  else subsDoc.subscriptions.push(rec);
-  closeEditor();renderSubs();
-  await persistSubs(editingId?`更新訂閱 ${rec.name}`:`新增訂閱 ${rec.name}`);
-}
-async function toggleSub(id){const s=subsDoc.subscriptions.find(x=>x.id===id);s.enabled=!s.enabled;renderSubs();await persistSubs(`${s.enabled?"啟用":"暫停"}訂閱 ${s.name}`);}
-async function delSub(id){const s=subsDoc.subscriptions.find(x=>x.id===id);if(!confirm(`確定刪除「${s.name}」？`))return;subsDoc.subscriptions=subsDoc.subscriptions.filter(x=>x.id!==id);renderSubs();await persistSubs(`刪除訂閱 ${s.name}`);}
-
-// ===== 關注 =====
-async function toggleWatch(id){
-  if(watchDoc.items[id]) delete watchDoc.items[id];
-  else{
-    const r=(latest&&latest.listings&&latest.listings[id])||{};
-    watchDoc.items[id]={added_at:new Date().toISOString().slice(0,10),note:"",title:r.title||"",url:r.url||`https://rent.591.com.tw/${id}`};
-  }
-  // 即時更新畫面星號
-  renderStatus();renderWatch();
-  try{watchSha=await ghPut("watchlist.json",watchDoc,watchSha,`更新關注清單`);showToast("關注已更新 ✓");}
-  catch(e){showToast("⚠️ "+e.message);}
-}
+// ===== 關注（唯讀顯示 watchlist.json）=====
 function renderWatch(){
   const el=document.getElementById("view-watch");
   const ids=Object.keys(watchDoc.items||{});
-  if(!ids.length){el.innerHTML=`<div class="empty">還沒有關注的物件。<br>在「狀態」頁點物件右側的 ☆ 即可加入關注，排程會持續追蹤其降價與下架。</div>`;return;}
+  if(!ids.length){el.innerHTML=`<div class="empty">目前沒有關注中的物件。<br>關注清單存在 repo 的 <b>watchlist.json</b>。</div>`;return;}
   const rows=ids.map(id=>{
     const live=(latest&&latest.listings&&latest.listings[id])||{};
     const w=watchDoc.items[id];
-    return {listing_id:id,title:live.title||w.title||("物件 "+id),url:live.url||w.url,image:live.image,district:live.district,community:live.community,total_monthly:live.total_monthly,rooms:live.rooms,size_ping:live.size_ping,floor:live.floor,updated_rel:live.updated_rel,posted_at:live.posted_at,first_seen:live.first_seen,status:live.status,note:w.note};
+    return {listing_id:id,title:live.title||w.title||("物件 "+id),url:live.url||w.url,image:live.image,district:live.district,community:live.community,total_monthly:live.total_monthly,kind_name:live.kind_name,rooms:live.rooms,size_ping:live.size_ping,floor:live.floor,updated_rel:live.updated_rel,posted_at:live.posted_at,first_seen:live.first_seen,status:live.status,note:w.note};
   });
-  // 各區數量（供下拉）
   const cnt={};rows.forEach(r=>{const d=r.district||"其他";cnt[d]=(cnt[d]||0)+1;});
   const dists=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]);
   if(watchFilter&&!cnt[watchFilter]) watchFilter="";
   const shown=(watchFilter?rows.filter(r=>(r.district||"其他")===watchFilter):rows).sort(byRecency);
-  el.innerHTML=`<div class="field" style="margin-bottom:12px"><label>只看區域</label>`+
+  el.innerHTML=`<div class="filters"><div class="fld wide"><label>只看區域</label>`+
     `<select class="sel-input" onchange="onWatchFilter(this.value)">`+
     `<option value="">全部區域（${rows.length}）</option>`+
     dists.map(d=>`<option value="${esc(d)}" ${watchFilter===d?"selected":""}>${esc(d)}（${cnt[d]}）</option>`).join("")+
-    `</select></div>`+
+    `</select></div></div>`+
     `<div class="summary">關注 ${shown.length} 筆　排程會持續追蹤狀態變化</div>`+
     shown.map(r=>listingCard(r,{stripe:r.status==="removed"?"var(--danger)":"var(--accent)",flag:r.status==="removed"?{cls:"flag-off",txt:"❌ 已下架"}:null})).join("");
 }
 function onWatchFilter(v){watchFilter=v;renderWatch();document.getElementById("view-watch").scrollIntoView({block:"start"});}
 
-// ===== 立即更新（觸發 GitHub Actions）=====
+// ===== 立即重爬（唯一用到 token：觸發 GitHub Actions）=====
 async function triggerRun(btn){
-  if(!cfg||!cfg.token){showToast("請先在「⚙️ 設定」連線 GitHub");return;}
+  if(!ghToken){showToast("請先按右上 ⚙️ 設定 token");openSettings();return;}
   const before=latest?latest.generated_at:null;
   try{
-    const r=await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/actions/workflows/monitor.yml/dispatches`,
-      {method:"POST",headers:{Authorization:`Bearer ${cfg.token}`,Accept:"application/vnd.github+json"},body:JSON.stringify({ref:cfg.branch})});
+    const r=await fetch(`https://api.github.com/repos/${REPO.owner}/${REPO.repo}/actions/workflows/monitor.yml/dispatches`,
+      {method:"POST",headers:{Authorization:`Bearer ${ghToken}`,Accept:"application/vnd.github+json"},body:JSON.stringify({ref:REPO.branch})});
     if(r.status===204){
-      showToast("已觸發更新，等結果中…");
-      if(btn){btn.disabled=true;btn.textContent="⏳ 更新中…";}
+      showToast("已觸發重爬，等結果中…");
+      if(btn){btn.disabled=true;btn.textContent="⏳ 重爬中…";}
       pollUpdate(before,btn,0);
-    }else if(r.status===403){
-      showToast("⚠️ token 缺 Actions 權限，請幫 token 補上 Actions: Read and write");
-    }else{showToast(`⚠️ 觸發失敗（${r.status}）`);}
+    }else if(r.status===401){showToast("⚠️ token 無效或過期，請重設");openSettings();}
+    else if(r.status===403){showToast("⚠️ token 缺 Actions 權限（需 Actions: Read and write）");}
+    else if(r.status===404){showToast("⚠️ 找不到 workflow 或此 token 無 repo 權限");}
+    else{showToast(`⚠️ 觸發失敗（${r.status}）`);}
   }catch(e){showToast("⚠️ "+e.message);}
 }
 async function pollUpdate(before,btn,tries){
-  if(tries>=18){ // 約 3 分鐘還沒好就停止輪詢
-    if(btn){btn.disabled=false;btn.textContent="🔄 立即更新";}
-    showToast("更新仍在跑，稍後可自行重新整理");return;
+  if(tries>=24){ // 約 4 分鐘還沒好就停止輪詢（raw CDN 也可能有數分鐘快取延遲）
+    if(btn){btn.disabled=false;btn.textContent="🔄 立即重爬";}
+    showToast("重爬仍在跑，稍後可自行重新整理");return;
   }
   setTimeout(async()=>{
     try{
-      const {json}=await ghGet("data/latest.json");
+      const json=await rawGet("data/latest.json");
       if(json&&json.generated_at!==before){
         latest=json;
         const cnt=Object.keys(latest.listings||{}).length;
-        document.getElementById("genAt").textContent=`已連線 · 最新更新 ${latest.generated_at} · 在架 ${cnt} 筆`;
+        document.getElementById("genAt").textContent=`最新更新 ${latest.generated_at} · 在架 ${cnt} 筆`;
         renderStatus();renderWatch();
         showToast("已更新為最新資料 ✓");
         return;
@@ -528,20 +441,15 @@ async function pollUpdate(before,btn,tries){
   },10000); // 每 10 秒查一次
 }
 
-// ===== 設定 =====
-function openSettings(){
-  document.getElementById("s-owner").value=cfg?.owner||"";
-  document.getElementById("s-repo").value=cfg?.repo||"";
-  document.getElementById("s-branch").value=cfg?.branch||"main";
-  document.getElementById("s-token").value=cfg?.token||"";
-  document.getElementById("settingsOverlay").classList.add("show");
-}
+// ===== token 設定 =====
+function openSettings(){document.getElementById("s-token").value=ghToken||"";document.getElementById("settingsOverlay").classList.add("show");}
 function closeSettings(){document.getElementById("settingsOverlay").classList.remove("show");}
 function saveSettings(){
-  cfg={owner:document.getElementById("s-owner").value.trim(),repo:document.getElementById("s-repo").value.trim(),branch:document.getElementById("s-branch").value.trim()||"main",token:document.getElementById("s-token").value.trim()};
-  if(!cfg.owner||!cfg.repo||!cfg.token){showToast("owner / repo / token 請都填");return;}
-  localStorage.setItem(CFG_KEY,JSON.stringify(cfg));
-  closeSettings();boot();
+  ghToken=document.getElementById("s-token").value.trim();
+  try{ghToken?localStorage.setItem(TOKEN_KEY,ghToken):localStorage.removeItem(TOKEN_KEY);}catch(e){}
+  document.getElementById("gearBtn").classList.toggle("warn",!ghToken);
+  closeSettings();
+  showToast(ghToken?"已儲存 token ✓":"已清除 token");
 }
 
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2600);}
