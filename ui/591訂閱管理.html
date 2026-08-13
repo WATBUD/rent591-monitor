@@ -286,9 +286,18 @@ function sortRows(rows){
 }
 function defaultDir(key){ return (key==="size"||key==="time") ? "desc" : "asc"; }  // 坪數/時間預設大→小
 
-// 單一條件比較器（asc=1, desc=-1）；time 用 byRecency（新→舊為 desc）
+// 單一條件比較器（asc=1, desc=-1）。
+// 注意：time 只比 posted_at 日期，同日期回 0（交給多重排序的下一條件）；
+// 不可用 byRecency，因它會再以 listing_id 決勝而讓後續條件失效。
 function cmpBy(key,dir){
-  if(key==="time"){ const s=dir==="desc"?1:-1; return (a,b)=>byRecency(a,b)*s; }
+  if(key==="time"){
+    const s=dir==="desc"?1:-1;                       // desc=新→舊
+    return (a,b)=>{
+      const pa=a.posted_at||"", pb=b.posted_at||"";
+      if(pa===pb) return 0;
+      return (pb<pa?-1:1)*s;
+    };
+  }
   const pick = key==="price" ? (r=>r.total_monthly) : (r=>r.size_ping);
   const d = dir==="asc"?1:-1;
   return (a,b)=>{
