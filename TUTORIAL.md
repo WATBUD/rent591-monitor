@@ -251,4 +251,71 @@ git push -u origin main
 
 ---
 
+## 13. 別人 Fork 這個專案後怎麼設定
+
+Fork 會複製整個 repo（含程式碼與**原作者的資料**）。因為 Fork 有幾個和「從零建立」不同的地方，
+照這個順序做：
+
+### 13-1. Fork
+
+到原 repo 頁面，右上角按 **Fork** → 建立 `你的帳號/rent591-monitor`。
+（建議維持 **Public**，理由同 §2：免費方案私有 repo 不能開 Pages。）
+
+### 13-2. 啟用 Actions（Fork 預設是關閉的！）
+
+Fork 出來的 repo **Actions 預設停用**，一定要手動開：
+
+**你的 repo → Actions 分頁 → 點「I understand my workflows, go ahead and enable them」**
+
+### 13-3. 開 Actions 寫入權限
+
+同 §4：**Settings → Actions → General → Workflow permissions → Read and write → Save**
+
+### 13-4. 換成你自己的資料（清掉原作者的）
+
+Fork 會帶著原作者的訂閱與快照，換成你自己的：
+
+1. **訂閱條件**：編輯 `subscriptions.json`（GitHub 網頁直接改，或部署好後用網頁介面改），
+   把 `subscriptions` 換成你要的城市/區域/租金等條件。
+2. **清關注清單**：把 `watchlist.json` 內容改成 `{"items": {}}`。
+3.（選用）**清舊快照**：刪掉 `data/snapshots/` 裡的舊檔與 `data/latest.json`；
+   第一次跑排程會自動重建成你自己的資料。
+
+> 這些檔案都可以直接在 GitHub 網頁上編輯/刪除（進檔案 → 鉛筆或垃圾桶圖示）。
+
+### 13-5. 啟用 Pages
+
+同 §5：**Settings → Pages → Deploy from a branch → main / (root)**。
+你的網址會變成 **`https://你的帳號.github.io/rent591-monitor/`**。
+
+### 13-6. 建立你自己的 Token
+
+同 §7，但 **Resource owner 選你自己、Repository 選你 Fork 出來的 repo**。
+權限一樣：**Contents: Read and write**（+ 要用立即更新再加 **Actions: Read and write**）。
+
+### 13-7. 網頁填你自己的設定
+
+打開你的 Pages 網址 → ⚙️ 設定，**owner 填你自己的帳號**、repo 填 `rent591-monitor`、
+branch `main`、貼上你的 Token → 儲存並連線。
+
+### 13-8. （選用）你自己的 Telegram
+
+同 §9，在**你的 repo** 的 Secrets 加 `TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`。
+（原作者的 Secrets 不會被 Fork 帶過來，本來就要自己設。）
+
+### 13-9. 手動觸發第一輪
+
+同 §6：Actions → Run workflow → Run，確認綠燈且 bot 有 commit 新快照。
+
+### Fork 常見問題
+
+| 症狀 | 解法 |
+|---|---|
+| 排程都沒跑 | Fork 的 Actions 預設停用，要先做 §13-2 啟用 |
+| 網頁顯示的是別人的物件 | 還沒做 §13-4 換資料；改 `subscriptions.json` 後跑一輪即更新 |
+| 「立即更新」沒反應 | owner 要填**你自己**、Token 要有 Actions 權限 |
+| 排程一段時間後自己停了 | GitHub 會停用「長期無活動」repo 的排程；每輪 commit 快照即算活動可自我維持，手動 Run 一次也會重新啟用 |
+
+---
+
 完成以上，系統就會 24 小時自動幫你監控 591，並在網頁與 Telegram 呈現變化。
