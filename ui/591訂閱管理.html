@@ -259,12 +259,16 @@ function setFilter(k,v){
 function resetFilters(){fDistrict="";fKind="";fPriceMin="";fPriceMax="";renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
 function setSort(key){
   if(sortKey===key){ sortDir = sortDir==="asc"?"desc":"asc"; }
-  else { sortKey=key; sortDir = (key==="size")?"desc":"asc"; }  // 坪數預設大→小，租金預設小→大
+  else { sortKey=key; sortDir = (key==="size"||key==="time")?"desc":"asc"; }  // 坪數/時間預設大→小(新→舊)，租金預設小→大
   renderStatus();
   document.getElementById("view-status").scrollIntoView({block:"start"});
 }
 function sortRows(rows){
   if(sortKey==="recency") return rows.slice().sort(byRecency);
+  if(sortKey==="time"){
+    const r2=rows.slice().sort(byRecency);          // byRecency 為新→舊
+    return sortDir==="desc" ? r2 : r2.reverse();    // desc=新→舊，asc=舊→新
+  }
   const pick = sortKey==="price" ? (r=>r.total_monthly) : (r=>r.size_ping);
   const dir = sortDir==="asc"?1:-1;
   return rows.slice().sort((a,b)=>{
@@ -327,8 +331,22 @@ function renderStatus(){
     `</div>`+
     `<div class="summary">本輪更新 ${latest.generated_at}　🆕 ${nNew.length}｜💰 ${nDrop.length}｜❌ ${nOff.length}${hasFilter?"（已篩選）":""}</div>`;
 
-  if(nNew.length+nDrop.length+nOff.length===0) el.insertAdjacentHTML("beforeend",`<div class="empty">本輪沒有新增／降價／下架${hasFilter?"（符合篩選）":""}。</div>`);
-  if(nNew.length) el.insertAdjacentHTML("beforeend",section("🆕 新增",nNew,{flag:{cls:"flag-new",txt:"🆕"},stripe:"var(--accent)"}));
+  // 排序列（最上方）＋ 在架主清單。排序：最新(分區概覽)／時間／租金／坪數
+  el.insertAdjacentHTML("beforeend",
+    `<div class="sortbar"><span class="lbl">在架排序</span>`+
+    sortBtn("recency","最新")+sortBtn("time","時間")+sortBtn("price","租金")+sortBtn("size","坪數")+
+    `</div>`);
+  if(!nAct.length){
+    el.insertAdjacentHTML("beforeend",`<div class="empty">沒有符合條件的在架物件${hasFilter?"（試著放寬篩選）":""}。</div>`);
+  }else if(sortKey==="recency"){
+    el.insertAdjacentHTML("beforeend",section(hasFilter?"📋 符合條件的在架":"📋 全部在架",nAct,{stripe:"var(--accent)"}));
+  }else{
+    const actTitle=(hasFilter?"📋 符合條件的在架":"📋 全部在架")+`（${nAct.length}）`;
+    el.insertAdjacentHTML("beforeend",`<div class="sec-title">${actTitle}</div>`);
+    el.insertAdjacentHTML("beforeend",sortRows(nAct).map(r=>listingCard(r,{stripe:"var(--accent)"})).join(""));
+  }
+
+  // 本輪變動移到下方（新增區已移除，只保留降價／下架）
   if(nDrop.length){
     el.insertAdjacentHTML("beforeend",`<div class="sec-title">💰 降價（${nDrop.length}）</div>`);
     const g=groupByDistrict(nDrop.slice().sort(byRecency));
@@ -338,20 +356,6 @@ function renderStatus(){
     }
   }
   if(nOff.length) el.insertAdjacentHTML("beforeend",section("❌ 下架",nOff,{flag:{cls:"flag-off",txt:"❌"},stripe:"var(--danger)"}));
-  // 在架排序列（最新／租金／坪數），套用於下方在架清單
-  el.insertAdjacentHTML("beforeend",
-    `<div class="sortbar"><span class="lbl">在架排序</span>`+
-    sortBtn("recency","最新")+sortBtn("price","租金")+sortBtn("size","坪數")+
-    `</div>`);
-  const actTitle=(hasFilter?"📋 符合條件的在架":"📋 全部在架")+`（${nAct.length}）`;
-  if(sortKey==="recency"){
-    // 依區域分組、組內依時間新→舊（原行為）
-    el.insertAdjacentHTML("beforeend",section(hasFilter?"📋 符合條件的在架":"📋 全部在架",nAct,{stripe:"var(--accent)"}));
-  }else{
-    // 依租金／坪數全域排序 → 平鋪，不分區
-    el.insertAdjacentHTML("beforeend",`<div class="sec-title">${actTitle}</div>`);
-    el.insertAdjacentHTML("beforeend",sortRows(nAct).map(r=>listingCard(r,{stripe:"var(--accent)"})).join(""));
-  }
 }
 
 // ===== 訂閱條件（唯讀顯示）=====
