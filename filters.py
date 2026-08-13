@@ -38,8 +38,19 @@ def _range_ok(value, low, high) -> bool:
 
 
 def _kind_ok(kind_name: str | None, kind) -> bool:
+    """類型是否符合。
+
+    kind 可為：
+    - 空（None/""/[]）→ 不過濾（放行全部，含車位/店面）。
+    - 單一代碼（如 "2"）→ 需精確等於該類型名稱。
+    - 代碼清單（如 ["1","2","3","4"]）→ 白名單，kind_name 須為其中之一；
+      這是排除「車位/店面/其他」等非住宅的作法。
+    """
     if not kind:
         return True
+    if isinstance(kind, (list, tuple)):
+        allowed = {config.KIND_NAMES.get(str(k)) for k in kind}
+        return kind_name in allowed
     return kind_name == config.KIND_NAMES.get(str(kind))
 
 

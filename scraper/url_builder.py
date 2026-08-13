@@ -34,8 +34,12 @@ def build_list_url(sub: dict, sort: str | None = None) -> str:
     if sections:
         params.append(("section", ",".join(str(s) for s in sections)))
 
-    if sub.get("kind"):
-        params.append(("kind", str(sub["kind"])))
+    # 單一類型 → 讓 591 端過濾（kind=2）；類型清單（白名單，用於排除車位/店面）
+    # → 不送 kind 參數，抓回全部後由 filters._kind_ok 在本地白名單過濾，
+    #   因為 591 的 kind 多選不可靠，硬送可能整批回空。
+    kind = sub.get("kind")
+    if kind and not isinstance(kind, (list, tuple)):
+        params.append(("kind", str(kind)))
 
     shape = sub.get("shape") or []
     if shape:

@@ -6,7 +6,7 @@
       "enabled": true,
       "region": "1",
       "sections": ["4", "7", "11"],
-      "kind": "",
+      "kind": ["1", "2", "3", "4"],
       "layout": [],
       "shape": [],
       "price_min": 0,

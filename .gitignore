@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .DS_Store
+
+# 環境變數 / 秘密（Telegram token 等），絕不進 repo
+.env
+.env.*
+!.env.example

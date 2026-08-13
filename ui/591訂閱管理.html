@@ -12,28 +12,9 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'PingFang TC','Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;background:var(--bg);color:var(--ink);padding:16px;max-width:760px;margin:0 auto;line-height:1.55}
-header{margin:8px 0 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+header{margin:8px 0 12px}
 header h1{font-size:21px;font-weight:900;letter-spacing:.5px}
 header p{color:var(--muted);font-size:12.5px;margin-top:4px}
-.gear{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 11px;font-size:15px;cursor:pointer;flex-shrink:0;font-family:inherit;color:var(--ink)}
-.gear.warn{border-color:var(--price);color:var(--price)}
-button.btn-main{background:var(--accent);color:#fff;font-weight:700;border:none;border-radius:10px;font-size:14px;padding:10px 14px;font-family:inherit;cursor:pointer}
-button.btn-main:hover{background:#0D5A50}
-button.btn-main:disabled{opacity:.6;cursor:default}
-button.btn-line{background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:10px;font-size:14px;padding:10px 14px;font-family:inherit;cursor:pointer}
-.overlay{position:fixed;inset:0;background:rgba(28,42,38,.45);display:none;align-items:flex-end;justify-content:center;z-index:50}
-.overlay.show{display:flex}
-.panel{background:var(--card);width:100%;max-width:760px;max-height:92vh;overflow-y:auto;border-radius:18px 18px 0 0;padding:18px 16px 24px}
-.panel h2{font-size:17px;font-weight:900;margin-bottom:14px}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
-.field .hint{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
-.panel input[type=password],.panel input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
-.panel input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
-.panel-actions{display:flex;gap:8px;margin-top:16px}
-.panel-actions .btn-main{flex:2}.panel-actions .btn-line{flex:1}
-.note-box{background:var(--accent-soft);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--accent);line-height:1.6;margin-bottom:14px}
-@media(min-width:600px){.overlay{align-items:center}.panel{border-radius:18px}}
 
 /* tabs */
 .tabs{display:flex;gap:6px;margin:8px 0 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:5px}
@@ -104,11 +85,8 @@ button.btn-line{background:#fff;border:1px solid var(--line);color:var(--ink);bo
 </head>
 <body>
 <header>
-  <div>
-    <h1>591 租屋監控看板</h1>
-    <p id="genAt">載入中…</p>
-  </div>
-  <button class="gear" id="gearBtn" onclick="openSettings()" title="設定「立即重爬」用的 GitHub Token">⚙️</button>
+  <h1>591 租屋監控看板</h1>
+  <p id="genAt">載入中…</p>
 </header>
 
 <div class="tabs">
@@ -120,24 +98,6 @@ button.btn-line{background:#fff;border:1px solid var(--line);color:var(--ink);bo
 <div id="view-status" class="view on"><div class="loading">載入中…</div></div>
 <div id="view-subs" class="view"><div class="loading">載入中…</div></div>
 <div id="view-watch" class="view"><div class="loading">載入中…</div></div>
-
-<!-- 立即重爬 token 設定（唯一用到 token 的地方）-->
-<div class="overlay" id="settingsOverlay">
-  <div class="panel">
-    <h2>「立即重爬」設定</h2>
-    <div class="note-box">
-      這個看板本身<b>唯讀、免 token</b>。<br>
-      只有「🔄 立即重爬」需要 token —— 觸發 GitHub Actions 無法匿名。<br>
-      建議用 <b>fine-grained token</b>，授權此 repo 的 <b>Actions: Read and write</b>。<br>
-      Token 只存在此瀏覽器（localStorage），不會寫進 repo、也不會外傳。
-    </div>
-    <div class="field"><label>GitHub Token<span class="hint">fine-grained, Actions RW</span></label><input type="password" id="s-token" placeholder="github_pat_..."></div>
-    <div class="panel-actions">
-      <button class="btn-line" onclick="closeSettings()">取消</button>
-      <button class="btn-main" onclick="saveSettings()">儲存</button>
-    </div>
-  </div>
-</div>
 
 <div class="toast" id="toast"></div>
 
@@ -183,11 +143,6 @@ let latest=null;                     // data/latest.json
 let fDistrict="", fKind="", fPriceMin="", fPriceMax="";   // 狀態頁前端篩選
 let watchFilter="";                  // 關注頁「只看區域」
 
-// 只有「立即重爬」用得到的 token（其餘讀取全走公開 raw、免 token）
-const TOKEN_KEY="rent591-trigger-token";
-let ghToken=loadToken();
-function loadToken(){try{return localStorage.getItem(TOKEN_KEY)||"";}catch(e){return "";}}
-
 function esc(t){return(t||"").replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));}
 
 // ===== 載入 =====
@@ -205,7 +160,6 @@ async function boot(){
     document.getElementById("genAt").textContent=latest
       ?`最新更新 ${latest.generated_at} · 在架 ${cnt} 筆`
       :`尚無快照（等排程跑第一輪）`;
-    document.getElementById("gearBtn").classList.toggle("warn",!ghToken);
     renderStatus(); renderSubs(); renderWatch();
   }catch(e){
     document.getElementById("genAt").textContent="載入失敗："+e.message;
@@ -322,8 +276,7 @@ function renderStatus(){
   const hasFilter=fDistrict||fKind||fPriceMin||fPriceMax;
 
   el.innerHTML=
-    `<div style="margin-bottom:8px"><button class="btn-main" onclick="triggerRun(this)">🔄 立即重爬</button></div>`+
-    `<div class="summary">自動更新（台灣時間）：02:00・05:00・08:00・11:00・14:00・17:00・20:00・23:00（每 3 小時，可能延遲數分鐘）</div>`+
+    `<div class="summary">每 5 分鐘自動更新一次（GitHub 排程可能延遲數分鐘）。</div>`+
     `<div class="filters">`+
       `<div class="fld"><label>區域</label><select class="sel-input" onchange="setFilter('district',this.value)">`+
         `<option value="">全部區域（${active.length}）</option>`+
@@ -402,55 +355,6 @@ function renderWatch(){
     shown.map(r=>listingCard(r,{stripe:r.status==="removed"?"var(--danger)":"var(--accent)",flag:r.status==="removed"?{cls:"flag-off",txt:"❌ 已下架"}:null})).join("");
 }
 function onWatchFilter(v){watchFilter=v;renderWatch();document.getElementById("view-watch").scrollIntoView({block:"start"});}
-
-// ===== 立即重爬（唯一用到 token：觸發 GitHub Actions）=====
-async function triggerRun(btn){
-  if(!ghToken){showToast("請先按右上 ⚙️ 設定 token");openSettings();return;}
-  const before=latest?latest.generated_at:null;
-  try{
-    const r=await fetch(`https://api.github.com/repos/${REPO.owner}/${REPO.repo}/actions/workflows/monitor.yml/dispatches`,
-      {method:"POST",headers:{Authorization:`Bearer ${ghToken}`,Accept:"application/vnd.github+json"},body:JSON.stringify({ref:REPO.branch})});
-    if(r.status===204){
-      showToast("已觸發重爬，等結果中…");
-      if(btn){btn.disabled=true;btn.textContent="⏳ 重爬中…";}
-      pollUpdate(before,btn,0);
-    }else if(r.status===401){showToast("⚠️ token 無效或過期，請重設");openSettings();}
-    else if(r.status===403){showToast("⚠️ token 缺 Actions 權限（需 Actions: Read and write）");}
-    else if(r.status===404){showToast("⚠️ 找不到 workflow 或此 token 無 repo 權限");}
-    else{showToast(`⚠️ 觸發失敗（${r.status}）`);}
-  }catch(e){showToast("⚠️ "+e.message);}
-}
-async function pollUpdate(before,btn,tries){
-  if(tries>=24){ // 約 4 分鐘還沒好就停止輪詢（raw CDN 也可能有數分鐘快取延遲）
-    if(btn){btn.disabled=false;btn.textContent="🔄 立即重爬";}
-    showToast("重爬仍在跑，稍後可自行重新整理");return;
-  }
-  setTimeout(async()=>{
-    try{
-      const json=await rawGet("data/latest.json");
-      if(json&&json.generated_at!==before){
-        latest=json;
-        const cnt=Object.keys(latest.listings||{}).length;
-        document.getElementById("genAt").textContent=`最新更新 ${latest.generated_at} · 在架 ${cnt} 筆`;
-        renderStatus();renderWatch();
-        showToast("已更新為最新資料 ✓");
-        return;
-      }
-    }catch(e){/* 忽略單次輪詢錯誤，繼續等 */}
-    pollUpdate(before,btn,tries+1);
-  },10000); // 每 10 秒查一次
-}
-
-// ===== token 設定 =====
-function openSettings(){document.getElementById("s-token").value=ghToken||"";document.getElementById("settingsOverlay").classList.add("show");}
-function closeSettings(){document.getElementById("settingsOverlay").classList.remove("show");}
-function saveSettings(){
-  ghToken=document.getElementById("s-token").value.trim();
-  try{ghToken?localStorage.setItem(TOKEN_KEY,ghToken):localStorage.removeItem(TOKEN_KEY);}catch(e){}
-  document.getElementById("gearBtn").classList.toggle("warn",!ghToken);
-  closeSettings();
-  showToast(ghToken?"已儲存 token ✓":"已清除 token");
-}
 
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2600);}
 
