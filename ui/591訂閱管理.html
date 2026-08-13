@@ -203,6 +203,7 @@ let subsDoc=null, subsSha=null;      // subscriptions.json 內容與 sha
 let watchDoc={items:{}}, watchSha=null;
 let latest=null;                     // data/latest.json
 let editingId=null;
+let statusFilter="";              // 狀態頁「只看區域」篩選
 let form=blankForm();
 
 function blankForm(){return{region:"3",sections:[],kind:"1",layout:[],shape:[],name:"",price_min:"",price_max:"",acreage_min:"",acreage_max:""};}
@@ -336,28 +337,40 @@ function section(title,rows,opt){
   }
   return html;
 }
+function onStatusFilter(v){statusFilter=v;renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
 function renderStatus(){
   const el=document.getElementById("view-status");
   if(!latest){el.innerHTML=`<div class="empty">尚無快照。等 GitHub Actions 跑完第一輪後，這裡會顯示本輪變動與在架物件。</div>`;return;}
   const rep=latest.report||{new:[],price_drop:[],removed:[]};
-  const total=(rep.new.length+rep.price_drop.length+rep.removed.length);
+  const active=Object.values(latest.listings||{}).filter(r=>r.status==="active");
+  // 各區數量（供下拉）
+  const cnt={};active.forEach(r=>{const d=r.district||"其他";cnt[d]=(cnt[d]||0)+1;});
+  const dists=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]);
+  if(statusFilter&&!cnt[statusFilter]) statusFilter="";
+  const flt=rows=>statusFilter?rows.filter(r=>(r.district||"其他")===statusFilter):rows;
+  const nNew=flt(rep.new),nDrop=flt(rep.price_drop),nOff=flt(rep.removed),nAct=flt(active);
+
   el.innerHTML=`<div style="margin-bottom:8px"><button class="btn-main" onclick="triggerRun(this)">🔄 立即更新</button></div>`+
     `<div class="summary">自動更新（台灣時間）：02:00・05:00・08:00・11:00・14:00・17:00・20:00・23:00（每 3 小時，可能延遲數分鐘）</div>`+
-    `<div class="summary">本輪更新 ${latest.generated_at}　🆕 ${rep.new.length}｜💰 ${rep.price_drop.length}｜❌ ${rep.removed.length}</div>`;
-  if(total===0) el.insertAdjacentHTML("beforeend",`<div class="empty">本輪沒有新增／降價／下架。</div>`);
-  if(rep.new.length) el.insertAdjacentHTML("beforeend",section("🆕 新增",rep.new,{flag:{cls:"flag-new",txt:"🆕"},stripe:"var(--accent)"}));
-  if(rep.price_drop.length){
-    el.insertAdjacentHTML("beforeend",`<div class="sec-title">💰 降價（${rep.price_drop.length}）</div>`);
-    const g=groupByDistrict(rep.price_drop.slice().sort(byRecency));
+    `<div class="field" style="margin-bottom:12px"><label>只看區域</label>`+
+    `<select class="sel-input" onchange="onStatusFilter(this.value)">`+
+    `<option value="">全部區域（${active.length}）</option>`+
+    dists.map(d=>`<option value="${esc(d)}" ${statusFilter===d?"selected":""}>${esc(d)}（${cnt[d]}）</option>`).join("")+
+    `</select></div>`+
+    `<div class="summary">本輪更新 ${latest.generated_at}　🆕 ${nNew.length}｜💰 ${nDrop.length}｜❌ ${nOff.length}</div>`;
+
+  if(nNew.length+nDrop.length+nOff.length===0) el.insertAdjacentHTML("beforeend",`<div class="empty">本輪沒有新增／降價／下架${statusFilter?"（此區）":""}。</div>`);
+  if(nNew.length) el.insertAdjacentHTML("beforeend",section("🆕 新增",nNew,{flag:{cls:"flag-new",txt:"🆕"},stripe:"var(--accent)"}));
+  if(nDrop.length){
+    el.insertAdjacentHTML("beforeend",`<div class="sec-title">💰 降價（${nDrop.length}）</div>`);
+    const g=groupByDistrict(nDrop.slice().sort(byRecency));
     for(const d of Object.keys(g)){
       el.insertAdjacentHTML("beforeend",`<div class="grp-h">${esc(d)}（${g[d].length}）</div>`);
       g[d].forEach(r=>el.insertAdjacentHTML("beforeend",listingCard(r,{flag:{cls:"flag-down",txt:"💰"},stripe:"var(--price)",drop:r})));
     }
   }
-  if(rep.removed.length) el.insertAdjacentHTML("beforeend",section("❌ 下架",rep.removed,{flag:{cls:"flag-off",txt:"❌"},stripe:"var(--danger)"}));
-  // 全部在架
-  const active=Object.values(latest.listings||{}).filter(r=>r.status==="active");
-  el.insertAdjacentHTML("beforeend",section("📋 全部在架",active,{stripe:"var(--accent)"}));
+  if(nOff.length) el.insertAdjacentHTML("beforeend",section("❌ 下架",nOff,{flag:{cls:"flag-off",txt:"❌"},stripe:"var(--danger)"}));
+  el.insertAdjacentHTML("beforeend",section(statusFilter?`📋 ${statusFilter} 在架`:"📋 全部在架",nAct,{stripe:"var(--accent)"}));
 }
 
 // ===== 訂閱管理 =====
