@@ -57,7 +57,7 @@ button{font-family:inherit;cursor:pointer;border:none;border-radius:10px;font-si
 .lcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--stripe,var(--accent))}
 .lcard.removed{opacity:.7}
 .lcard-row{display:flex;gap:10px}
-.l-thumb{width:78px;height:78px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--line);display:block}
+.l-thumb{width:117px;height:117px;object-fit:cover;border-radius:8px;flex-shrink:0;background:var(--line);display:block}
 .l-body{flex:1;min-width:0}
 .l-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
 .l-flag{font-size:11px;font-weight:800;border-radius:6px;padding:2px 7px;white-space:nowrap}
@@ -204,6 +204,7 @@ let watchDoc={items:{}}, watchSha=null;
 let latest=null;                     // data/latest.json
 let editingId=null;
 let statusFilter="";              // 狀態頁「只看區域」篩選
+let watchFilter="";               // 關注頁「只看區域」篩選
 let form=blankForm();
 
 function blankForm(){return{region:"3",sections:[],kind:"1",layout:[],shape:[],name:"",price_min:"",price_max:"",acreage_min:"",acreage_max:""};}
@@ -475,9 +476,20 @@ function renderWatch(){
     const w=watchDoc.items[id];
     return {listing_id:id,title:live.title||w.title||("物件 "+id),url:live.url||w.url,image:live.image,district:live.district,community:live.community,total_monthly:live.total_monthly,rooms:live.rooms,size_ping:live.size_ping,floor:live.floor,updated_rel:live.updated_rel,posted_at:live.posted_at,first_seen:live.first_seen,status:live.status,note:w.note};
   });
-  el.innerHTML=`<div class="summary">關注 ${rows.length} 筆　排程會持續追蹤狀態變化</div>`+
-    rows.sort(byRecency).map(r=>listingCard(r,{stripe:r.status==="removed"?"var(--danger)":"var(--accent)",flag:r.status==="removed"?{cls:"flag-off",txt:"❌ 已下架"}:null})).join("");
+  // 各區數量（供下拉）
+  const cnt={};rows.forEach(r=>{const d=r.district||"其他";cnt[d]=(cnt[d]||0)+1;});
+  const dists=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]);
+  if(watchFilter&&!cnt[watchFilter]) watchFilter="";
+  const shown=(watchFilter?rows.filter(r=>(r.district||"其他")===watchFilter):rows).sort(byRecency);
+  el.innerHTML=`<div class="field" style="margin-bottom:12px"><label>只看區域</label>`+
+    `<select class="sel-input" onchange="onWatchFilter(this.value)">`+
+    `<option value="">全部區域（${rows.length}）</option>`+
+    dists.map(d=>`<option value="${esc(d)}" ${watchFilter===d?"selected":""}>${esc(d)}（${cnt[d]}）</option>`).join("")+
+    `</select></div>`+
+    `<div class="summary">關注 ${shown.length} 筆　排程會持續追蹤狀態變化</div>`+
+    shown.map(r=>listingCard(r,{stripe:r.status==="removed"?"var(--danger)":"var(--accent)",flag:r.status==="removed"?{cls:"flag-off",txt:"❌ 已下架"}:null})).join("");
 }
+function onWatchFilter(v){watchFilter=v;renderWatch();document.getElementById("view-watch").scrollIntoView({block:"start"});}
 
 // ===== 立即更新（觸發 GitHub Actions）=====
 async function triggerRun(btn){
