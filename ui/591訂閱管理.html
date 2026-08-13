@@ -125,7 +125,11 @@ function detectRepo(){
   return FALLBACK;
 }
 const REPO=detectRepo();
+// 本機測試（file:// 或 localhost）時改讀 repo 內的相對檔案；線上才走公開 raw。
+// 此頁位於 ui/ 之下，故相對 repo 根目錄要往上一層。
+const LOCAL = location.protocol==="file:" || ["localhost","127.0.0.1","0.0.0.0"].includes(location.hostname);
 function rawUrl(path){
+  if(LOCAL) return `../${path}?t=${Date.now()}`;
   // 加時間戳避開 raw CDN 快取（約數分鐘），確保拿到較新的檔案
   return `https://raw.githubusercontent.com/${REPO.owner}/${REPO.repo}/${REPO.branch}/${path}?t=${Date.now()}`;
 }
