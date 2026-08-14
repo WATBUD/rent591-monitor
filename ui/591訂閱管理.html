@@ -59,6 +59,12 @@ header p{color:var(--muted);font-size:12.5px;margin-top:4px}
 .geo-btn.ghost{background:#fff;border:1px solid var(--line);color:var(--muted)}
 .geo-status{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5}
 .geo-status.ok{color:var(--accent)}
+.fav-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:7px}
+.fav-lbl{font-size:12px;color:var(--muted);font-weight:800}
+.fav-chip{display:inline-flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 5px 4px 11px;font-size:12.5px;color:var(--ink);cursor:pointer}
+.fav-chip:hover{border-color:var(--accent);color:var(--accent)}
+.fav-chip .x{color:var(--muted);font-size:12px;line-height:1;padding:1px 4px;border-radius:50%}
+.fav-chip .x:hover{color:#c0392b;background:#f6e6e4}
 .sortbar{display:flex;gap:6px;align-items:center;margin:16px 0 2px;flex-wrap:wrap}
 .sortbar .lbl{font-size:12.5px;color:var(--muted);font-weight:800;margin-right:2px}
 .sortbtn{background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:6px 12px;font-size:13px;font-family:inherit;cursor:pointer}
@@ -162,6 +168,7 @@ let watchDoc={items:{}};             // watchlist.json
 let latest=null;                     // data/latest.json
 let fDistrict="", fKind="", fPriceMin="", fPriceMax="";   // 狀態頁前端篩選
 let fCenter=null, fRadiusKm=8, fAddrText="", fGeoStatus="";   // 距離篩選：中心座標/半徑(km)/地址輸入/查詢狀態
+let fFav=readFav();                                           // 常用地點（localStorage）
 let sortKey="recency", sortDir="asc";                    // 單選排序：recency/price/size/time
 let multiSort=false, sortChain=[];                       // 多重排序：[{key,dir},...] 依點選順序為優先序
 let watchFilter="";                  // 關注頁「只看區域」
@@ -300,6 +307,22 @@ function haversineKm(lat1,lng1,lat2,lng2){
 }
 function setRadius(v){ const n=Number(v); if(n>0){ fRadiusKm=n; renderStatus(); } }
 function clearCenter(){ fCenter=null; fAddrText=""; fGeoStatus=""; renderStatus(); }
+// 常用地點：存瀏覽器 localStorage，跨分頁/重開保留，免後端
+function readFav(){ try{ return JSON.parse(localStorage.getItem("rent591_fav")||"[]"); }catch(e){ return []; } }
+function writeFav(){ try{ localStorage.setItem("rent591_fav", JSON.stringify(fFav)); }catch(e){} }
+function addFav(){
+  if(!fCenter) return;
+  const name=((fAddrText||"").trim())||((fCenter.label||"").split(",")[0]);
+  if(!name) return;
+  if(fFav.some(p=>p.name===name)){ fGeoStatus=`「${name}」已在常用清單`; renderStatus(); return; }
+  fFav.push({name, lat:fCenter.lat, lng:fCenter.lng, label:fCenter.label}); writeFav(); renderStatus();
+}
+function removeFav(i){ fFav.splice(i,1); writeFav(); renderStatus(); }
+function applyFav(i){
+  const p=fFav[i]; if(!p) return;
+  fAddrText=p.name; fCenter={lat:p.lat,lng:p.lng,label:p.label||p.name}; fGeoStatus="";
+  renderStatus(); document.getElementById("view-status").scrollIntoView({block:"start"});
+}
 // 用免費 OpenStreetMap Nominatim 把地址/地標轉座標（8km 範圍下精度綽綽有餘）
 async function geocodeAddress(){
   const q=(fAddrText||"").trim();
@@ -455,11 +478,17 @@ function renderStatus(){
           `<button class="geo-btn" onclick="geocodeAddress()">搜尋</button>`+
           `<input type="number" min="1" max="50" step="1" value="${fRadiusKm}" onchange="setRadius(this.value)" style="width:64px;flex:none" title="半徑（公里）">`+
           `<span style="color:var(--muted);font-size:13px">km</span>`+
+          (fCenter?`<button class="geo-btn ghost" onclick="addFav()" title="把目前中心點存成常用地點">★ 存為常用</button>`:"")+
           (fCenter?`<button class="geo-btn ghost" onclick="clearCenter()">清除</button>`:"")+
         `</div>`+
         (fCenter
           ? `<div class="geo-status ok">📍 中心：${esc(fCenter.label.split(",").slice(0,3).join("、"))}　·　半徑 ${fRadiusKm}km 內符合 ${nAct.length} 筆${noCoord?`（另 ${noCoord} 筆尚無座標未納入）`:""}</div>`
           : (fGeoStatus?`<div class="geo-status">${esc(fGeoStatus)}</div>`:`<div class="geo-status">輸入地址後按「搜尋」，只顯示中心點半徑範圍內的房子。${noCoord?`目前 ${noCoord} 筆尚無座標（下輪抓取後補上）。`:""}</div>`))+
+        (fFav.length
+          ? `<div class="fav-row"><span class="fav-lbl">常用：</span>`+
+            fFav.map((p,i)=>`<span class="fav-chip" onclick="applyFav(${i})" title="套用「${esc(p.name)}」">${esc(p.name)}<span class="x" onclick="event.stopPropagation();removeFav(${i})" title="移除">✕</span></span>`).join("")+
+            `</div>`
+          : "")+
       `</div>`+
       (hasFilter?`<div class="reset"><button onclick="resetFilters()">清除篩選</button></div>`:"")+
     `</div>`+
