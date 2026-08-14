@@ -11500,7 +11500,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0710041,
+      "lng": 121.5112252
     },
     "21808052": {
       "listing_id": "21808052",
@@ -11552,7 +11554,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0710041,
+      "lng": 121.5112252
     },
     "19489734": {
       "listing_id": "19489734",
@@ -11599,7 +11603,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0530846,
+      "lng": 121.5116285
     },
     "21762504": {
       "listing_id": "21762504",
@@ -11651,7 +11657,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.056767,
+      "lng": 121.511473
     },
     "21760626": {
       "listing_id": "21760626",
@@ -11701,7 +11709,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.057315,
+      "lng": 121.517024
     },
     "21697068": {
       "listing_id": "21697068",
@@ -11751,7 +11761,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0717452,
+      "lng": 121.5106807
     },
     "21812208": {
       "listing_id": "21812208",
@@ -11803,7 +11815,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0522709,
+      "lng": 121.5149612
     },
     "21809109": {
       "listing_id": "21809109",
@@ -11851,7 +11865,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0576075,
+      "lng": 121.519383
     },
     "21832454": {
       "listing_id": "21832454",
@@ -11902,7 +11918,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0482417,
+      "lng": 121.5447629
     },
     "21832384": {
       "listing_id": "21832384",
@@ -11952,7 +11970,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.056717,
+      "lng": 121.5287232
     },
     "21832353": {
       "listing_id": "21832353",
@@ -12004,7 +12024,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0671125,
+      "lng": 121.5254687
     },
     "21832164": {
       "listing_id": "21832164",
@@ -12054,7 +12076,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0671218,
+      "lng": 121.5253887
     },
     "21831354": {
       "listing_id": "21831354",
@@ -12105,7 +12129,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0671125,
+      "lng": 121.5254687
     },
     "21830757": {
       "listing_id": "21830757",
@@ -12156,7 +12182,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0678184,
+      "lng": 121.5316989
     },
     "21830680": {
       "listing_id": "21830680",
@@ -12208,7 +12236,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0661734,
+      "lng": 121.5245309
     },
     "21830396": {
       "listing_id": "21830396",
@@ -12256,7 +12286,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0646412,
+      "lng": 121.5226402
     },
     "21830319": {
       "listing_id": "21830319",
@@ -12304,7 +12336,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0671125,
+      "lng": 121.5254687
     },
     "21830078": {
       "listing_id": "21830078",
@@ -12355,7 +12389,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0654783,
+      "lng": 121.5311325
     },
     "21811221": {
       "listing_id": "21811221",
@@ -12404,7 +12440,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.048063,
+      "lng": 121.5414576
     },
     "21826389": {
       "listing_id": "21826389",
@@ -12455,7 +12493,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0545419,
+      "lng": 121.5352097
     },
     "21828997": {
       "listing_id": "21828997",
@@ -12506,7 +12546,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0662862,
+      "lng": 121.5273957
     },
     "21828970": {
       "listing_id": "21828970",
@@ -12557,7 +12599,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0497176,
+      "lng": 121.5256651
     },
     "21828558": {
       "listing_id": "21828558",
@@ -12609,7 +12653,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0537818,
+      "lng": 121.5299463
     },
     "21826212": {
       "listing_id": "21826212",
@@ -12659,7 +12705,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0616525,
+      "lng": 121.5270666
     },
     "21826065": {
       "listing_id": "21826065",
@@ -12707,7 +12755,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.060358,
+      "lng": 121.541384
     },
     "21819923": {
       "listing_id": "21819923",
@@ -12759,7 +12809,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.067713,
+      "lng": 121.534301
     },
     "21824749": {
       "listing_id": "21824749",
@@ -12806,7 +12858,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0671125,
+      "lng": 121.5254687
     },
     "21823274": {
       "listing_id": "21823274",
@@ -12855,7 +12909,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0622272,
+      "lng": 121.5355988
     },
     "21822044": {
       "listing_id": "21822044",
@@ -12903,7 +12959,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0485882,
+      "lng": 121.5204854
     },
     "21821833": {
       "listing_id": "21821833",
@@ -12951,7 +13009,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0561334,
+      "lng": 121.5260744
     },
     "21820657": {
       "listing_id": "21820657",
@@ -12999,7 +13059,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0628594,
+      "lng": 121.5318217
     },
     "21820172": {
       "listing_id": "21820172",
@@ -13051,7 +13113,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0481978,
+      "lng": 121.5253087
     },
     "21819764": {
       "listing_id": "21819764",
@@ -13103,7 +13167,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": null,
+      "lng": null
     },
     "21819000": {
       "listing_id": "21819000",
@@ -13151,7 +13217,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0617883,
+      "lng": 121.5259647
     },
     "21818616": {
       "listing_id": "21818616",
@@ -13202,7 +13270,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.060799,
+      "lng": 121.5316844
     },
     "21802318": {
       "listing_id": "21802318",
@@ -13253,7 +13323,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0480842,
+      "lng": 121.5555719
     },
     "21798438": {
       "listing_id": "21798438",
@@ -13304,7 +13376,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0607032,
+      "lng": 121.5466804
     },
     "21794074": {
       "listing_id": "21794074",
@@ -13350,7 +13424,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.050541,
+      "lng": 121.5758062
     },
     "21788969": {
       "listing_id": "21788969",
@@ -13401,7 +13477,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0447801,
+      "lng": 121.5494821
     },
     "21786621": {
       "listing_id": "21786621",
@@ -13448,7 +13526,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0525658,
+      "lng": 121.5560531
     },
     "21785516": {
       "listing_id": "21785516",
@@ -13499,7 +13579,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.048545,
+      "lng": 121.565881
     },
     "21764140": {
       "listing_id": "21764140",
@@ -13551,7 +13633,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0511867,
+      "lng": 121.5662742
     },
     "21762179": {
       "listing_id": "21762179",
@@ -13598,7 +13682,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0541934,
+      "lng": 121.5519599
     },
     "21761429": {
       "listing_id": "21761429",
@@ -13644,7 +13730,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0509052,
+      "lng": 121.5745926
     },
     "21758033": {
       "listing_id": "21758033",
@@ -13696,7 +13784,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0638085,
+      "lng": 121.5452085
     },
     "21794794": {
       "listing_id": "21794794",
@@ -13796,7 +13886,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0486473,
+      "lng": 121.5549491
     },
     "21692304": {
       "listing_id": "21692304",
@@ -13848,7 +13940,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0526073,
+      "lng": 121.5610148
     },
     "21746747": {
       "listing_id": "21746747",
@@ -13900,7 +13994,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0600237,
+      "lng": 121.5491237
     },
     "21832796": {
       "listing_id": "21832796",
@@ -13951,7 +14047,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0357009,
+      "lng": 121.5533872
     },
     "21832325": {
       "listing_id": "21832325",
@@ -14002,7 +14100,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0384155,
+      "lng": 121.5528535
     },
     "21831888": {
       "listing_id": "21831888",
@@ -14050,7 +14150,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.024029,
+      "lng": 121.531243
     },
     "21831729": {
       "listing_id": "21831729",
@@ -14098,7 +14200,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.031153,
+      "lng": 121.548357
     },
     "21830395": {
       "listing_id": "21830395",
@@ -14148,7 +14252,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0346721,
+      "lng": 121.5565109
     },
     "21829959": {
       "listing_id": "21829959",
@@ -14199,7 +14305,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.033845,
+      "lng": 121.5556838
     },
     "21829567": {
       "listing_id": "21829567",
@@ -14250,7 +14358,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.023595,
+      "lng": 121.529024
     },
     "21814920": {
       "listing_id": "21814920",
@@ -14297,7 +14407,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.029258,
+      "lng": 121.556243
     },
     "21826858": {
       "listing_id": "21826858",
@@ -14349,7 +14461,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.023606,
+      "lng": 121.528834
     },
     "21826865": {
       "listing_id": "21826865",
@@ -14401,7 +14515,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.023606,
+      "lng": 121.528834
     },
     "21826511": {
       "listing_id": "21826511",
@@ -14452,7 +14568,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.029857,
+      "lng": 121.5552679
     },
     "21825797": {
       "listing_id": "21825797",
@@ -14502,7 +14620,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0222449,
+      "lng": 121.527279
     },
     "21825618": {
       "listing_id": "21825618",
@@ -14548,7 +14668,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0218104,
+      "lng": 121.5278748
     },
     "21823902": {
       "listing_id": "21823902",
@@ -14599,7 +14721,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0282135,
+      "lng": 121.5273743
     },
     "21822057": {
       "listing_id": "21822057",
@@ -14651,7 +14775,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.035805,
+      "lng": 121.53403
     },
     "21821694": {
       "listing_id": "21821694",
@@ -14702,7 +14828,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.023867,
+      "lng": 121.525962
     },
     "21821170": {
       "listing_id": "21821170",
@@ -14752,7 +14880,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0354023,
+      "lng": 121.5434113
     },
     "21820895": {
       "listing_id": "21820895",
@@ -14800,7 +14930,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.023595,
+      "lng": 121.529024
     },
     "21820620": {
       "listing_id": "21820620",
@@ -14848,7 +14980,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.028278,
+      "lng": 121.5274924
     },
     "21820603": {
       "listing_id": "21820603",
@@ -14897,7 +15031,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.028278,
+      "lng": 121.5274924
     },
     "21820444": {
       "listing_id": "21820444",
@@ -14945,7 +15081,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.028609,
+      "lng": 121.555601
     },
     "21818410": {
       "listing_id": "21818410",
@@ -14995,7 +15133,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0200458,
+      "lng": 121.5469835
     },
     "21818405": {
       "listing_id": "21818405",
@@ -15043,7 +15183,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0200458,
+      "lng": 121.5469835
     },
     "21818400": {
       "listing_id": "21818400",
@@ -15091,7 +15233,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0344113,
+      "lng": 121.5419863
     },
     "21591498": {
       "listing_id": "21591498",
@@ -15142,7 +15286,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0288046,
+      "lng": 121.5564341
     },
     "21816360": {
       "listing_id": "21816360",
@@ -15194,7 +15340,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0174303,
+      "lng": 121.5327076
     },
     "21814416": {
       "listing_id": "21814416",
@@ -15242,7 +15390,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0317367,
+      "lng": 121.5548792
     },
     "21762058": {
       "listing_id": "21762058",
@@ -15293,7 +15443,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0413738,
+      "lng": 121.5356534
     },
     "21749975": {
       "listing_id": "21749975",
@@ -15345,7 +15497,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.022168,
+      "lng": 121.55389
     },
     "21715150": {
       "listing_id": "21715150",
@@ -15397,7 +15551,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0387802,
+      "lng": 121.5499039
     },
     "21717166": {
       "listing_id": "21717166",
@@ -15443,7 +15599,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.010645,
+      "lng": 121.5464371
     },
     "21752993": {
       "listing_id": "21752993",
@@ -15495,7 +15653,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0220547,
+      "lng": 121.5296574
     },
     "21779062": {
       "listing_id": "21779062",
@@ -15547,7 +15707,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0437756,
+      "lng": 121.5493011
     },
     "21749530": {
       "listing_id": "21749530",
@@ -15595,7 +15757,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0253467,
+      "lng": 121.5523377
     },
     "21709418": {
       "listing_id": "21709418",
@@ -15646,7 +15810,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0267979,
+      "lng": 121.5469515
     },
     "21832838": {
       "listing_id": "21832838",
@@ -15695,7 +15861,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0343969,
+      "lng": 121.5024069
     },
     "21831690": {
       "listing_id": "21831690",
@@ -15743,7 +15911,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0274775,
+      "lng": 121.4957335
     },
     "21670287": {
       "listing_id": "21670287",
@@ -15793,7 +15963,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0280185,
+      "lng": 121.4946068
     },
     "21831109": {
       "listing_id": "21831109",
@@ -15841,7 +16013,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0288812,
+      "lng": 121.5052637
     },
     "17301760": {
       "listing_id": "17301760",
@@ -15893,7 +16067,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.034992,
+      "lng": 121.496371
     },
     "21830079": {
       "listing_id": "21830079",
@@ -15944,7 +16120,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.034992,
+      "lng": 121.496371
     },
     "21829610": {
       "listing_id": "21829610",
@@ -15996,7 +16174,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0401556,
+      "lng": 121.5013423
     },
     "21829595": {
       "listing_id": "21829595",
@@ -16044,7 +16224,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0219233,
+      "lng": 121.5015473
     },
     "21828434": {
       "listing_id": "21828434",
@@ -16094,7 +16276,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.041139,
+      "lng": 121.5042874
     },
     "21825881": {
       "listing_id": "21825881",
@@ -16144,7 +16328,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.034909,
+      "lng": 121.503817
     },
     "21824815": {
       "listing_id": "21824815",
@@ -16192,7 +16378,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0321677,
+      "lng": 121.5002061
     },
     "21824624": {
       "listing_id": "21824624",
@@ -16238,7 +16426,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0195404,
+      "lng": 121.5016122
     },
     "21821299": {
       "listing_id": "21821299",
@@ -16290,7 +16480,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0429342,
+      "lng": 121.5031282
     },
     "21820878": {
       "listing_id": "21820878",
@@ -16342,7 +16534,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0407483,
+      "lng": 121.5051073
     },
     "21819688": {
       "listing_id": "21819688",
@@ -16393,7 +16587,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0374813,
+      "lng": 121.4983123
     },
     "21819173": {
       "listing_id": "21819173",
@@ -16443,7 +16639,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0467408,
+      "lng": 121.5068632
     },
     "21800571": {
       "listing_id": "21800571",
@@ -16495,7 +16693,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0295042,
+      "lng": 121.4995102
     },
     "21815950": {
       "listing_id": "21815950",
@@ -16546,7 +16746,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0435049,
+      "lng": 121.504404
     },
     "21815126": {
       "listing_id": "21815126",
@@ -16598,7 +16800,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0401556,
+      "lng": 121.5013423
     },
     "21814507": {
       "listing_id": "21814507",
@@ -16650,7 +16854,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0401556,
+      "lng": 121.5013423
     },
     "21814412": {
       "listing_id": "21814412",
@@ -16698,7 +16904,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0372991,
+      "lng": 121.4950822
     },
     "21813742": {
       "listing_id": "21813742",
@@ -16746,7 +16954,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0295273,
+      "lng": 121.4998497
     },
     "21812383": {
       "listing_id": "21812383",
@@ -16796,7 +17006,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0393897,
+      "lng": 121.4980475
     },
     "21811330": {
       "listing_id": "21811330",
@@ -16844,7 +17056,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.036693,
+      "lng": 121.496998
     },
     "21809912": {
       "listing_id": "21809912",
@@ -16892,7 +17106,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0381899,
+      "lng": 121.495973
     },
     "21809040": {
       "listing_id": "21809040",
@@ -16944,7 +17160,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0269569,
+      "lng": 121.497442
     },
     "21807629": {
       "listing_id": "21807629",
@@ -16990,7 +17208,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0260972,
+      "lng": 121.497829
     },
     "21804846": {
       "listing_id": "21804846",
@@ -17038,7 +17258,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.041169,
+      "lng": 121.504109
     },
     "21784198": {
       "listing_id": "21784198",
@@ -17087,7 +17309,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0226539,
+      "lng": 121.501636
     },
     "21796717": {
       "listing_id": "21796717",
@@ -17139,7 +17363,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.038672,
+      "lng": 121.505257
     },
     "21678961": {
       "listing_id": "21678961",
@@ -17187,7 +17413,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0265895,
+      "lng": 121.4900441
     },
     "21596961": {
       "listing_id": "21596961",
@@ -17239,7 +17467,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0362115,
+      "lng": 121.4925116
     },
     "21723223": {
       "listing_id": "21723223",
@@ -17289,7 +17519,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0346639,
+      "lng": 121.5041191
     },
     "21699009": {
       "listing_id": "21699009",
@@ -17337,7 +17569,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0389784,
+      "lng": 121.4976043
     },
     "21774340": {
       "listing_id": "21774340",
@@ -17387,7 +17621,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0406155,
+      "lng": 121.5030755
     },
     "21669744": {
       "listing_id": "21669744",
@@ -17437,7 +17673,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.035873,
+      "lng": 121.499551
     },
     "21799188": {
       "listing_id": "21799188",
@@ -17487,7 +17725,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.041478,
+      "lng": 121.503938
     },
     "21724590": {
       "listing_id": "21724590",
@@ -17537,7 +17777,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.041478,
+      "lng": 121.503938
     },
     "21659472": {
       "listing_id": "21659472",
@@ -17586,7 +17828,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0352662,
+      "lng": 121.4953252
     },
     "21381190": {
       "listing_id": "21381190",
@@ -17634,7 +17878,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0211156,
+      "lng": 121.5030596
     },
     "21727158": {
       "listing_id": "21727158",
@@ -17684,7 +17930,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0422187,
+      "lng": 121.5046787
     },
     "21728886": {
       "listing_id": "21728886",
@@ -17734,7 +17982,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0422187,
+      "lng": 121.5046787
     },
     "21784138": {
       "listing_id": "21784138",
@@ -17782,7 +18032,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0292306,
+      "lng": 121.5024216
     },
     "21794835": {
       "listing_id": "21794835",
@@ -17829,7 +18081,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0424613,
+      "lng": 121.5049213
     },
     "21762594": {
       "listing_id": "21762594",
@@ -17880,7 +18134,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0475321,
+      "lng": 121.5097565
     },
     "21708033": {
       "listing_id": "21708033",
@@ -17929,7 +18185,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.030203,
+      "lng": 121.502044
     },
     "21670849": {
       "listing_id": "21670849",
@@ -17979,7 +18237,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0338821,
+      "lng": 121.4907227
     },
     "21823468": {
       "listing_id": "21823468",
@@ -18031,7 +18291,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": null,
+      "lng": null
     },
     "21822278": {
       "listing_id": "21822278",
@@ -18079,7 +18341,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0360912,
+      "lng": 121.5612316
     },
     "21822072": {
       "listing_id": "21822072",
@@ -18127,7 +18391,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0311284,
+      "lng": 121.5569565
     },
     "21820041": {
       "listing_id": "21820041",
@@ -18179,7 +18445,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0389843,
+      "lng": 121.585289
     },
     "21818397": {
       "listing_id": "21818397",
@@ -18282,7 +18550,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0299377,
+      "lng": 121.5630747
     },
     "21814212": {
       "listing_id": "21814212",
@@ -18332,7 +18602,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0398012,
+      "lng": 121.5818258
     },
     "21713266": {
       "listing_id": "21713266",
@@ -18381,7 +18653,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0373702,
+      "lng": 121.5793741
     },
     "21752747": {
       "listing_id": "21752747",
@@ -18432,7 +18706,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0271587,
+      "lng": 121.5696869
     },
     "21734110": {
       "listing_id": "21734110",
@@ -18480,7 +18756,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0468537,
+      "lng": 121.5791877
     },
     "21008935": {
       "listing_id": "21008935",
@@ -18532,7 +18810,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0390592,
+      "lng": 121.5863631
     },
     "21670098": {
       "listing_id": "21670098",
@@ -18580,7 +18860,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.017764,
+      "lng": 121.569569
     },
     "21748427": {
       "listing_id": "21748427",
@@ -18631,7 +18913,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.027296,
+      "lng": 121.569676
     },
     "21673533": {
       "listing_id": "21673533",
@@ -18679,7 +18963,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0889301,
+      "lng": 121.5114517
     },
     "21829733": {
       "listing_id": "21829733",
@@ -18725,7 +19011,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0892,
+      "lng": 121.525584
     },
     "21576659": {
       "listing_id": "21576659",
@@ -18776,7 +19064,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0933871,
+      "lng": 121.5269893
     },
     "21828584": {
       "listing_id": "21828584",
@@ -18827,7 +19117,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.080195,
+      "lng": 121.521357
     },
     "21828446": {
       "listing_id": "21828446",
@@ -18878,7 +19170,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.084582,
+      "lng": 121.519921
     },
     "21827301": {
       "listing_id": "21827301",
@@ -18926,7 +19220,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0900919,
+      "lng": 121.5172608
     },
     "21825356": {
       "listing_id": "21825356",
@@ -18976,7 +19272,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.111432,
+      "lng": 121.534896
     },
     "21825314": {
       "listing_id": "21825314",
@@ -19026,7 +19324,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.080195,
+      "lng": 121.521357
     },
     "21706037": {
       "listing_id": "21706037",
@@ -19073,7 +19373,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0883673,
+      "lng": 121.5248123
     },
     "21825031": {
       "listing_id": "21825031",
@@ -19118,7 +19420,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": null,
+      "lng": null
     },
     "21823753": {
       "listing_id": "21823753",
@@ -19166,7 +19470,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0979998,
+      "lng": 121.5266955
     },
     "21823740": {
       "listing_id": "21823740",
@@ -19213,7 +19519,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0842758,
+      "lng": 121.5079538
     },
     "21823543": {
       "listing_id": "21823543",
@@ -19258,7 +19566,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1362426,
+      "lng": 121.5494438
     },
     "21822202": {
       "listing_id": "21822202",
@@ -19303,7 +19613,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1190311,
+      "lng": 121.5351671
     },
     "21821809": {
       "listing_id": "21821809",
@@ -19351,7 +19663,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1194292,
+      "lng": 121.5362385
     },
     "21821297": {
       "listing_id": "21821297",
@@ -19402,7 +19716,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.084455,
+      "lng": 121.516906
     },
     "21820230": {
       "listing_id": "21820230",
@@ -19450,7 +19766,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0864732,
+      "lng": 121.5103375
     },
     "21818195": {
       "listing_id": "21818195",
@@ -19501,7 +19819,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0864906,
+      "lng": 121.5100317
     },
     "21816853": {
       "listing_id": "21816853",
@@ -19552,7 +19872,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.090242,
+      "lng": 121.523725
     },
     "21816960": {
       "listing_id": "21816960",
@@ -19603,7 +19925,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.080786,
+      "lng": 121.518514
     },
     "21815893": {
       "listing_id": "21815893",
@@ -19651,7 +19975,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.095306,
+      "lng": 121.526525
     },
     "21815495": {
       "listing_id": "21815495",
@@ -19703,7 +20029,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.096406,
+      "lng": 121.524794
     },
     "21814176": {
       "listing_id": "21814176",
@@ -19752,7 +20080,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.111881,
+      "lng": 121.530925
     },
     "21812995": {
       "listing_id": "21812995",
@@ -19802,7 +20132,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0812542,
+      "lng": 121.5111496
     },
     "21812509": {
       "listing_id": "21812509",
@@ -19851,7 +20183,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1366785,
+      "lng": 121.546663
     },
     "21811514": {
       "listing_id": "21811514",
@@ -19903,7 +20237,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0920545,
+      "lng": 121.5090627
     },
     "21809681": {
       "listing_id": "21809681",
@@ -19955,7 +20291,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.095297,
+      "lng": 121.521936
     },
     "21763498": {
       "listing_id": "21763498",
@@ -20007,7 +20345,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0807891,
+      "lng": 121.5201791
     },
     "21741694": {
       "listing_id": "21741694",
@@ -20057,7 +20397,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.140714,
+      "lng": 121.550955
     },
     "21740946": {
       "listing_id": "21740946",
@@ -20104,7 +20446,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.130753,
+      "lng": 121.5729366
     },
     "21801139": {
       "listing_id": "21801139",
@@ -20156,7 +20500,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0924339,
+      "lng": 121.5215454
     },
     "21673321": {
       "listing_id": "21673321",
@@ -20207,7 +20553,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.081806,
+      "lng": 121.52272
     },
     "21738036": {
       "listing_id": "21738036",
@@ -20257,7 +20605,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.106911,
+      "lng": 121.531367
     },
     "21773002": {
       "listing_id": "21773002",
@@ -20308,7 +20658,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0908285,
+      "lng": 121.5264085
     },
     "21748978": {
       "listing_id": "21748978",
@@ -20360,7 +20712,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0804074,
+      "lng": 121.5205013
     },
     "21662972": {
       "listing_id": "21662972",
@@ -20405,7 +20759,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1213495,
+      "lng": 121.5718708
     },
     "21809228": {
       "listing_id": "21809228",
@@ -20450,7 +20806,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1116683,
+      "lng": 121.5354873
     },
     "21694998": {
       "listing_id": "21694998",
@@ -20500,7 +20858,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0988877,
+      "lng": 121.5395885
     },
     "21780073": {
       "listing_id": "21780073",
@@ -20550,7 +20910,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0823729,
+      "lng": 121.5183592
     },
     "21693523": {
       "listing_id": "21693523",
@@ -20599,7 +20961,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0909786,
+      "lng": 121.524559
     },
     "21745929": {
       "listing_id": "21745929",
@@ -20651,7 +21015,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0818958,
+      "lng": 121.5120163
     },
     "21754753": {
       "listing_id": "21754753",
@@ -20701,7 +21067,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1031979,
+      "lng": 121.5200149
     },
     "21733544": {
       "listing_id": "21733544",
@@ -20750,7 +21118,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1190311,
+      "lng": 121.5351671
     },
     "21745845": {
       "listing_id": "21745845",
@@ -20798,7 +21168,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1025291,
+      "lng": 121.5184234
     },
     "21754327": {
       "listing_id": "21754327",
@@ -20848,7 +21220,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1033114,
+      "lng": 121.5187883
     },
     "21589685": {
       "listing_id": "21589685",
@@ -20894,7 +21268,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1361577,
+      "lng": 121.5073266
     },
     "21832835": {
       "listing_id": "21832835",
@@ -20940,7 +21316,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1361946,
+      "lng": 121.4990336
     },
     "21832257": {
       "listing_id": "21832257",
@@ -20992,7 +21370,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1178992,
+      "lng": 121.5120928
     },
     "21831905": {
       "listing_id": "21831905",
@@ -21040,7 +21420,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1179658,
+      "lng": 121.4643882
     },
     "21830582": {
       "listing_id": "21830582",
@@ -21089,7 +21471,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1366118,
+      "lng": 121.5060157
     },
     "21830487": {
       "listing_id": "21830487",
@@ -21140,7 +21524,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1105509,
+      "lng": 121.5126352
     },
     "21827720": {
       "listing_id": "21827720",
@@ -21190,7 +21576,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1320468,
+      "lng": 121.5065818
     },
     "21827270": {
       "listing_id": "21827270",
@@ -21238,7 +21626,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1419964,
+      "lng": 121.499115
     },
     "21826695": {
       "listing_id": "21826695",
@@ -21288,7 +21678,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1423358,
+      "lng": 121.5076446
     },
     "21826006": {
       "listing_id": "21826006",
@@ -21336,7 +21728,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1239046,
+      "lng": 121.4678567
     },
     "21825717": {
       "listing_id": "21825717",
@@ -21384,7 +21778,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1394475,
+      "lng": 121.5125656
     },
     "21825567": {
       "listing_id": "21825567",
@@ -21436,7 +21832,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.125991,
+      "lng": 121.524302
     },
     "21750951": {
       "listing_id": "21750951",
@@ -21484,7 +21882,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1313001,
+      "lng": 121.5065637
     },
     "21732325": {
       "listing_id": "21732325",
@@ -21532,7 +21932,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1419964,
+      "lng": 121.499115
     },
     "21823292": {
       "listing_id": "21823292",
@@ -21583,7 +21985,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1220854,
+      "lng": 121.5004718
     },
     "21771567": {
       "listing_id": "21771567",
@@ -21629,7 +22033,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1205973,
+      "lng": 121.4670275
     },
     "21777913": {
       "listing_id": "21777913",
@@ -21680,7 +22086,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1278709,
+      "lng": 121.500935
     },
     "21820861": {
       "listing_id": "21820861",
@@ -21730,7 +22138,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1375269,
+      "lng": 121.500395
     },
     "21819526": {
       "listing_id": "21819526",
@@ -21778,7 +22188,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1100612,
+      "lng": 121.5175871
     },
     "21817214": {
       "listing_id": "21817214",
@@ -21822,7 +22234,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1178448,
+      "lng": 121.4663994
     },
     "21816507": {
       "listing_id": "21816507",
@@ -21870,7 +22284,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.112737,
+      "lng": 121.513946
     },
     "21816005": {
       "listing_id": "21816005",
@@ -21920,7 +22336,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.119901,
+      "lng": 121.465064
     },
     "21812282": {
       "listing_id": "21812282",
@@ -21970,7 +22388,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1356207,
+      "lng": 121.5049455
     },
     "21811701": {
       "listing_id": "21811701",
@@ -22021,7 +22441,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1224235,
+      "lng": 121.5001075
     },
     "21811683": {
       "listing_id": "21811683",
@@ -22072,7 +22494,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1233409,
+      "lng": 121.5010249
     },
     "21809357": {
       "listing_id": "21809357",
@@ -22122,7 +22546,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1100612,
+      "lng": 121.5175871
     },
     "21807124": {
       "listing_id": "21807124",
@@ -22170,7 +22596,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1382132,
+      "lng": 121.5035092
     },
     "21785101": {
       "listing_id": "21785101",
@@ -22222,7 +22650,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1321964,
+      "lng": 121.5294495
     },
     "21805274": {
       "listing_id": "21805274",
@@ -22269,7 +22699,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1324043,
+      "lng": 121.5010196
     },
     "21752523": {
       "listing_id": "21752523",
@@ -22316,7 +22748,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1090429,
+      "lng": 121.5158019
     },
     "21793822": {
       "listing_id": "21793822",
@@ -22364,7 +22798,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1280347,
+      "lng": 121.4689851
     },
     "21715157": {
       "listing_id": "21715157",
@@ -22416,7 +22852,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.114512,
+      "lng": 121.511853
     },
     "21797184": {
       "listing_id": "21797184",
@@ -22464,7 +22902,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1381435,
+      "lng": 121.509573
     },
     "21713182": {
       "listing_id": "21713182",
@@ -22508,7 +22948,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.114769,
+      "lng": 121.5108585
     },
     "21721936": {
       "listing_id": "21721936",
@@ -22556,7 +22998,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.115135,
+      "lng": 121.508289
     },
     "21720736": {
       "listing_id": "21720736",
@@ -22608,7 +23052,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.137377,
+      "lng": 121.502551
     },
     "21785535": {
       "listing_id": "21785535",
@@ -22658,7 +23104,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1278709,
+      "lng": 121.500935
     },
     "21692633": {
       "listing_id": "21692633",
@@ -22706,7 +23154,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.144762,
+      "lng": 121.492649
     },
     "21785324": {
       "listing_id": "21785324",
@@ -22753,7 +23203,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.131758,
+      "lng": 121.473624
     },
     "21704905": {
       "listing_id": "21704905",
@@ -22805,7 +23257,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.116037,
+      "lng": 121.519113
     },
     "21671343": {
       "listing_id": "21671343",
@@ -22853,7 +23307,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1146212,
+      "lng": 121.5188434
     },
     "21800876": {
       "listing_id": "21800876",
@@ -22904,7 +23360,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.1273539,
+      "lng": 121.501725
     },
     "21832573": {
       "listing_id": "21832573",
@@ -22954,7 +23412,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0887974,
+      "lng": 121.562286
     },
     "21831799": {
       "listing_id": "21831799",
@@ -23003,7 +23463,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.067471,
+      "lng": 121.615219
     },
     "21826167": {
       "listing_id": "21826167",
@@ -23051,7 +23513,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0700741,
+      "lng": 121.6094131
     },
     "21826007": {
       "listing_id": "21826007",
@@ -23103,7 +23567,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0873464,
+      "lng": 121.5696624
     },
     "21825968": {
       "listing_id": "21825968",
@@ -23154,7 +23620,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.083885,
+      "lng": 121.5755129
     },
     "21820795": {
       "listing_id": "21820795",
@@ -23206,7 +23674,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0895058,
+      "lng": 121.5635238
     },
     "21819437": {
       "listing_id": "21819437",
@@ -23257,7 +23727,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0842574,
+      "lng": 121.5968955
     },
     "21819429": {
       "listing_id": "21819429",
@@ -23308,7 +23780,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0842574,
+      "lng": 121.5968955
     },
     "21819083": {
       "listing_id": "21819083",
@@ -23356,7 +23830,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0733861,
+      "lng": 121.6174172
     },
     "21818848": {
       "listing_id": "21818848",
@@ -23408,7 +23884,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0804689,
+      "lng": 121.5472114
     },
     "21818145": {
       "listing_id": "21818145",
@@ -23458,7 +23936,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0553935,
+      "lng": 121.5828985
     },
     "21817081": {
       "listing_id": "21817081",
@@ -23506,7 +23986,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0872648,
+      "lng": 121.5983248
     },
     "21813584": {
       "listing_id": "21813584",
@@ -23552,7 +24034,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.083761,
+      "lng": 121.567252
     },
     "21812191": {
       "listing_id": "21812191",
@@ -23599,7 +24083,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0692245,
+      "lng": 121.6119413
     },
     "21733788": {
       "listing_id": "21733788",
@@ -23647,7 +24133,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0693474,
+      "lng": 121.6144409
     },
     "21798519": {
       "listing_id": "21798519",
@@ -23695,7 +24183,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.078826,
+      "lng": 121.580175
     },
     "21805999": {
       "listing_id": "21805999",
@@ -23743,7 +24233,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0633186,
+      "lng": 121.6032363
     },
     "21805396": {
       "listing_id": "21805396",
@@ -23795,7 +24287,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0820217,
+      "lng": 121.5694885
     },
     "21803879": {
       "listing_id": "21803879",
@@ -23846,7 +24340,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.073009,
+      "lng": 121.612562
     },
     "21803210": {
       "listing_id": "21803210",
@@ -23897,7 +24393,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.087412,
+      "lng": 121.558243
     },
     "21798621": {
       "listing_id": "21798621",
@@ -23945,7 +24443,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.067609,
+      "lng": 121.617068
     },
     "21797808": {
       "listing_id": "21797808",
@@ -23997,7 +24497,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0740172,
+      "lng": 121.6112744
     },
     "21795184": {
       "listing_id": "21795184",
@@ -24049,7 +24551,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0748021,
+      "lng": 121.6120593
     },
     "21792259": {
       "listing_id": "21792259",
@@ -24096,7 +24600,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.080226,
+      "lng": 121.590611
     },
     "21792114": {
       "listing_id": "21792114",
@@ -24146,7 +24652,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0589864,
+      "lng": 121.5889603
     },
     "21771298": {
       "listing_id": "21771298",
@@ -24194,7 +24702,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.07624,
+      "lng": 121.580413
     },
     "21694015": {
       "listing_id": "21694015",
@@ -24245,7 +24755,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0816034,
+      "lng": 121.5786924
     },
     "21697022": {
       "listing_id": "21697022",
@@ -24291,7 +24803,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.07464,
+      "lng": 121.617481
     },
     "21744054": {
       "listing_id": "21744054",
@@ -24343,7 +24857,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0822858,
+      "lng": 121.5685253
     },
     "21769807": {
       "listing_id": "21769807",
@@ -24391,7 +24907,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0754508,
+      "lng": 121.5756799
     },
     "21501606": {
       "listing_id": "21501606",
@@ -24438,7 +24956,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0838207,
+      "lng": 121.5672183
     },
     "21625162": {
       "listing_id": "21625162",
@@ -24485,7 +25005,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0887241,
+      "lng": 121.5914612
     },
     "21680603": {
       "listing_id": "21680603",
@@ -24536,7 +25058,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0862885,
+      "lng": 121.5913086
     },
     "21747591": {
       "listing_id": "21747591",
@@ -24587,7 +25111,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0719557,
+      "lng": 121.6126013
     },
     "21804933": {
       "listing_id": "21804933",
@@ -24689,7 +25215,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.054913,
+      "lng": 121.619432
     },
     "21774293": {
       "listing_id": "21774293",
@@ -24737,7 +25265,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0359597,
+      "lng": 121.6162404
     },
     "21769770": {
       "listing_id": "21769770",
@@ -24784,7 +25314,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.052458,
+      "lng": 121.5925962
     },
     "21669228": {
       "listing_id": "21669228",
@@ -24834,7 +25366,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0547149,
+      "lng": 121.5924311
     },
     "21712583": {
       "listing_id": "21712583",
@@ -24883,7 +25417,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0525074,
+      "lng": 121.5852886
     },
     "13859111": {
       "listing_id": "13859111",
@@ -24931,7 +25467,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.050493,
+      "lng": 121.595056
     },
     "21701519": {
       "listing_id": "21701519",
@@ -24982,7 +25520,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0425713,
+      "lng": 121.588164
     },
     "21707423": {
       "listing_id": "21707423",
@@ -25028,7 +25568,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0411155,
+      "lng": 121.5871249
     },
     "21664229": {
       "listing_id": "21664229",
@@ -25078,7 +25620,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0304117,
+      "lng": 121.6103719
     },
     "21830270": {
       "listing_id": "21830270",
@@ -25129,7 +25673,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.002154,
+      "lng": 121.554059
     },
     "21829768": {
       "listing_id": "21829768",
@@ -25181,7 +25727,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.992588,
+      "lng": 121.562787
     },
     "21827452": {
       "listing_id": "21827452",
@@ -25233,7 +25781,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0002286,
+      "lng": 121.5567187
     },
     "21826897": {
       "listing_id": "21826897",
@@ -25284,7 +25834,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0003584,
+      "lng": 121.5483036
     },
     "21824663": {
       "listing_id": "21824663",
@@ -25334,7 +25886,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0049323,
+      "lng": 121.5390551
     },
     "21823970": {
       "listing_id": "21823970",
@@ -25386,7 +25940,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9867322,
+      "lng": 121.568893
     },
     "21820614": {
       "listing_id": "21820614",
@@ -25437,7 +25993,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9978487,
+      "lng": 121.5573638
     },
     "21815103": {
       "listing_id": "21815103",
@@ -25489,7 +26047,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.991598,
+      "lng": 121.540068
     },
     "21813305": {
       "listing_id": "21813305",
@@ -25539,7 +26099,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9894949,
+      "lng": 121.554325
     },
     "21746799": {
       "listing_id": "21746799",
@@ -25585,7 +26147,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.001992,
+      "lng": 121.557417
     },
     "21810946": {
       "listing_id": "21810946",
@@ -25636,7 +26200,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0063325,
+      "lng": 121.5382247
     },
     "21810776": {
       "listing_id": "21810776",
@@ -25684,7 +26250,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9972303,
+      "lng": 121.5420837
     },
     "21809405": {
       "listing_id": "21809405",
@@ -25736,7 +26304,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9994572,
+      "lng": 121.5739513
     },
     "21808617": {
       "listing_id": "21808617",
@@ -25784,7 +26354,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9899547,
+      "lng": 121.5604664
     },
     "21807528": {
       "listing_id": "21807528",
@@ -25835,7 +26407,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9949303,
+      "lng": 121.5606544
     },
     "21805095": {
       "listing_id": "21805095",
@@ -25880,7 +26454,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9801149,
+      "lng": 121.555905
     },
     "21805048": {
       "listing_id": "21805048",
@@ -25932,7 +26508,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.98508,
+      "lng": 121.564526
     },
     "21804000": {
       "listing_id": "21804000",
@@ -25980,7 +26558,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.983769,
+      "lng": 121.5813689
     },
     "21803888": {
       "listing_id": "21803888",
@@ -26028,7 +26608,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9972303,
+      "lng": 121.5420837
     },
     "21800345": {
       "listing_id": "21800345",
@@ -26080,7 +26662,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.998941,
+      "lng": 121.539931
     },
     "21798904": {
       "listing_id": "21798904",
@@ -26131,7 +26715,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9819031,
+      "lng": 121.5621405
     },
     "21798218": {
       "listing_id": "21798218",
@@ -26181,7 +26767,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.999341,
+      "lng": 121.539399
     },
     "21796052": {
       "listing_id": "21796052",
@@ -26230,7 +26818,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9849963,
+      "lng": 121.5585893
     },
     "21795097": {
       "listing_id": "21795097",
@@ -26281,7 +26871,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9905756,
+      "lng": 121.5463214
     },
     "21793411": {
       "listing_id": "21793411",
@@ -26333,7 +26925,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.998941,
+      "lng": 121.539931
     },
     "21792639": {
       "listing_id": "21792639",
@@ -26384,7 +26978,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.987237,
+      "lng": 121.571135
     },
     "21791411": {
       "listing_id": "21791411",
@@ -26432,7 +27028,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.986098,
+      "lng": 121.546124
     },
     "21720573": {
       "listing_id": "21720573",
@@ -26477,7 +27075,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9909981,
+      "lng": 121.5499449
     },
     "21700119": {
       "listing_id": "21700119",
@@ -26529,7 +27129,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.997713,
+      "lng": 121.541326
     },
     "21744215": {
       "listing_id": "21744215",
@@ -26581,7 +27183,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0036909,
+      "lng": 121.577547
     },
     "21718535": {
       "listing_id": "21718535",
@@ -26633,7 +27237,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0082823,
+      "lng": 121.5390299
     },
     "21777146": {
       "listing_id": "21777146",
@@ -26683,7 +27289,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9843971,
+      "lng": 121.5466935
     },
     "21758474": {
       "listing_id": "21758474",
@@ -26734,7 +27342,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.001113,
+      "lng": 121.552363
     },
     "21664713": {
       "listing_id": "21664713",
@@ -26785,7 +27395,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9901639,
+      "lng": 121.540521
     },
     "21731841": {
       "listing_id": "21731841",
@@ -26834,7 +27446,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9882604,
+      "lng": 121.5466474
     },
     "19339733": {
       "listing_id": "19339733",
@@ -26884,7 +27498,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.999716,
+      "lng": 121.555664
     },
     "21671244": {
       "listing_id": "21671244",
@@ -26934,7 +27550,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.988381,
+      "lng": 121.564855
     },
     "21713604": {
       "listing_id": "21713604",
@@ -26981,7 +27599,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9910812,
+      "lng": 121.5658875
     },
     "21725208": {
       "listing_id": "21725208",
@@ -27032,7 +27652,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0010433,
+      "lng": 121.5566788
     },
     "21776096": {
       "listing_id": "21776096",
@@ -27080,7 +27702,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.004839,
+      "lng": 121.543066
     },
     "21750551": {
       "listing_id": "21750551",
@@ -27131,7 +27755,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 24.9877824,
+      "lng": 121.5675401
     },
     "21779546": {
       "listing_id": "21779546",
@@ -27183,7 +27809,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0618787,
+      "lng": 121.6557967
     },
     "21832188": {
       "listing_id": "21832188",
@@ -27235,7 +27863,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.063875,
+      "lng": 121.655737
     },
     "19152022": {
       "listing_id": "19152022",
@@ -27283,7 +27913,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0727091,
+      "lng": 121.6826907
     },
     "21810612": {
       "listing_id": "21810612",
@@ -27329,7 +27961,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0727009,
+      "lng": 121.6826825
     },
     "21830806": {
       "listing_id": "21830806",
@@ -27377,7 +28011,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0633115,
+      "lng": 121.6428284
     },
     "21830645": {
       "listing_id": "21830645",
@@ -27426,7 +28062,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0717209,
+      "lng": 121.6339915
     },
     "21830520": {
       "listing_id": "21830520",
@@ -27475,7 +28113,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0717209,
+      "lng": 121.6339915
     },
     "21830463": {
       "listing_id": "21830463",
@@ -27523,7 +28163,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.064578,
+      "lng": 121.655137
     },
     "21830297": {
       "listing_id": "21830297",
@@ -27574,7 +28216,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.054452,
+      "lng": 121.654335
     },
     "21830159": {
       "listing_id": "21830159",
@@ -27618,7 +28262,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0666033,
+      "lng": 121.6647096
     },
     "21829903": {
       "listing_id": "21829903",
@@ -27666,7 +28312,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0639651,
+      "lng": 121.6424761
     },
     "21828778": {
       "listing_id": "21828778",
@@ -27718,7 +28366,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.062745,
+      "lng": 121.656663
     },
     "21828058": {
       "listing_id": "21828058",
@@ -27763,7 +28413,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0569039,
+      "lng": 121.6325663
     },
     "21811502": {
       "listing_id": "21811502",
@@ -27811,7 +28463,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0054562,
+      "lng": 121.5272748
     },
     "21795569": {
       "listing_id": "21795569",
@@ -27861,7 +28515,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0671922,
+      "lng": 121.6242926
     },
     "21729569": {
       "listing_id": "21729569",
@@ -27909,7 +28565,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0714685,
+      "lng": 121.6545625
     },
     "21822902": {
       "listing_id": "21822902",
@@ -27958,7 +28616,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.069493,
+      "lng": 121.6311241
     },
     "21827278": {
       "listing_id": "21827278",
@@ -28006,7 +28666,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0727091,
+      "lng": 121.6826907
     },
     "21825293": {
       "listing_id": "21825293",
@@ -28054,7 +28716,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0405788,
+      "lng": 121.6224926
     },
     "21824726": {
       "listing_id": "21824726",
@@ -28102,7 +28766,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0566614,
+      "lng": 121.6681112
     },
     "21824671": {
       "listing_id": "21824671",
@@ -28150,7 +28816,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.048787,
+      "lng": 121.618977
     },
     "21819186": {
       "listing_id": "21819186",
@@ -28202,7 +28870,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0613328,
+      "lng": 121.6568328
     },
     "21823826": {
       "listing_id": "21823826",
@@ -28251,7 +28921,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0699053,
+      "lng": 121.6337873
     },
     "21823394": {
       "listing_id": "21823394",
@@ -28299,7 +28971,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0647793,
+      "lng": 121.6398239
     },
     "13078060": {
       "listing_id": "13078060",
@@ -28348,7 +29022,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0666306,
+      "lng": 121.6328614
     },
     "21737958": {
       "listing_id": "21737958",
@@ -28396,7 +29072,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0609281,
+      "lng": 121.6390406
     },
     "21822454": {
       "listing_id": "21822454",
@@ -28443,7 +29121,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0666306,
+      "lng": 121.6328614
     },
     "21818594": {
       "listing_id": "21818594",
@@ -28492,7 +29172,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0635907,
+      "lng": 121.6557312
     },
     "21803366": {
       "listing_id": "21803366",
@@ -28540,7 +29222,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0616059,
+      "lng": 121.6397184
     },
     "21646414": {
       "listing_id": "21646414",
@@ -28588,7 +29272,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0718063,
+      "lng": 121.663525
     },
     "20494429": {
       "listing_id": "20494429",
@@ -28636,7 +29322,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.054074,
+      "lng": 121.65725
     },
     "21746166": {
       "listing_id": "21746166",
@@ -28685,7 +29373,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0805766,
+      "lng": 121.6634366
     },
     "21783149": {
       "listing_id": "21783149",
@@ -28734,7 +29424,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0428739,
+      "lng": 121.6230453
     },
     "21659749": {
       "listing_id": "21659749",
@@ -28785,7 +29477,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.068571,
+      "lng": 121.6265648
     },
     "21659779": {
       "listing_id": "21659779",
@@ -28833,7 +29527,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.070507,
+      "lng": 121.6281128
     },
     "21711625": {
       "listing_id": "21711625",
@@ -28882,7 +29578,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0829049,
+      "lng": 121.650251
     },
     "21759924": {
       "listing_id": "21759924",
@@ -28930,7 +29628,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.068411,
+      "lng": 121.660192
     },
     "21703172": {
       "listing_id": "21703172",
@@ -28974,7 +29674,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0777649,
+      "lng": 121.6683754
     },
     "21787473": {
       "listing_id": "21787473",
@@ -29024,7 +29726,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.043317,
+      "lng": 121.6228209
     },
     "21790893": {
       "listing_id": "21790893",
@@ -29073,7 +29777,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0620809,
+      "lng": 121.6557169
     },
     "21790909": {
       "listing_id": "21790909",
@@ -29122,7 +29828,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0620809,
+      "lng": 121.6557169
     },
     "21804945": {
       "listing_id": "21804945",
@@ -29171,7 +29879,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0844888,
+      "lng": 121.6514443
     },
     "21759348": {
       "listing_id": "21759348",
@@ -29223,7 +29933,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0628543,
+      "lng": 121.6372493
     },
     "17773749": {
       "listing_id": "17773749",
@@ -29273,7 +29985,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0677306,
+      "lng": 121.6663558
     },
     "21748294": {
       "listing_id": "21748294",
@@ -29323,7 +30037,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.071585,
+      "lng": 121.662364
     },
     "21704005": {
       "listing_id": "21704005",
@@ -29375,7 +30091,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.071704,
+      "lng": 121.654758
     },
     "21662645": {
       "listing_id": "21662645",
@@ -29427,7 +30145,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0704298,
+      "lng": 121.6398897
     },
     "21763127": {
       "listing_id": "21763127",
@@ -29476,7 +30196,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0615046,
+      "lng": 121.6570251
     },
     "21814403": {
       "listing_id": "21814403",
@@ -29522,7 +30244,9 @@
         }
       ],
       "missing_count": 0,
-      "watched": false
+      "watched": false,
+      "lat": 25.0773549,
+      "lng": 121.6678249
     }
   }
 }
