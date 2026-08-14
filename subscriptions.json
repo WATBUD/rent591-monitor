@@ -14,6 +14,23 @@
       "acreage_min": 7,
       "acreage_max": null,
       "sort": "posttime_desc"
+    },
+    {
+      "id": "sub-002",
+      "name": "全台北市＋新北市 ≤20000・8坪↑",
+      "enabled": true,
+      "region_sections": {
+        "1": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+        "3": ["26", "27", "28", "34", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50"]
+      },
+      "kind": ["1", "2", "3", "4"],
+      "layout": [],
+      "shape": [],
+      "price_min": 0,
+      "price_max": 20000,
+      "acreage_min": 8,
+      "acreage_max": null,
+      "sort": "posttime_desc"
     }
   ],
   "settings": {

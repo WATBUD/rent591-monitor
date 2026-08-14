@@ -38,6 +38,13 @@ header p{color:var(--muted);font-size:12.5px;margin-top:4px}
 .empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:32px 16px;text-align:center;color:var(--muted);font-size:14px;line-height:1.7}
 
 /* 篩選列 */
+.subbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.subchip{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer}
+.subchip:hover{border-color:var(--accent);color:var(--accent)}
+.subchip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.subcond{background:var(--accent-soft);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:var(--ink)}
+.subcond b{color:var(--accent)}
+.subcond .c-detail{color:var(--muted);margin-top:3px}
 .filters{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .filters .fld{display:flex;flex-direction:column;gap:4px}
 .filters .fld.wide{grid-column:1 / -1}
@@ -167,6 +174,7 @@ async function rawGet(path){
 let subsDoc=null;                    // subscriptions.json
 let watchDoc={items:{}};             // watchlist.json
 let latest=null;                     // data/latest.json
+let fSub="";                             // 目前檢視的訂閱（""＝全部）
 let fDistrict="", fKind="", fPriceMin="", fPriceMax="";   // 狀態頁前端篩選
 let fCenter=null, fRadiusKm=8, fAddrText="", fGeoStatus="";   // 距離篩選：中心座標/半徑(km)/地址輸入/查詢狀態
 let fFav=readFav();                                           // 常用地點（localStorage）
@@ -301,6 +309,21 @@ function setFilter(k,v){
   document.getElementById("view-status").scrollIntoView({block:"start"});
 }
 function resetFilters(){fDistrict="";fKind="";fPriceMin="";fPriceMax="";fCenter=null;fAddrText="";fGeoStatus="";dropDistSort();renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
+
+// 訂閱切換 ------------------------------------------------------------
+function subById(id){ return ((subsDoc&&subsDoc.subscriptions)||[]).find(s=>s.id===id); }
+function setSubFilter(id){ fSub=id; renderStatus(); document.getElementById("view-status").scrollIntoView({block:"start"}); }
+// 由訂閱條件組出「目前條件」文字（租金/坪數/類型；地區用 name 已含）
+function subCondText(s){
+  if(!s) return "";
+  const p=[`租金 ≤${s.price_max!=null?Number(s.price_max).toLocaleString():"不限"}`];
+  if(s.acreage_min!=null) p.push(`${s.acreage_min} 坪以上`);
+  else if(s.acreage_max!=null) p.push(`≤${s.acreage_max} 坪`);
+  const k=s.kind;
+  if(Array.isArray(k)&&k.length&&k.length<4) p.push(k.map(c=>KINDS[c]||c).join("、"));
+  if((s.layout||[]).length) p.push(s.layout.map(l=>({"1":"1房","2":"2房","3":"3房","4":"4房↑"}[l]||l)).join("、"));
+  return p.join("　·　");
+}
 
 // 距離篩選 ------------------------------------------------------------
 function haversineKm(lat1,lng1,lat2,lng2){
@@ -450,7 +473,10 @@ function sortBtn(key,txt){
   const arrow = (on&&key!=="recency") ? (sortDir==="asc"?" ↑":" ↓") : "";
   return `<button class="sortbtn ${on?'on':''}" onclick="clickSort('${key}')">${txt}${arrow}</button>`;
 }
+// 物件所屬訂閱（相容舊資料：只有單數 subscription_id 時包成陣列）
+function subOf(r){ return r.subscription_ids || (r.subscription_id?[r.subscription_id]:[]); }
 function passFilter(r){
+  if(fSub && !subOf(r).includes(fSub)) return false;
   if(fDistrict && (r.district||"其他")!==fDistrict) return false;
   if(fKind && (r.kind_name||"")!==fKind) return false;
   if(fPriceMin||fPriceMax){
@@ -479,12 +505,26 @@ function renderStatus(){
 
   const noCoord=active.filter(r=>r.lat==null||r.lng==null).length;   // 尚無座標、距離篩選會排除的筆數
 
+  const subsList=(subsDoc&&subsDoc.subscriptions)||[];
+  if(fSub && !subsList.some(s=>s.id===fSub)) fSub="";      // 選的訂閱不存在了 → 回全部
+  const subCount=id=>active.filter(r=>subOf(r).includes(id)).length;
+  const curSub=subById(fSub);
+
   const flt=rows=>rows.filter(passFilter);
   const nNew=flt(rep.new),nDrop=flt(rep.price_drop),nOff=flt(rep.removed),nAct=flt(active);
   const hasFilter=fDistrict||fKind||fPriceMin||fPriceMax||fCenter;
 
   el.innerHTML=
-    `<div class="summary">每 5 分鐘自動更新一次（GitHub 排程可能延遲數分鐘）。</div>`+
+    (subsList.length>1
+      ? `<div class="subbar">`+
+          `<button class="subchip ${fSub===''?'on':''}" onclick="setSubFilter('')">全部（${active.length}）</button>`+
+          subsList.map(s=>`<button class="subchip ${fSub===s.id?'on':''}" onclick="setSubFilter('${s.id}')">${esc(s.name)}（${subCount(s.id)}）</button>`).join("")+
+        `</div>`
+      : "")+
+    (curSub
+      ? `<div class="subcond">目前條件：<b>${esc(curSub.name)}</b><div class="c-detail">${esc(subCondText(curSub))}</div></div>`
+      : "")+
+    `<div class="summary">每 30 分鐘自動更新一次（GitHub 排程可能延遲）。</div>`+
     `<div class="filters">`+
       `<div class="fld"><label>區域</label><select class="sel-input" onchange="setFilter('district',this.value)">`+
         `<option value="">全部區域（${active.length}）</option>`+
@@ -554,8 +594,17 @@ function renderStatus(){
 
 // ===== 訂閱條件（唯讀顯示）=====
 function summaryChips(s){
-  const secNames=(s.sections||[]).map(id=>REGIONS[s.region].sections[id]||id).join("、")||"全區";
-  const c=[`<span class="chip">📍 ${REGIONS[s.region].name}｜${secNames}</span>`,`<span class="chip">${KINDS[s.kind]||"不限類型"}</span>`];
+  const c=[];
+  if(s.region_sections){                              // 跨城市訂閱：每市顯示區數
+    for(const [rgn,secs] of Object.entries(s.region_sections)){
+      const rn=(REGIONS[rgn]||{}).name||rgn;
+      c.push(`<span class="chip">📍 ${rn}｜${secs.length} 區</span>`);
+    }
+  }else{
+    const secNames=(s.sections||[]).map(id=>REGIONS[s.region].sections[id]||id).join("、")||"全區";
+    c.push(`<span class="chip">📍 ${REGIONS[s.region].name}｜${secNames}</span>`);
+  }
+  c.push(`<span class="chip">${KINDS[s.kind]||"不限類型"}</span>`);
   if((s.layout||[]).length) c.push(`<span class="chip">${s.layout.map(l=>LAYOUTS[l]).join("、")}</span>`);
   if((s.shape||[]).length) c.push(`<span class="chip">${s.shape.map(x=>SHAPES[x]).join("、")}</span>`);
   if(s.price_min!=null||s.price_max!=null) c.push(`<span class="chip price">💰 ${s.price_min!=null?Number(s.price_min).toLocaleString():"0"} ～ ${s.price_max!=null?Number(s.price_max).toLocaleString()+" 元":"不限"}</span>`);

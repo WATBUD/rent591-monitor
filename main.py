@@ -25,23 +25,44 @@ def load_subscriptions() -> tuple[list[dict], dict]:
     return subs, settings
 
 
+def expand_units(sub: dict) -> list[dict]:
+    """把一筆訂閱展開成實際抓取單元。
+
+    若含 region_sections（跨城市，如 {"1": [...台北區...], "3": [...新北區...]}），
+    則每個城市各自成一個單元（同 region、該城市的 sections）；否則就是自己一個單元。
+    讓「整個台北市＋新北市」能以單一訂閱表示，同時逐區完整抓取。
+    """
+    rs = sub.get("region_sections")
+    if not rs:
+        return [sub]
+    return [{**sub, "region": rgn, "sections": secs} for rgn, secs in rs.items()]
+
+
 def collect_current(subs: list[dict], fetched_at: datetime) -> tuple[list[dict], list[dict]]:
     """逐訂閱抓取，跨訂閱以 listing_id 去重（先出現者為準）。
 
+    每筆物件標記所屬的所有訂閱（subscription_ids），供看板切換檢視。
     回傳 (去重後物件清單, 每訂閱統計)。
     """
     merged: dict[str, dict] = {}
+    sub_ids: dict[str, set] = {}
     stats = []
     for sub in subs:
-        rows = scrape_subscription(sub, fetched_at=fetched_at)
+        rows: list[dict] = []
+        for unit in expand_units(sub):
+            rows.extend(scrape_subscription(unit, fetched_at=fetched_at))
         added = 0
         for r in rows:
-            if r["listing_id"] not in merged:
-                merged[r["listing_id"]] = r
+            lid = r["listing_id"]
+            sub_ids.setdefault(lid, set()).add(sub["id"])
+            if lid not in merged:
+                merged[lid] = r
                 added += 1
         stats.append({"id": sub["id"], "name": sub.get("name", sub["id"]),
                       "fetched": len(rows), "unique_added": added})
         log.info("訂閱 %s：抓到 %d 筆，新增去重 %d 筆", sub["id"], len(rows), added)
+    for lid, rec in merged.items():
+        rec["subscription_ids"] = sorted(sub_ids[lid])
     return list(merged.values()), stats
 
 
