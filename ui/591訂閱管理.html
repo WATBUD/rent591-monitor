@@ -300,7 +300,7 @@ function setFilter(k,v){
   renderStatus();
   document.getElementById("view-status").scrollIntoView({block:"start"});
 }
-function resetFilters(){fDistrict="";fKind="";fPriceMin="";fPriceMax="";fCenter=null;fAddrText="";fGeoStatus="";renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
+function resetFilters(){fDistrict="";fKind="";fPriceMin="";fPriceMax="";fCenter=null;fAddrText="";fGeoStatus="";dropDistSort();renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
 
 // 距離篩選 ------------------------------------------------------------
 function haversineKm(lat1,lng1,lat2,lng2){
@@ -310,7 +310,11 @@ function haversineKm(lat1,lng1,lat2,lng2){
   return R*2*Math.atan2(Math.sqrt(s), Math.sqrt(1-s));
 }
 function setRadius(v){ const n=Number(v); if(n>0){ fRadiusKm=n; renderStatus(); } }
-function clearCenter(){ fCenter=null; fAddrText=""; fGeoStatus=""; renderStatus(); }
+// 與中心的直線距離（km）；無中心或該物件無座標回 Infinity（排序時沉到最後）
+function distKm(r){ return (fCenter&&r.lat!=null&&r.lng!=null)?haversineKm(fCenter.lat,fCenter.lng,r.lat,r.lng):Infinity; }
+function clearCenter(){ fCenter=null; fAddrText=""; fGeoStatus=""; dropDistSort(); renderStatus(); }
+// 中心點消失時，把「距離」排序收掉，避免留下無效排序
+function dropDistSort(){ if(sortKey==="dist"){sortKey="recency";sortDir="asc";} sortChain=sortChain.filter(c=>c.key!=="dist"); }
 // 常用地點：存瀏覽器 localStorage，跨分頁/重開保留，免後端
 function readFav(){ try{ return JSON.parse(localStorage.getItem("rent591_fav")||"[]"); }catch(e){ return []; } }
 function writeFav(){ try{ localStorage.setItem("rent591_fav", JSON.stringify(fFav)); }catch(e){} }
@@ -354,6 +358,16 @@ function sortRows(rows){
     // 與租金/坪數一致：↑(asc)=數字小→大=新→舊；↓(desc)=數字大→小=舊→新(18天在前)
     return sortDir==="asc" ? r2 : r2.reverse();
   }
+  if(sortKey==="dist"){                               // ↑ 近→遠、↓ 遠→近；無座標排最後
+    const dir=sortDir==="asc"?1:-1;
+    return rows.slice().sort((a,b)=>{
+      const da=distKm(a), db=distKm(b);
+      if(!isFinite(da)&&!isFinite(db)) return 0;
+      if(!isFinite(da)) return 1;
+      if(!isFinite(db)) return -1;
+      return (da-db)*dir;
+    });
+  }
   const pick = sortKey==="price" ? (r=>r.total_monthly) : (r=>r.size_ping);
   const dir = sortDir==="asc"?1:-1;
   return rows.slice().sort((a,b)=>{
@@ -377,6 +391,15 @@ function cmpBy(key,dir){
       const aa=ageMinutes(a), ab=ageMinutes(b);
       if(aa===ab) return 0;
       return (aa-ab)*s;
+    };
+  }
+  if(key==="dist"){                                   // ↑ 近→遠、↓ 遠→近；無座標排最後
+    const d=dir==="asc"?1:-1;
+    return (a,b)=>{
+      const da=distKm(a), db=distKm(b);
+      if(!isFinite(da)&&!isFinite(db)) return 0;
+      if(!isFinite(da)) return 1; if(!isFinite(db)) return -1;
+      return (da-db)*d;
     };
   }
   const pick = key==="price" ? (r=>r.total_monthly) : (r=>r.size_ping);
@@ -501,7 +524,7 @@ function renderStatus(){
   // 排序列（最上方）＋ 在架主清單。單選：最新/時間/租金/坪數；勾「多重排序」可疊加多條件
   el.insertAdjacentHTML("beforeend",
     `<div class="sortbar"><span class="lbl">在架排序</span>`+
-    sortBtn("recency","最新")+sortBtn("time","時間")+sortBtn("price","租金")+sortBtn("size","坪數")+
+    sortBtn("recency","最新")+sortBtn("time","時間")+sortBtn("price","租金")+sortBtn("size","坪數")+(fCenter?sortBtn("dist","距離"):"")+
     `<label class="multi-toggle"><input type="checkbox" ${multiSort?"checked":""} onchange="toggleMultiSort()">多重排序</label>`+
     `</div>`+
     (multiSort?`<div class="sort-hint">點選順序＝優先序（角標數字）；同鈕再點切換 ↑↓，第三次取消。例：租金↑＋坪數↓＝同價再看坪數大的。</div>`:""));
