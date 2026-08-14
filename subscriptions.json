@@ -2,7 +2,7 @@
   "subscriptions": [
     {
       "id": "sub-001",
-      "name": "台北 松山・信義・南港 ≤13000・7坪↑",
+      "name": "台北 松山・信義・南港 ≤20000・7坪↑",
       "enabled": true,
       "region": "1",
       "sections": ["4", "7", "11"],
@@ -10,7 +10,7 @@
       "layout": [],
       "shape": [],
       "price_min": 0,
-      "price_max": 13000,
+      "price_max": 20000,
       "acreage_min": 7,
       "acreage_max": null,
       "sort": "posttime_desc"
