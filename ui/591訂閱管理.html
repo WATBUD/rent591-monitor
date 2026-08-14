@@ -51,6 +51,14 @@ header p{color:var(--muted);font-size:12.5px;margin-top:4px}
 .filters input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
 .range-row{display:flex;align-items:center;gap:8px}
 .range-row span{color:var(--muted);font-size:13px;flex-shrink:0}
+.filters input[type=text]{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+.filters input[type=text]:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.geo-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.geo-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:9px 14px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;white-space:nowrap}
+.geo-btn:hover{opacity:.9}
+.geo-btn.ghost{background:#fff;border:1px solid var(--line);color:var(--muted)}
+.geo-status{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+.geo-status.ok{color:var(--accent)}
 .sortbar{display:flex;gap:6px;align-items:center;margin:16px 0 2px;flex-wrap:wrap}
 .sortbar .lbl{font-size:12.5px;color:var(--muted);font-weight:800;margin-right:2px}
 .sortbtn{background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:6px 12px;font-size:13px;font-family:inherit;cursor:pointer}
@@ -153,6 +161,7 @@ let subsDoc=null;                    // subscriptions.json
 let watchDoc={items:{}};             // watchlist.json
 let latest=null;                     // data/latest.json
 let fDistrict="", fKind="", fPriceMin="", fPriceMax="";   // 狀態頁前端篩選
+let fCenter=null, fRadiusKm=8, fAddrText="", fGeoStatus="";   // 距離篩選：中心座標/半徑(km)/地址輸入/查詢狀態
 let sortKey="recency", sortDir="asc";                    // 單選排序：recency/price/size/time
 let multiSort=false, sortChain=[];                       // 多重排序：[{key,dir},...] 依點選順序為優先序
 let watchFilter="";                  // 關注頁「只看區域」
@@ -280,7 +289,31 @@ function setFilter(k,v){
   renderStatus();
   document.getElementById("view-status").scrollIntoView({block:"start"});
 }
-function resetFilters(){fDistrict="";fKind="";fPriceMin="";fPriceMax="";renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
+function resetFilters(){fDistrict="";fKind="";fPriceMin="";fPriceMax="";fCenter=null;fAddrText="";fGeoStatus="";renderStatus();document.getElementById("view-status").scrollIntoView({block:"start"});}
+
+// 距離篩選 ------------------------------------------------------------
+function haversineKm(lat1,lng1,lat2,lng2){
+  const R=6371, rad=x=>x*Math.PI/180;
+  const dLat=rad(lat2-lat1), dLng=rad(lng2-lng1);
+  const s=Math.sin(dLat/2)**2 + Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(dLng/2)**2;
+  return R*2*Math.atan2(Math.sqrt(s), Math.sqrt(1-s));
+}
+function setRadius(v){ const n=Number(v); if(n>0){ fRadiusKm=n; renderStatus(); } }
+function clearCenter(){ fCenter=null; fAddrText=""; fGeoStatus=""; renderStatus(); }
+// 用免費 OpenStreetMap Nominatim 把地址/地標轉座標（8km 範圍下精度綽綽有餘）
+async function geocodeAddress(){
+  const q=(fAddrText||"").trim();
+  if(!q){ clearCenter(); return; }
+  fGeoStatus="🔎 搜尋座標中…"; renderStatus();
+  try{
+    const u="https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=zh-TW&countrycodes=tw&q="+encodeURIComponent(q);
+    const r=await fetch(u,{headers:{Accept:"application/json"}});
+    const j=await r.json();
+    if(!j.length){ fCenter=null; fGeoStatus=`找不到「${q}」，換個地址或地標試試（可加市區名）`; }
+    else { fCenter={lat:+j[0].lat,lng:+j[0].lon,label:j[0].display_name}; fGeoStatus=""; }
+  }catch(e){ fCenter=null; fGeoStatus="座標查詢失敗（網路或流量限制），稍後再試"; }
+  renderStatus();
+}
 function setSort(key){
   if(sortKey===key){ sortDir = sortDir==="asc"?"desc":"asc"; }
   else { sortKey=key; sortDir = defaultDir(key); }  // 坪數預設大→小；租金小→大；時間新→舊(↑)
@@ -376,6 +409,10 @@ function passFilter(r){
     if(fPriceMin && Number(p)<Number(fPriceMin)) return false;
     if(fPriceMax && Number(p)>Number(fPriceMax)) return false;
   }
+  if(fCenter){
+    if(r.lat==null||r.lng==null) return false;      // 無座標 → 距離篩選時排除
+    if(haversineKm(fCenter.lat,fCenter.lng,r.lat,r.lng)>fRadiusKm) return false;
+  }
   return true;
 }
 function renderStatus(){
@@ -390,9 +427,11 @@ function renderStatus(){
   const dists=Object.keys(distCnt).sort((a,b)=>distCnt[b]-distCnt[a]);
   if(fDistrict&&!distCnt[fDistrict]) fDistrict="";
 
+  const noCoord=active.filter(r=>r.lat==null||r.lng==null).length;   // 尚無座標、距離篩選會排除的筆數
+
   const flt=rows=>rows.filter(passFilter);
   const nNew=flt(rep.new),nDrop=flt(rep.price_drop),nOff=flt(rep.removed),nAct=flt(active);
-  const hasFilter=fDistrict||fKind||fPriceMin||fPriceMax;
+  const hasFilter=fDistrict||fKind||fPriceMin||fPriceMax||fCenter;
 
   el.innerHTML=
     `<div class="summary">每 5 分鐘自動更新一次（GitHub 排程可能延遲數分鐘）。</div>`+
@@ -410,6 +449,18 @@ function renderStatus(){
         `<span>～</span>`+
         `<input type="number" min="0" step="1000" placeholder="不限" value="${fPriceMax}" onchange="setFilter('priceMax',this.value.trim())">`+
       `</div></div>`+
+      `<div class="fld wide"><label>距離篩選（半徑 ${fRadiusKm} 公里內）</label>`+
+        `<div class="geo-row">`+
+          `<input type="text" id="geo-addr" placeholder="輸入地址／地標，如：台北101、松山車站、市府路45號" value="${esc(fAddrText)}" oninput="fAddrText=this.value" onkeydown="if(event.key==='Enter'){event.preventDefault();geocodeAddress();}">`+
+          `<button class="geo-btn" onclick="geocodeAddress()">搜尋</button>`+
+          `<input type="number" min="1" max="50" step="1" value="${fRadiusKm}" onchange="setRadius(this.value)" style="width:64px;flex:none" title="半徑（公里）">`+
+          `<span style="color:var(--muted);font-size:13px">km</span>`+
+          (fCenter?`<button class="geo-btn ghost" onclick="clearCenter()">清除</button>`:"")+
+        `</div>`+
+        (fCenter
+          ? `<div class="geo-status ok">📍 中心：${esc(fCenter.label.split(",").slice(0,3).join("、"))}　·　半徑 ${fRadiusKm}km 內符合 ${nAct.length} 筆${noCoord?`（另 ${noCoord} 筆尚無座標未納入）`:""}</div>`
+          : (fGeoStatus?`<div class="geo-status">${esc(fGeoStatus)}</div>`:`<div class="geo-status">輸入地址後按「搜尋」，只顯示中心點半徑範圍內的房子。${noCoord?`目前 ${noCoord} 筆尚無座標（下輪抓取後補上）。`:""}</div>`))+
+      `</div>`+
       (hasFilter?`<div class="reset"><button onclick="resetFilters()">清除篩選</button></div>`:"")+
     `</div>`+
     `<div class="summary">本輪更新 ${latest.generated_at}　🆕 ${nNew.length}｜💰 ${nDrop.length}｜❌ ${nOff.length}${hasFilter?"（已篩選）":""}</div>`;

@@ -11,6 +11,7 @@ from datetime import datetime
 import config
 import notify
 from diff import diff_snapshots
+from scraper.detail_scraper import enrich_coords
 from scraper.list_scraper import scrape_subscription
 from storage import load_latest, load_watchlist, save_snapshot
 
@@ -69,6 +70,21 @@ def run() -> dict:
         log.error("本輪抓到 0 筆，但上輪有 %d 筆在架 —— 疑似被反爬/擋 IP。"
                   "中止本輪，不覆寫狀態、不通知。", prev_active)
         raise SystemExit(1)
+
+    # 補座標（供距離篩選）：沿用上輪已知座標，只對缺座標的物件抓內頁。
+    # 失敗不影響主流程（座標僅為加值欄位）。
+    existing_coords = {
+        lid: (v["lat"], v["lng"])
+        for lid, v in (previous or {}).get("listings", {}).items()
+        if v.get("lat") is not None and v.get("lng") is not None
+    }
+    try:
+        n = enrich_coords(current, existing=existing_coords,
+                          interval_sec=settings.get("request_interval_sec"),
+                          max_fetch=settings.get("coords_max_fetch_per_run", 40))
+        log.info("座標：沿用 %d、新抓內頁 %d", len(existing_coords), n)
+    except Exception as exc:  # noqa: BLE001 — 加值步驟，任何失敗都不該中斷主流程
+        log.warning("座標補齊略過：%s", exc)
 
     new_state, report = diff_snapshots(previous, current, today=today,
                                        missing_rounds_before_removed=threshold)

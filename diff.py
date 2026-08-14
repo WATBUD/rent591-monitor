@@ -77,6 +77,11 @@ def diff_snapshots(
             "last_seen": today,
         }
 
+        # 座標為加值欄位，列表抓取不含；本輪若沒補到就沿用上輪，避免被 {**cur} 洗掉
+        for _k in ("lat", "lng"):
+            if rec.get(_k) is None and prev.get(_k) is not None:
+                rec[_k] = prev[_k]
+
         # 價格變動：寫入 history；下降才列入降價報告
         if cur_total is not None and cur_total != prev_price:
             history.append({"date": today, "price": cur_total})
