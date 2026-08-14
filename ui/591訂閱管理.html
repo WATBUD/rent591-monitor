@@ -96,6 +96,7 @@ header p{color:var(--muted);font-size:12.5px;margin-top:4px}
 .mchip{font-size:11px;background:var(--accent-soft);color:var(--accent);border-radius:7px;padding:2px 7px;font-weight:600}
 .mchip.price{background:var(--price-soft);color:var(--price)}
 .mchip.plain{background:transparent;color:var(--muted);padding-left:0}
+.mchip.dist{background:#eaf3ff;color:#1f6feb;font-weight:800}
 .strike{text-decoration:line-through;color:var(--muted);font-size:12px}
 .l-note{font-size:11px;color:var(--muted);margin-top:6px}
 
@@ -236,6 +237,9 @@ function listingCard(r,{flag,stripe,drop}={}){
     ? `<span class="mchip price">$${Number(drop.new_price).toLocaleString()}</span><span class="strike">$${Number(drop.old_price).toLocaleString()}</span><span class="mchip price">↓${drop.drop_pct}%</span>`
     : listingMeta(r);
   const loc=[r.district,r.community].filter(Boolean).join("・");
+  // 有設中心且該物件有座標 → 顯示與中心的直線距離（如 0.5km、1.7km）
+  const dchip=(fCenter&&r.lat!=null&&r.lng!=null)
+    ? `<span class="mchip dist">📍${haversineKm(fCenter.lat,fCenter.lng,r.lat,r.lng).toFixed(1)}km</span>` : "";
   const thumb=r.image?`<a href="${esc(r.url)}" target="_blank" rel="noopener"><img class="l-thumb" src="${esc(r.image)}" loading="lazy" alt=""></a>`:"";
   return `<div class="lcard ${flag&&flag.cls==='flag-off'?'removed':''}" style="--stripe:${stripe||'var(--accent)'}">
     <div class="lcard-row">
@@ -244,7 +248,7 @@ function listingCard(r,{flag,stripe,drop}={}){
         <div class="l-top">
           <div class="l-title"><a href="${esc(r.url)}" target="_blank" rel="noopener">${flagHtml} ${esc(r.title)}</a></div>
         </div>
-        <div class="l-meta">${meta}${loc?`<span class="mchip plain">${esc(loc)}</span>`:""}</div>
+        <div class="l-meta">${dchip}${meta}${loc?`<span class="mchip plain">${esc(loc)}</span>`:""}</div>
         ${dateLine(r)}
         ${r.note?`<div class="l-note">✍️ ${esc(r.note)}</div>`:""}
       </div>
