@@ -2,9 +2,9 @@ name: 591 監控排程
 
 on:
   schedule:
-    # 每 30 分鐘一輪。全台北+新北逐區抓（sub-002，約 30 區×2 排序）＋內頁座標，
-    # 單輪約 5–7 分鐘，故不宜再用 */5（會近乎不間斷抓、易被反爬）。
-    - cron: "*/30 * * * *"
+    # 每 6 小時一輪，避免每次快照 commit 都觸發 GitHub Pages 建置，
+    # 造成 github-pages artifacts 快速超過 Actions 儲存空間額度。
+    - cron: "0 */6 * * *"
   workflow_dispatch: {}  # 允許在 Actions 頁面手動觸發（改完訂閱想立即跑）
 
 # 讓 job 能把快照 commit 回 repo
