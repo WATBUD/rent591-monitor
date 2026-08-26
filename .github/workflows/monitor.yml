@@ -2,9 +2,9 @@ name: 591 監控排程
 
 on:
   schedule:
-    # 每 6 小時一輪，避免每次快照 commit 都觸發 GitHub Pages 建置，
+    # 每 12 小時一輪，避免每次快照 commit 都觸發 GitHub Pages 建置，
     # 造成 github-pages artifacts 快速超過 Actions 儲存空間額度。
-    - cron: "0 */6 * * *"
+    - cron: "0 */12 * * *"
   workflow_dispatch: {}  # 允許在 Actions 頁面手動觸發（改完訂閱想立即跑）
 
 # 讓 job 能把快照 commit 回 repo
