@@ -1,2 +1,2 @@
 httpx>=0.27
-selectolax>=0.3.21
+selectolax==1.0.0

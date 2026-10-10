@@ -9,13 +9,13 @@ from __future__ import annotations
 import re
 from datetime import datetime, timedelta
 
-from selectolax.parser import HTMLParser, Node
+from selectolax.lexbor import LexborHTMLParser, LexborNode
 
 # 刊登者身分前綴（用於拆出 poster_type / poster_name）
 POSTER_TYPES = ("屋主", "代理人", "仲介", "房東", "委託", "建商", "代管")
 
 
-def _text(node: Node | None) -> str:
+def _text(node: LexborNode | None) -> str:
     return node.text(strip=True) if node else ""
 
 
@@ -99,7 +99,7 @@ def parse_list_html(html: str, fetched_at: datetime | None = None) -> list[dict]
         fetched_at = datetime.now()
     fetched_iso = fetched_at.date().isoformat()
 
-    tree = HTMLParser(html)
+    tree = LexborHTMLParser(html)
     results: list[dict] = []
 
     for item in tree.css("div.item"):
